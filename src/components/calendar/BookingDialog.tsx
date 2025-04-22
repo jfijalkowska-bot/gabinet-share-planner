@@ -11,6 +11,7 @@ import { pl } from "date-fns/locale";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/components/auth/AuthProvider";
 import { toast } from "@/components/ui/use-toast";
+import { Database } from "@/integrations/supabase/types";
 
 interface BookingDialogProps {
   isOpen: boolean;
@@ -21,8 +22,10 @@ interface BookingDialogProps {
   };
 }
 
+type BookingType = "appointment" | "rental";
+
 const BookingDialog = ({ isOpen, onClose, selectedSlot }: BookingDialogProps) => {
-  const [bookingType, setBookingType] = useState<"appointment" | "rental">("appointment");
+  const [bookingType, setBookingType] = useState<BookingType>("appointment");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
@@ -36,11 +39,9 @@ const BookingDialog = ({ isOpen, onClose, selectedSlot }: BookingDialogProps) =>
     setLoading(true);
 
     try {
-      // Formatujemy datę dla bazy danych
       const bookingDate = new Date(selectedSlot.date);
       bookingDate.setHours(selectedSlot.hour, 0, 0, 0);
       
-      // Zapisujemy rezerwację w bazie danych
       const { error } = await supabase
         .from('bookings')
         .insert({
@@ -49,8 +50,8 @@ const BookingDialog = ({ isOpen, onClose, selectedSlot }: BookingDialogProps) =>
           description,
           booking_type: bookingType,
           start_time: bookingDate.toISOString(),
-          end_time: new Date(bookingDate.getTime() + 60 * 60 * 1000).toISOString(), // +1 godzina
-        });
+          end_time: new Date(bookingDate.getTime() + 60 * 60 * 1000).toISOString(),
+        } as Database['public']['Tables']['bookings']['Insert']);
 
       if (error) {
         console.error("Błąd zapisu rezerwacji:", error);
