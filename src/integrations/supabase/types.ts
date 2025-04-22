@@ -45,6 +45,87 @@ export type Database = {
         }
         Relationships: []
       }
+      offices: {
+        Row: {
+          address: string | null
+          beverages_included: boolean | null
+          capacity: number | null
+          cleaning_included: boolean | null
+          color_scheme: string | null
+          created_at: string | null
+          description: string | null
+          has_fridge: boolean | null
+          has_microwave: boolean | null
+          has_reception: boolean | null
+          id: string
+          name: string
+          price_per_hour: number | null
+          reception_call_forwarding: boolean | null
+          reception_email: string | null
+          reception_greeting_service: boolean | null
+          reception_hours: string | null
+          reception_mail_handling: boolean | null
+          reception_online_booking: boolean | null
+          reception_phone_number: string | null
+          reception_staff_count: number | null
+          style: string | null
+          style_description: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          address?: string | null
+          beverages_included?: boolean | null
+          capacity?: number | null
+          cleaning_included?: boolean | null
+          color_scheme?: string | null
+          created_at?: string | null
+          description?: string | null
+          has_fridge?: boolean | null
+          has_microwave?: boolean | null
+          has_reception?: boolean | null
+          id?: string
+          name: string
+          price_per_hour?: number | null
+          reception_call_forwarding?: boolean | null
+          reception_email?: string | null
+          reception_greeting_service?: boolean | null
+          reception_hours?: string | null
+          reception_mail_handling?: boolean | null
+          reception_online_booking?: boolean | null
+          reception_phone_number?: string | null
+          reception_staff_count?: number | null
+          style?: string | null
+          style_description?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          address?: string | null
+          beverages_included?: boolean | null
+          capacity?: number | null
+          cleaning_included?: boolean | null
+          color_scheme?: string | null
+          created_at?: string | null
+          description?: string | null
+          has_fridge?: boolean | null
+          has_microwave?: boolean | null
+          has_reception?: boolean | null
+          id?: string
+          name?: string
+          price_per_hour?: number | null
+          reception_call_forwarding?: boolean | null
+          reception_email?: string | null
+          reception_greeting_service?: boolean | null
+          reception_hours?: string | null
+          reception_mail_handling?: boolean | null
+          reception_online_booking?: boolean | null
+          reception_phone_number?: string | null
+          reception_staff_count?: number | null
+          style?: string | null
+          style_description?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
