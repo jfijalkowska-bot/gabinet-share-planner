@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { MapPin, Star, Users, Building } from "lucide-react";
+import { MapPin, Star, Users, Building, Clock, User } from "lucide-react";
 
 interface SearchResultsProps {
   results: any[];
@@ -107,8 +107,54 @@ const SearchResults = ({ results, isLoading, type }: SearchResultsProps) => {
                 )}
               </>
             )}
-            {type === "specialist" && item.specialization && (
-              <Badge variant="secondary" className="mt-1">{item.specialization}</Badge>
+            {type === "specialist" && (
+              <>
+                {item.specialization && (
+                  <Badge variant="secondary" className="mt-1 mb-2">{item.specialization}</Badge>
+                )}
+                {item.modality && (
+                  <p className="text-sm text-gray-600 mb-1">{item.modality}</p>
+                )}
+                {item.experience && (
+                  <p className="text-sm flex items-center gap-1 text-gray-600 mb-1">
+                    <Clock className="h-3 w-3" /> Doświadczenie: {item.experience}
+                  </p>
+                )}
+                {item.successAreas && item.successAreas.length > 0 && (
+                  <div className="mt-2 mb-1">
+                    <p className="text-xs text-gray-500 mb-1 flex items-center gap-1">
+                      <Star className="h-3 w-3" /> Obszary sukcesów:
+                    </p>
+                    <div className="flex flex-wrap gap-1">
+                      {item.successAreas.slice(0, 2).map((area: string, i: number) => (
+                        <Badge variant="outline" key={`area-${item.id}-${i}`} className="text-xs">
+                          {area}
+                        </Badge>
+                      ))}
+                      {item.successAreas.length > 2 && (
+                        <Badge variant="outline" className="text-xs">+{item.successAreas.length - 2}</Badge>
+                      )}
+                    </div>
+                  </div>
+                )}
+                {item.services && item.services.length > 0 && (
+                  <div className="mt-2">
+                    <p className="text-xs text-gray-500 mb-1 flex items-center gap-1">
+                      <User className="h-3 w-3" /> Usługi:
+                    </p>
+                    <div className="flex flex-wrap gap-1">
+                      {item.services.slice(0, 2).map((service: string, i: number) => (
+                        <Badge variant="outline" key={`service-${item.id}-${i}`} className="text-xs">
+                          {service}
+                        </Badge>
+                      ))}
+                      {item.services.length > 2 && (
+                        <Badge variant="outline" className="text-xs">+{item.services.length - 2}</Badge>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </>
             )}
           </CardContent>
           <CardFooter className="p-4 flex justify-between items-center border-t">

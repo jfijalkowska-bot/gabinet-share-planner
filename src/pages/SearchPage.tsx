@@ -33,7 +33,16 @@ const SearchPage = () => {
         specialization: searchType === "specialist" ? ["Psychoterapia", "Terapia par"][i % 2] : null,
         price: (Math.floor(Math.random() * 10) + 15) * 10,
         rating: (Math.random() * 2 + 3).toFixed(1),
-        image: `/placeholder.svg`
+        image: `/placeholder.svg`,
+        // New fields for specialists
+        modality: searchType === "specialist" ? 
+          ["Poznawczo-behawioralna (CBT)", "Psychodynamiczna", "Humanistyczna", "Systemowa"][i % 4] : null,
+        experience: searchType === "specialist" ? 
+          ["0-2 lata", "3-5 lat", "6-10 lat", "Powyżej 10 lat"][i % 4] : null,
+        successAreas: searchType === "specialist" ? 
+          [["Depresja", "Lęki"], ["Trauma", "Uzależnienia"], ["Problemy w związkach", "Samoocena"]][i % 3] : [],
+        services: searchType === "specialist" ? 
+          [["Terapia indywidualna", "Sesje online"], ["Terapia par", "Warsztaty"], ["Terapia grupowa", "Interwencja kryzysowa"]][i % 3] : [],
       }));
       
       setSearchResults(mockResults);
