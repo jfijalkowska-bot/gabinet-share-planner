@@ -1,9 +1,10 @@
+
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import FeatureCard from "@/components/home/FeatureCard";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import { Calendar, Clock, User, Users, Search, MapPin } from "lucide-react";
+import { Calendar, Clock, User, Users, Search, MapPin, Check } from "lucide-react";
 
 const Index = () => {
   const features = [
@@ -77,10 +78,10 @@ const Index = () => {
               Wybierz plan dla siebie
             </h2>
             <p className="text-center text-gray-600 mb-12">
-              14 dni okresu próbnego dla każdego planu
+              Dopasowany do Twoich potrzeb
             </p>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
               {/* Właściciele gabinetów */}
               <div className="bg-white p-8 rounded-lg shadow-md border border-therapy-200">
                 <h3 className="text-2xl font-bold text-therapy-800 mb-4">Dla właścicieli gabinetów</h3>
@@ -88,17 +89,20 @@ const Index = () => {
                   <p className="text-4xl font-bold text-therapy-600">50 zł</p>
                   <p className="text-gray-600">miesięcznie</p>
                 </div>
+                <p className="text-sm text-gray-600 mb-4">
+                  14 dni okresu próbnego
+                </p>
                 <ul className="space-y-3 mb-8">
                   <li className="flex items-center text-gray-700">
-                    <Clock className="h-5 w-5 text-therapy-600 mr-2" />
+                    <Check className="h-5 w-5 text-therapy-600 mr-2" />
                     Zarządzanie kalendarzem
                   </li>
                   <li className="flex items-center text-gray-700">
-                    <Users className="h-5 w-5 text-therapy-600 mr-2" />
+                    <Check className="h-5 w-5 text-therapy-600 mr-2" />
                     Wynajem gabinetu
                   </li>
                   <li className="flex items-center text-gray-700">
-                    <Calendar className="h-5 w-5 text-therapy-600 mr-2" />
+                    <Check className="h-5 w-5 text-therapy-600 mr-2" />
                     Zarządzanie wizytami
                   </li>
                 </ul>
@@ -111,25 +115,32 @@ const Index = () => {
                 </Button>
               </div>
 
-              {/* Współpracujący terapeuci */}
+              {/* Współpracujący terapeuci - plan płatny */}
               <div className="bg-white p-8 rounded-lg shadow-md border border-therapy-200">
                 <h3 className="text-2xl font-bold text-therapy-800 mb-4">Dla współpracujących terapeutów</h3>
                 <div className="mb-6">
                   <p className="text-4xl font-bold text-therapy-600">25 zł</p>
                   <p className="text-gray-600">miesięcznie</p>
                 </div>
+                <p className="text-sm text-gray-600 mb-4">
+                  14 dni okresu próbnego
+                </p>
                 <ul className="space-y-3 mb-8">
                   <li className="flex items-center text-gray-700">
-                    <Calendar className="h-5 w-5 text-therapy-600 mr-2" />
+                    <Check className="h-5 w-5 text-therapy-600 mr-2" />
                     Zarządzanie wizytami
                   </li>
                   <li className="flex items-center text-gray-700">
-                    <Clock className="h-5 w-5 text-therapy-600 mr-2" />
+                    <Check className="h-5 w-5 text-therapy-600 mr-2" />
                     Rezerwacja gabinetów
                   </li>
                   <li className="flex items-center text-gray-700">
-                    <User className="h-5 w-5 text-therapy-600 mr-2" />
-                    Profil specjalisty
+                    <Check className="h-5 w-5 text-therapy-600 mr-2" />
+                    Rozszerzony profil specjalisty
+                  </li>
+                  <li className="flex items-center text-gray-700">
+                    <Check className="h-5 w-5 text-therapy-600 mr-2" />
+                    Kalendarz online dla klientów
                   </li>
                 </ul>
                 <p className="text-sm text-gray-600 mb-4">
@@ -140,6 +151,46 @@ const Index = () => {
                   <Link to="/register?plan=therapist">Rozpocznij okres próbny</Link>
                 </Button>
               </div>
+              
+              {/* Terapeuci - wizytówka */}
+              <div className="bg-white p-8 rounded-lg shadow-md border border-therapy-200">
+                <h3 className="text-2xl font-bold text-therapy-800 mb-4">Wizytówka terapeuty</h3>
+                <div className="mb-6">
+                  <p className="text-4xl font-bold text-green-600">0 zł</p>
+                  <p className="text-gray-600">lub 99 zł <span className="text-sm">jednorazowo</span></p>
+                </div>
+                <p className="text-sm text-gray-600 mb-4">
+                  Bez okresu próbnego
+                </p>
+                <ul className="space-y-3 mb-8">
+                  <li className="flex items-center text-gray-700">
+                    <Check className="h-5 w-5 text-green-600 mr-2" />
+                    Podstawowy profil specjalisty
+                  </li>
+                  <li className="flex items-center text-gray-700">
+                    <Check className="h-5 w-5 text-green-600 mr-2" />
+                    Widoczność w wyszukiwarce
+                  </li>
+                  <li className="flex items-center text-gray-700 opacity-50 line-through">
+                    <Clock className="h-5 w-5 text-gray-400 mr-2" />
+                    Rezerwacja gabinetów
+                  </li>
+                  <li className="flex items-center text-gray-700 opacity-50 line-through">
+                    <Calendar className="h-5 w-5 text-gray-400 mr-2" />
+                    Kalendarz wizyt
+                  </li>
+                  <li className="text-sm text-gray-600 mt-4 font-medium">
+                    Wersja premium (99 zł): pozycjonowanie w wynikach wyszukiwania
+                  </li>
+                </ul>
+                <Button asChild variant="outline" className="w-full border-green-600 text-green-700 hover:bg-green-50">
+                  <Link to="/register?plan=free">Utwórz wizytówkę</Link>
+                </Button>
+              </div>
+            </div>
+            
+            <div className="text-center mt-8 text-sm text-gray-600">
+              <p>Wszystkie ceny zawierają podatek VAT. Płatności obsługiwane przez bezpieczny system płatności online.</p>
             </div>
           </div>
         </section>
@@ -243,11 +294,16 @@ const Index = () => {
               Dołącz do społeczności profesjonalistów
             </h2>
             <p className="text-lg mb-8 max-w-2xl mx-auto">
-              Wypróbuj GabinetShare przez 14 dni za darmo i przekonaj się, jak możemy ułatwić Twoją pracę.
+              Wybierz plan dopasowany do Twoich potrzeb - od darmowej wizytówki po pełne zarządzanie gabinetem.
             </p>
-            <Button asChild variant="secondary" size="lg" className="px-8 py-6 text-therapy-800">
-              <Link to="/register">Rozpocznij teraz</Link>
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button asChild variant="secondary" size="lg" className="px-8 py-6 text-therapy-800">
+                <Link to="/register">Rozpocznij teraz</Link>
+              </Button>
+              <Button asChild variant="outline" size="lg" className="px-8 py-6 text-white border-white hover:bg-therapy-700">
+                <Link to="/search">Znajdź specjalistę</Link>
+              </Button>
+            </div>
           </div>
         </section>
       </main>

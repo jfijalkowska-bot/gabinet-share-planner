@@ -1,6 +1,6 @@
 
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -9,6 +9,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Calendar } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 const RegisterPage = () => {
   const [name, setName] = useState("");
@@ -16,10 +17,27 @@ const RegisterPage = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [acceptTerms, setAcceptTerms] = useState(false);
+  const [accountType, setAccountType] = useState<"owner" | "therapist" | "free">("therapist");
+  
+  const location = useLocation();
+
+  useEffect(() => {
+    // Extract plan from URL params (if any)
+    const params = new URLSearchParams(location.search);
+    const plan = params.get("plan");
+    
+    if (plan === "owner") {
+      setAccountType("owner");
+    } else if (plan === "therapist") {
+      setAccountType("therapist");
+    } else if (plan === "free") {
+      setAccountType("free");
+    }
+  }, [location]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({ name, email, password, confirmPassword, acceptTerms });
+    console.log({ name, email, password, confirmPassword, acceptTerms, accountType });
     // Tu będzie logika rejestracji
   };
 
@@ -43,6 +61,40 @@ const RegisterPage = () => {
           
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="space-y-4 mb-6">
+                <Label className="text-base font-medium">Wybierz rodzaj konta</Label>
+                <RadioGroup 
+                  defaultValue={accountType} 
+                  onValueChange={(value) => setAccountType(value as "owner" | "therapist" | "free")} 
+                  className="grid grid-cols-1 gap-4"
+                >
+                  <div className="flex items-center space-x-2 border rounded-md p-3 hover:bg-gray-50">
+                    <RadioGroupItem value="owner" id="owner" />
+                    <Label htmlFor="owner" className="flex flex-col cursor-pointer w-full">
+                      <span className="font-medium">Właściciel gabinetu</span>
+                      <span className="text-sm text-gray-500">Zarządzaj gabinetem i wynajmuj powierzchnię</span>
+                    </Label>
+                    <span className="font-medium text-therapy-600">50 zł/mies.</span>
+                  </div>
+                  <div className="flex items-center space-x-2 border rounded-md p-3 hover:bg-gray-50">
+                    <RadioGroupItem value="therapist" id="therapist" />
+                    <Label htmlFor="therapist" className="flex flex-col cursor-pointer w-full">
+                      <span className="font-medium">Terapeuta z kalendarzem</span>
+                      <span className="text-sm text-gray-500">Pełny dostęp do rezerwacji i kalendarza wizyt</span>
+                    </Label>
+                    <span className="font-medium text-therapy-600">25 zł/mies.</span>
+                  </div>
+                  <div className="flex items-center space-x-2 border rounded-md p-3 hover:bg-gray-50">
+                    <RadioGroupItem value="free" id="free" />
+                    <Label htmlFor="free" className="flex flex-col cursor-pointer w-full">
+                      <span className="font-medium">Wizytówka terapeuty</span>
+                      <span className="text-sm text-gray-500">Podstawowa wizytówka bez kalendarza</span>
+                    </Label>
+                    <span className="font-medium text-green-600">Za darmo</span>
+                  </div>
+                </RadioGroup>
+              </div>
+              
               <div className="space-y-2">
                 <Label htmlFor="name">Imię i nazwisko</Label>
                 <Input
@@ -107,8 +159,14 @@ const RegisterPage = () => {
               </div>
               
               <Button className="w-full bg-therapy-600 hover:bg-therapy-700" type="submit">
-                Zarejestruj się
+                {accountType === "free" ? "Utwórz wizytówkę" : "Rozpocznij okres próbny"}
               </Button>
+              
+              {accountType !== "free" && (
+                <p className="text-xs text-center text-gray-500">
+                  14 dni za darmo, bez automatycznego przedłużenia
+                </p>
+              )}
             </form>
             
             <div className="mt-6 text-center text-sm">
