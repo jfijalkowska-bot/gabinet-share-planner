@@ -4,7 +4,9 @@ import Footer from "@/components/layout/Footer";
 import PageHeader from "@/components/common/PageHeader";
 import BookingForm from "@/components/bookings/BookingForm";
 import { Card, CardContent } from "@/components/ui/card";
-import { Calendar, Clock, User } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+import { Calendar, Clock, User, Search } from "lucide-react";
 
 const AppointmentsPage = () => {
   return (
@@ -26,7 +28,22 @@ const AppointmentsPage = () => {
             </Card>
           </div>
           
-          <div>
+          <div className="space-y-6">
+            <Card>
+              <CardContent className="p-6">
+                <h3 className="text-xl font-semibold mb-4">Szukasz odpowiedniego specjalisty?</h3>
+                <p className="text-gray-600 mb-4">
+                  Skorzystaj z naszej wyszukiwarki, aby znaleźć specjalistę dopasowanego do Twoich potrzeb - według lokalizacji, specjalizacji i innych kryteriów.
+                </p>
+                <Button asChild className="w-full flex items-center gap-2 bg-therapy-600 hover:bg-therapy-700">
+                  <Link to="/search?type=specialist">
+                    <Search className="w-4 h-4" />
+                    Wyszukaj specjalistę
+                  </Link>
+                </Button>
+              </CardContent>
+            </Card>
+
             <Card>
               <CardContent className="p-6">
                 <h3 className="text-xl font-semibold mb-4">Jak umówić wizytę?</h3>

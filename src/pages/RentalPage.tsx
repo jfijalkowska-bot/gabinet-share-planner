@@ -4,6 +4,9 @@ import Footer from "@/components/layout/Footer";
 import PageHeader from "@/components/common/PageHeader";
 import RentalForm from "@/components/rental/RentalForm";
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+import { Search } from "lucide-react";
 
 const RentalPage = () => {
   return (
@@ -26,6 +29,21 @@ const RentalPage = () => {
           </div>
           
           <div>
+            <Card className="mb-4">
+              <CardContent className="p-6">
+                <h3 className="text-xl font-semibold mb-4">Szukasz idealnego gabinetu?</h3>
+                <p className="text-gray-600 mb-4">
+                  Skorzystaj z naszej wyszukiwarki, aby znaleźć gabinet dopasowany do Twoich potrzeb - według lokalizacji, wyposażenia, pojemności i innych kryteriów.
+                </p>
+                <Button asChild className="w-full flex items-center gap-2 bg-therapy-600 hover:bg-therapy-700">
+                  <Link to="/search">
+                    <Search className="w-4 h-4" />
+                    Wyszukaj gabinet
+                  </Link>
+                </Button>
+              </CardContent>
+            </Card>
+
             <Card>
               <CardContent className="p-6">
                 <h3 className="text-xl font-semibold mb-4">Informacje o wynajmie</h3>
