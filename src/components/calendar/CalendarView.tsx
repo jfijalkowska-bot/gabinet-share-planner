@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { format, addDays, startOfWeek, getDay, subWeeks, addWeeks } from "date-fns";
 import { pl } from "date-fns/locale";
@@ -6,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import BookingDialog from "./BookingDialog";
 
 // Przykładowe dane
 const HOURS = Array.from({ length: 14 }, (_, i) => i + 7); // 7:00 - 20:00
@@ -52,6 +52,8 @@ const generateTimeSlots = (startDate: Date): TimeSlot[] => {
 const CalendarView: React.FC = () => {
   const [currentWeekStart, setCurrentWeekStart] = useState(startOfWeek(new Date(), { weekStartsOn: 1 }));
   const [timeSlots, setTimeSlots] = useState<TimeSlot[]>(generateTimeSlots(currentWeekStart));
+  const [selectedSlot, setSelectedSlot] = useState<{ date: Date; hour: number } | undefined>();
+  const [isBookingDialogOpen, setIsBookingDialogOpen] = useState(false);
 
   const handlePrevWeek = () => {
     const newWeekStart = subWeeks(currentWeekStart, 1);
@@ -66,8 +68,10 @@ const CalendarView: React.FC = () => {
   };
 
   const handleSlotClick = (slot: TimeSlot) => {
-    console.log("Clicked slot:", slot);
-    // Tu będzie otwieranie modalu z szczegółami lub formularzem rezerwacji
+    if (slot.status === "available") {
+      setSelectedSlot({ date: slot.date, hour: slot.hour });
+      setIsBookingDialogOpen(true);
+    }
   };
 
   const getSlotClass = (status: SlotStatus) => {
@@ -176,6 +180,15 @@ const CalendarView: React.FC = () => {
           <span className="text-sm text-gray-600">Niedostępne</span>
         </div>
       </div>
+
+      <BookingDialog
+        isOpen={isBookingDialogOpen}
+        onClose={() => {
+          setIsBookingDialogOpen(false);
+          setSelectedSlot(undefined);
+        }}
+        selectedSlot={selectedSlot}
+      />
     </div>
   );
 };
