@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -8,15 +8,47 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Calendar } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "@/components/ui/use-toast";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({ email, password });
-    // Tu będzie logika logowania
+    setLoading(true);
+
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (error) {
+        toast({
+          title: "Błąd logowania",
+          description: error.message,
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Zalogowano pomyślnie",
+          description: "Witaj w GabinetShare!",
+        });
+        navigate("/calendar");
+      }
+    } catch (error) {
+      toast({
+        title: "Wystąpił błąd",
+        description: "Spróbuj ponownie później",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -48,6 +80,7 @@ const LoginPage = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
+                  disabled={loading}
                 />
               </div>
               
@@ -64,11 +97,12 @@ const LoginPage = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
+                  disabled={loading}
                 />
               </div>
               
-              <Button className="w-full bg-therapy-600 hover:bg-therapy-700" type="submit">
-                Zaloguj się
+              <Button className="w-full bg-therapy-600 hover:bg-therapy-700" type="submit" disabled={loading}>
+                {loading ? "Logowanie..." : "Zaloguj się"}
               </Button>
             </form>
             

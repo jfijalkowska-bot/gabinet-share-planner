@@ -1,5 +1,6 @@
+
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -9,6 +10,8 @@ import { Calendar } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "@/components/ui/use-toast";
 
 const RegisterPage = () => {
   const [name, setName] = useState("");
@@ -17,8 +20,10 @@ const RegisterPage = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [accountType, setAccountType] = useState<"owner" | "therapist" | "free">("therapist");
+  const [loading, setLoading] = useState(false);
   
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Extract plan from URL params (if any)
@@ -34,10 +39,70 @@ const RegisterPage = () => {
     }
   }, [location]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({ name, email, password, confirmPassword, acceptTerms, accountType });
-    // Tu będzie logika rejestracji
+    
+    if (password !== confirmPassword) {
+      toast({
+        title: "Błąd rejestracji",
+        description: "Hasła nie są identyczne",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (!acceptTerms) {
+      toast({
+        title: "Błąd rejestracji",
+        description: "Musisz zaakceptować regulamin i politykę prywatności",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      // Rozdzielamy imię i nazwisko
+      const [firstName, ...lastNameParts] = name.trim().split(' ');
+      const lastName = lastNameParts.join(' ');
+
+      // Rejestracja użytkownika
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            first_name: firstName,
+            last_name: lastName || '',
+            account_type: accountType,
+            full_name: name.trim()
+          }
+        }
+      });
+
+      if (error) {
+        toast({
+          title: "Błąd rejestracji",
+          description: error.message,
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Rejestracja pomyślna",
+          description: "Sprawdź swoją skrzynkę email, aby potwierdzić konto.",
+        });
+        navigate("/login");
+      }
+    } catch (error) {
+      toast({
+        title: "Wystąpił błąd",
+        description: "Spróbuj ponownie później",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -101,6 +166,7 @@ const RegisterPage = () => {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   required
+                  disabled={loading}
                 />
               </div>
               
@@ -113,6 +179,7 @@ const RegisterPage = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
+                  disabled={loading}
                 />
               </div>
               
@@ -124,6 +191,7 @@ const RegisterPage = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
+                  disabled={loading}
                 />
               </div>
               
@@ -135,6 +203,7 @@ const RegisterPage = () => {
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   required
+                  disabled={loading}
                 />
               </div>
               
@@ -144,6 +213,7 @@ const RegisterPage = () => {
                   checked={acceptTerms}
                   onCheckedChange={(checked) => setAcceptTerms(!!checked)}
                   required
+                  disabled={loading}
                 />
                 <Label htmlFor="terms" className="text-sm">
                   Akceptuję{" "}
@@ -157,8 +227,8 @@ const RegisterPage = () => {
                 </Label>
               </div>
               
-              <Button className="w-full bg-therapy-600 hover:bg-therapy-700" type="submit">
-                {accountType === "free" ? "Utwórz wizytówkę" : "Rozpocznij okres próbny"}
+              <Button className="w-full bg-therapy-600 hover:bg-therapy-700" type="submit" disabled={loading}>
+                {loading ? "Rejestracja..." : accountType === "free" ? "Utwórz wizytówkę" : "Rozpocznij okres próbny"}
               </Button>
               
               {accountType !== "free" && (
