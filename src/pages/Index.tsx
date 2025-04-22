@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import FeatureCard from "@/components/home/FeatureCard";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import { Calendar, Clock, User, Users } from "lucide-react";
+import { Calendar, Clock, User, Users, Search } from "lucide-react";
 
 const Index = () => {
   const features = [
@@ -18,9 +18,9 @@ const Index = () => {
       description: "Wynajmuj gabinet na godziny, zarządzaj swoimi wizytami i buduj bazę klientów. Elastyczność i profesjonalne warunki pracy.",
     },
     {
-      icon: User,
-      title: "Wizytówki Specjalistów",
-      description: "Stwórz profesjonalny profil dostępny dla klientów. Zaprezentuj swoje kwalifikacje i zakres usług.",
+      icon: Search,
+      title: "Dla Klientów",
+      description: "Przeglądaj profile specjalistów, sprawdzaj ich kwalifikacje i rezerwuj wizyty online w wygodny sposób.",
     },
   ];
 
@@ -176,7 +176,7 @@ const Index = () => {
                 <div>
                   <h3 className="text-xl font-semibold mb-2 flex items-center">
                     <span className="w-8 h-8 rounded-full bg-therapy-600 text-white flex items-center justify-center mr-2">3</span>
-                    Klienci rezerwują wizyty w wolnych terminach
+                    Klienci rezerwują wizyty w wyznaczonych terminach
                   </h3>
                   <p className="text-gray-600 ml-10">
                     Twoi klienci mogą samodzielnie zarezerwować wizytę w wyznaczonych przez Ciebie godzinach.
