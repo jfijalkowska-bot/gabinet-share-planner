@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import FeatureCard from "@/components/home/FeatureCard";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import { Calendar, Clock, User, Users, Search } from "lucide-react";
+import { Calendar, Clock, User, Users, Search, MapPin } from "lucide-react";
 
 const Index = () => {
   const features = [
@@ -139,6 +139,47 @@ const Index = () => {
                 <Button asChild className="w-full bg-therapy-600">
                   <Link to="/register?plan=therapist">Rozpocznij okres próbny</Link>
                 </Button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Find Available Office section */}
+        <section className="py-16 bg-white">
+          <div className="container mx-auto px-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div>
+                <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                  Znajdź wolny gabinet w swojej okolicy
+                </h2>
+                <p className="text-lg text-gray-600 mb-6">
+                  Jesteś terapeutą szukającym profesjonalnego miejsca do pracy? Sprawdź dostępne gabinety w Twojej okolicy i zarezerwuj na dogodne godziny.
+                </p>
+                <ul className="space-y-4 mb-8">
+                  <li className="flex items-center text-gray-700">
+                    <MapPin className="h-5 w-5 text-therapy-600 mr-2" />
+                    Wyszukiwanie po lokalizacji
+                  </li>
+                  <li className="flex items-center text-gray-700">
+                    <Calendar className="h-5 w-5 text-therapy-600 mr-2" />
+                    Sprawdź dostępne terminy
+                  </li>
+                  <li className="flex items-center text-gray-700">
+                    <Clock className="h-5 w-5 text-therapy-600 mr-2" />
+                    Rezerwacja na godziny
+                  </li>
+                </ul>
+                <Button asChild className="bg-therapy-600 hover:bg-therapy-700">
+                  <Link to="/rent">Znajdź gabinet</Link>
+                </Button>
+              </div>
+              
+              <div className="bg-gray-50 p-6 rounded-lg shadow-lg">
+                <img 
+                  src="https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" 
+                  alt="Gabinet terapeutyczny" 
+                  className="w-full h-64 object-cover rounded-lg"
+                />
               </div>
             </div>
           </div>
