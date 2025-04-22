@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -74,7 +73,7 @@ const RegisterPage = () => {
                       <span className="font-medium">Właściciel gabinetu</span>
                       <span className="text-sm text-gray-500">Zarządzaj gabinetem i wynajmuj powierzchnię</span>
                     </Label>
-                    <span className="font-medium text-therapy-600">50 zł/mies.</span>
+                    <span className="font-medium text-therapy-600">59 zł/mies.</span>
                   </div>
                   <div className="flex items-center space-x-2 border rounded-md p-3 hover:bg-gray-50">
                     <RadioGroupItem value="therapist" id="therapist" />
@@ -82,7 +81,7 @@ const RegisterPage = () => {
                       <span className="font-medium">Terapeuta z kalendarzem</span>
                       <span className="text-sm text-gray-500">Pełny dostęp do rezerwacji i kalendarza wizyt</span>
                     </Label>
-                    <span className="font-medium text-therapy-600">25 zł/mies.</span>
+                    <span className="font-medium text-therapy-600">29 zł/mies.</span>
                   </div>
                   <div className="flex items-center space-x-2 border rounded-md p-3 hover:bg-gray-50">
                     <RadioGroupItem value="free" id="free" />
@@ -90,7 +89,7 @@ const RegisterPage = () => {
                       <span className="font-medium">Wizytówka terapeuty</span>
                       <span className="text-sm text-gray-500">Podstawowa wizytówka bez kalendarza</span>
                     </Label>
-                    <span className="font-medium text-green-600">Za darmo</span>
+                    <span className="font-medium text-green-600">49 zł</span>
                   </div>
                 </RadioGroup>
               </div>

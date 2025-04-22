@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import FeatureCard from "@/components/home/FeatureCard";
@@ -86,7 +85,7 @@ const Index = () => {
               <div className="bg-white p-8 rounded-lg shadow-md border border-therapy-200">
                 <h3 className="text-2xl font-bold text-therapy-800 mb-4">Dla właścicieli gabinetów</h3>
                 <div className="mb-6">
-                  <p className="text-4xl font-bold text-therapy-600">50 zł</p>
+                  <p className="text-4xl font-bold text-therapy-600">59 zł</p>
                   <p className="text-gray-600">miesięcznie</p>
                 </div>
                 <p className="text-sm text-gray-600 mb-4">
@@ -107,8 +106,8 @@ const Index = () => {
                   </li>
                 </ul>
                 <p className="text-sm text-gray-600 mb-4">
-                  Półrocznie: 45 zł/mies. (270 zł)<br />
-                  Rocznie: 40 zł/mies. (480 zł)
+                  Półrocznie: 54 zł/mies. (324 zł)<br />
+                  Rocznie: 49 zł/mies. (588 zł)
                 </p>
                 <Button asChild className="w-full bg-therapy-600">
                   <Link to="/register?plan=owner">Rozpocznij okres próbny</Link>
@@ -119,7 +118,7 @@ const Index = () => {
               <div className="bg-white p-8 rounded-lg shadow-md border border-therapy-200">
                 <h3 className="text-2xl font-bold text-therapy-800 mb-4">Dla współpracujących terapeutów</h3>
                 <div className="mb-6">
-                  <p className="text-4xl font-bold text-therapy-600">25 zł</p>
+                  <p className="text-4xl font-bold text-therapy-600">29 zł</p>
                   <p className="text-gray-600">miesięcznie</p>
                 </div>
                 <p className="text-sm text-gray-600 mb-4">
@@ -144,8 +143,8 @@ const Index = () => {
                   </li>
                 </ul>
                 <p className="text-sm text-gray-600 mb-4">
-                  Półrocznie: 22 zł/mies. (132 zł)<br />
-                  Rocznie: 20 zł/mies. (240 zł)
+                  Półrocznie: 26 zł/mies. (156 zł)<br />
+                  Rocznie: 24 zł/mies. (288 zł)
                 </p>
                 <Button asChild className="w-full bg-therapy-600">
                   <Link to="/register?plan=therapist">Rozpocznij okres próbny</Link>
@@ -157,7 +156,7 @@ const Index = () => {
                 <h3 className="text-2xl font-bold text-therapy-800 mb-4">Wizytówka terapeuty</h3>
                 <div className="mb-6">
                   <p className="text-4xl font-bold text-green-600">0 zł</p>
-                  <p className="text-gray-600">lub 99 zł <span className="text-sm">jednorazowo</span></p>
+                  <p className="text-gray-600">lub 49 zł <span className="text-sm">jednorazowo</span></p>
                 </div>
                 <p className="text-sm text-gray-600 mb-4">
                   Bez okresu próbnego
@@ -180,7 +179,7 @@ const Index = () => {
                     Kalendarz wizyt
                   </li>
                   <li className="text-sm text-gray-600 mt-4 font-medium">
-                    Wersja premium (99 zł): pozycjonowanie w wynikach wyszukiwania
+                    Wersja premium (49 zł): pozycjonowanie w wynikach wyszukiwania
                   </li>
                 </ul>
                 <Button asChild variant="outline" className="w-full border-green-600 text-green-700 hover:bg-green-50">
