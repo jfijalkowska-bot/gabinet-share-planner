@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { Checkbox } from "@/components/ui/checkbox";
-import { MapPin, Compass, Chair, Table, Users, Building, Bed } from "lucide-react";
+import { MapPin, Compass, Table, Users, Building, Bed, Car } from "lucide-react";
 
 interface SearchFiltersProps {
   type: "office" | "specialist";
@@ -55,7 +55,7 @@ const SearchFilters = ({ type, onSearch }: SearchFiltersProps) => {
 
   const officeEquipment = [
     { id: "desk", label: "Biurko", icon: <Table className="h-4 w-4" /> },
-    { id: "couch", label: "Kanapa", icon: <Chair className="h-4 w-4" /> },
+    { id: "couch", label: "Kanapa", icon: <Car className="h-4 w-4" /> },
     { id: "internet", label: "Internet", icon: null },
     { id: "ac", label: "Klimatyzacja", icon: null },
     { id: "projector", label: "Projektor", icon: null },
