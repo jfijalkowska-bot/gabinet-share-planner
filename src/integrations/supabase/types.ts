@@ -126,6 +126,57 @@ export type Database = {
         }
         Relationships: []
       }
+      therapist_specializations: {
+        Row: {
+          category: string | null
+          created_at: string | null
+          id: string
+          label: string
+          updated_at: string | null
+          value: string
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string | null
+          id?: string
+          label: string
+          updated_at?: string | null
+          value: string
+        }
+        Update: {
+          category?: string | null
+          created_at?: string | null
+          id?: string
+          label?: string
+          updated_at?: string | null
+          value?: string
+        }
+        Relationships: []
+      }
+      therapist_success_areas: {
+        Row: {
+          created_at: string | null
+          id: string
+          label: string
+          updated_at: string | null
+          value: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          label: string
+          updated_at?: string | null
+          value: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          label?: string
+          updated_at?: string | null
+          value?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
