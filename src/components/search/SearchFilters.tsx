@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -25,7 +24,10 @@ import {
 import { useForm } from "react-hook-form";
 import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { MapPin, Compass, Table, Users, Building, Bed, Car, Search, Clock, User, Star } from "lucide-react";
+import { 
+  MapPin, Compass, Users, Building, Bed, Search, Clock, User, Star 
+} from "lucide-react";
+import { useSpecializations, useSuccessAreas } from "@/hooks/useTherapistData";
 
 interface SearchFiltersProps {
   type: "office" | "specialist";
@@ -34,6 +36,9 @@ interface SearchFiltersProps {
 
 const SearchFilters = ({ type, onSearch }: SearchFiltersProps) => {
   const [distance, setDistance] = useState<number>(5);
+  
+  const specializations = useSpecializations();
+  const successAreas = useSuccessAreas();
   
   const form = useForm({
     defaultValues: {
@@ -59,8 +64,8 @@ const SearchFilters = ({ type, onSearch }: SearchFiltersProps) => {
   };
 
   const officeEquipment = [
-    { id: "desk", label: "Biurko", icon: <Table className="h-4 w-4" /> },
-    { id: "couch", label: "Kanapa", icon: <Car className="h-4 w-4" /> },
+    { id: "desk", label: "Biurko", icon: null },
+    { id: "couch", label: "Kanapa", icon: null },
     { id: "internet", label: "Internet", icon: null },
     { id: "ac", label: "Klimatyzacja", icon: null },
     { id: "projector", label: "Projektor", icon: null },
@@ -68,26 +73,11 @@ const SearchFilters = ({ type, onSearch }: SearchFiltersProps) => {
     { id: "therapeuticBed", label: "Łóżko terapeutyczne", icon: <Bed className="h-4 w-4" /> },
   ];
 
-  const specializations = [
-    { value: "psychotherapy", label: "Psychoterapia" },
-    { value: "couples", label: "Terapia par" },
-    { value: "family", label: "Terapia rodzinna" },
-    { value: "children", label: "Terapia dzieci" },
-    { value: "addiction", label: "Terapia uzależnień" },
-    { value: "depression", label: "Leczenie depresji" },
-    { value: "anxiety", label: "Leczenie lęków" },
-    { value: "trauma", label: "Leczenie traumy" },
-    { value: "speech", label: "Logopedia" },
-  ];
-
-  const modalities = [
+  const modalitiesStatic = [
     { value: "cbt", label: "Poznawczo-behawioralna (CBT)" },
     { value: "psychodynamic", label: "Psychodynamiczna" },
     { value: "humanistic", label: "Humanistyczna" },
-    { value: "systemic", label: "Systemowa" },
-    { value: "integrative", label: "Integracyjna" },
-    { value: "gestalt", label: "Gestalt" },
-    { value: "psychoanalytic", label: "Psychoanalityczna" },
+    { value: "systemic", label: "Systemowa" }
   ];
 
   const experienceLevels = [
@@ -95,17 +85,6 @@ const SearchFilters = ({ type, onSearch }: SearchFiltersProps) => {
     { value: "3-5", label: "3-5 lat" },
     { value: "6-10", label: "6-10 lat" },
     { value: "10+", label: "Powyżej 10 lat" },
-  ];
-
-  const successAreas = [
-    { id: "depression", label: "Depresja" },
-    { id: "anxiety", label: "Lęki" },
-    { id: "relationships", label: "Problemy w związkach" },
-    { id: "trauma", label: "Trauma" },
-    { id: "addiction", label: "Uzależnienia" },
-    { id: "self-esteem", label: "Samoocena" },
-    { id: "stress", label: "Stres i wypalenie" },
-    { id: "grief", label: "Żałoba" },
   ];
 
   const services = [
@@ -271,104 +250,33 @@ const SearchFilters = ({ type, onSearch }: SearchFiltersProps) => {
                     <div className="space-y-2">
                       <FormField
                         control={form.control}
-                        name="modality"
-                        render={({ field }) => (
+                        name="successAreas"
+                        render={() => (
                           <FormItem>
-                            <FormLabel className="flex items-center gap-2">
-                              <Search className="h-4 w-4" />
-                              Modalność terapii
+                            <FormLabel className="flex items-center gap-2 mb-2">
+                              <Star className="h-4 w-4" />
+                              Obszary sukcesów
                             </FormLabel>
-                            <FormControl>
-                              <Select
-                                onValueChange={field.onChange}
-                                defaultValue={field.value}
-                              >
-                                <SelectTrigger>
-                                  <SelectValue placeholder="Wybierz" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  {modalities.map((mod) => (
-                                    <SelectItem key={mod.value} value={mod.value}>
-                                      {mod.label}
-                                    </SelectItem>
-                                  ))}
-                                </SelectContent>
-                              </Select>
-                            </FormControl>
+                            <div className="grid grid-cols-2 gap-2">
+                              {successAreas.map((area) => (
+                                <div key={`area-${area.value}`} className="flex items-center space-x-2">
+                                  <Checkbox
+                                    id={`area-${area.value}`}
+                                    {...form.register("successAreas")}
+                                    value={area.value}
+                                  />
+                                  <Label 
+                                    htmlFor={`area-${area.value}`} 
+                                    className="cursor-pointer"
+                                  >
+                                    {area.label}
+                                  </Label>
+                                </div>
+                              ))}
+                            </div>
                           </FormItem>
                         )}
                       />
-                    </div>
-                    
-                    <div className="space-y-2">
-                      <FormField
-                        control={form.control}
-                        name="experience"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel className="flex items-center gap-2">
-                              <Clock className="h-4 w-4" />
-                              Doświadczenie
-                            </FormLabel>
-                            <FormControl>
-                              <RadioGroup
-                                onValueChange={field.onChange}
-                                defaultValue={field.value}
-                                className="grid grid-cols-2 gap-2"
-                              >
-                                {experienceLevels.map((exp) => (
-                                  <div key={exp.value} className="flex items-center space-x-2">
-                                    <RadioGroupItem value={exp.value} id={`exp-${exp.value}`} />
-                                    <Label htmlFor={`exp-${exp.value}`}>{exp.label}</Label>
-                                  </div>
-                                ))}
-                              </RadioGroup>
-                            </FormControl>
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-                    
-                    <div className="space-y-2 mt-4">
-                      <Label className="flex items-center gap-2 mb-2">
-                        <Star className="h-4 w-4" />
-                        Obszary sukcesów
-                      </Label>
-                      <div className="grid grid-cols-2 gap-2">
-                        {successAreas.map((area) => (
-                          <div key={area.id} className="flex items-center space-x-2">
-                            <Checkbox
-                              id={`area-${area.id}`}
-                              {...form.register("successAreas")}
-                              value={area.id}
-                            />
-                            <Label htmlFor={`area-${area.id}`} className="cursor-pointer">
-                              {area.label}
-                            </Label>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                    
-                    <div className="space-y-2 mt-4">
-                      <Label className="flex items-center gap-2 mb-2">
-                        <User className="h-4 w-4" />
-                        Oferowane usługi
-                      </Label>
-                      <div className="grid grid-cols-2 gap-2">
-                        {services.map((service) => (
-                          <div key={service.id} className="flex items-center space-x-2">
-                            <Checkbox
-                              id={`service-${service.id}`}
-                              {...form.register("services")}
-                              value={service.id}
-                            />
-                            <Label htmlFor={`service-${service.id}`} className="cursor-pointer">
-                              {service.label}
-                            </Label>
-                          </div>
-                        ))}
-                      </div>
                     </div>
                   </>
                 )}
