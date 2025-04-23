@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 
-// Import new filter components
+// Import filter components
 import LocationFilter from "./filters/LocationFilter";
 import PriceFilter from "./filters/PriceFilter";
 import OfficeEquipmentFilter from "./filters/OfficeEquipmentFilter";
@@ -22,6 +22,7 @@ import OfficeCapacityFilter from "./filters/OfficeCapacityFilter";
 import SpecializationFilter from "./filters/SpecializationFilter";
 import SuccessAreasFilter from "./filters/SuccessAreasFilter";
 import KeywordsFilter from "./filters/KeywordsFilter";
+import TherapyApproachFilter from "./filters/TherapyApproachFilter";
 
 interface SearchFiltersProps {
   type: "office" | "specialist";
@@ -40,11 +41,13 @@ const SearchFilters = ({ type, onSearch }: SearchFiltersProps) => {
       priceType: "hour",
       capacity: "",
       equipment: [] as string[],
+      otherEquipment: "",
       officeStyle: "",
       officeColor: "",
       specialization: "",
       modality: "",
       experience: "",
+      therapyApproach: "",
       successAreas: [] as string[],
       services: [] as string[],
       keywords: "",
@@ -83,7 +86,10 @@ const SearchFilters = ({ type, onSearch }: SearchFiltersProps) => {
                   </div>
                 )}
                 {type === "specialist" && (
-                  <KeywordsFilter register={form.register} />
+                  <>
+                    <KeywordsFilter register={form.register} />
+                    <TherapyApproachFilter control={form.control} />
+                  </>
                 )}
               </div>
 

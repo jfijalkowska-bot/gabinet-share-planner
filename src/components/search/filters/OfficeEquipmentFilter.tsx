@@ -3,6 +3,7 @@ import { Building, Coffee, Printer, Headphones, Wifi, Check } from "lucide-react
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { UseFormRegister } from "react-hook-form";
+import { Input } from "@/components/ui/input";
 
 const officeEquipment = [
   { id: "desk", label: "Biurko", icon: null },
@@ -18,7 +19,7 @@ const officeEquipment = [
   { id: "soundproof", label: "Wyciszenie", icon: <Headphones className="h-4 w-4" /> },
   { id: "biofeedback", label: "Sprzęt do biofeedback", icon: null },
   { id: "headphones", label: "Słuchawki", icon: <Headphones className="h-4 w-4" /> },
-  { id: "groundOrElevator", label: "Parter lub winda", icon: <Wifi className="h-4 w-4" /> },
+  { id: "groundOrElevator", label: "Parter lub winda", icon: <Building className="h-4 w-4" /> },
   { id: "flipchart", label: "Flipchart", icon: <Check className="h-4 w-4" /> },
 ];
 
@@ -46,6 +47,13 @@ const OfficeEquipmentFilter = ({ register }: OfficeEquipmentFilterProps) => (
           </Label>
         </div>
       ))}
+    </div>
+    <div className="mt-2">
+      <Label className="block mb-1">Inne wyposażenie</Label>
+      <Input
+        placeholder="Wpisz inne wyposażenie"
+        {...register("otherEquipment")}
+      />
     </div>
   </div>
 );
