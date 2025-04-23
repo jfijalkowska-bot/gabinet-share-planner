@@ -15,6 +15,8 @@ import NotFound from "./pages/NotFound";
 import EmbedPage from "./pages/EmbedPage";
 import { AuthProvider } from "./components/auth/AuthProvider";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
+import HowItWorksPage from "./pages/HowItWorksPage";
+import AffiliatePage from "./pages/AffiliatePage";
 
 const queryClient = new QueryClient();
 
@@ -46,6 +48,8 @@ const App = () => (
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/search" element={<SearchPage />} />
             <Route path="/embed" element={<EmbedPage />} />
+            <Route path="/how-it-works" element={<HowItWorksPage />} />
+            <Route path="/affiliate" element={<AffiliatePage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

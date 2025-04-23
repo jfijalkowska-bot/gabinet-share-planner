@@ -25,10 +25,18 @@ const RegisterPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  // Sprawdź, czy użytkownik przyszedł z linku afiliacyjnego
+  const [referralCode, setReferralCode] = useState<string | null>(null);
+
   useEffect(() => {
-    // Extract plan from URL params (if any)
+    // Extract plan and ref from URL params (if any)
     const params = new URLSearchParams(location.search);
     const plan = params.get("plan");
+    const ref = params.get("ref");
+    
+    if (ref) {
+      setReferralCode(ref);
+    }
     
     if (plan === "owner") {
       setAccountType("owner");
@@ -76,7 +84,8 @@ const RegisterPage = () => {
             first_name: firstName,
             last_name: lastName || '',
             account_type: accountType,
-            full_name: name.trim()
+            full_name: name.trim(),
+            referral_code: referralCode
           }
         }
       });
@@ -154,7 +163,7 @@ const RegisterPage = () => {
                       <span className="font-medium">Wizytówka terapeuty</span>
                       <span className="text-sm text-gray-500">Podstawowa wizytówka bez kalendarza</span>
                     </Label>
-                    <span className="font-medium text-green-600">49 zł</span>
+                    <span className="font-medium text-green-600">Bezpłatnie</span>
                   </div>
                 </RadioGroup>
               </div>
@@ -228,13 +237,19 @@ const RegisterPage = () => {
               </div>
               
               <Button className="w-full bg-therapy-600 hover:bg-therapy-700" type="submit" disabled={loading}>
-                {loading ? "Rejestracja..." : accountType === "free" ? "Utwórz wizytówkę" : "Rozpocznij okres próbny"}
+                {loading ? "Rejestracja..." : accountType === "free" ? "Utwórz bezpłatną wizytówkę" : "Rozpocznij okres próbny"}
               </Button>
               
               {accountType !== "free" && (
                 <p className="text-xs text-center text-gray-500">
                   14 dni za darmo, bez automatycznego przedłużenia
                 </p>
+              )}
+
+              {referralCode && (
+                <div className="mt-2 p-2 bg-therapy-50 rounded text-xs text-center text-therapy-700">
+                  Rejestrujesz się z programu poleceń. Kod: {referralCode}
+                </div>
               )}
             </form>
             
