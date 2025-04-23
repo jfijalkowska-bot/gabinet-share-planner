@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -80,6 +79,23 @@ const officeEquipment = [
   { id: "workshopRoom", label: "Salka na warsztaty", icon: null }
 ];
 
+const officeStyles = [
+  { value: "modern", label: "Nowoczesny" },
+  { value: "classic", label: "Klasyczny" },
+  { value: "scandinavian", label: "Skandynawski" },
+  { value: "loft", label: "Loft" },
+  { value: "home", label: "Domowy" },
+  { value: "other", label: "Inny" }
+];
+
+const officeColors = [
+  { value: "bright", label: "Jasne" },
+  { value: "neutral", label: "Neutralne" },
+  { value: "pastels", label: "Pastele" },
+  { value: "bold", label: "Wyraziste" },
+  { value: "dark", label: "Ciemne" }
+];
+
 const SearchFilters = ({ type, onSearch }: SearchFiltersProps) => {
   const [distance, setDistance] = useState<number>(5);
 
@@ -89,8 +105,11 @@ const SearchFilters = ({ type, onSearch }: SearchFiltersProps) => {
       distance: 5,
       priceMin: "",
       priceMax: "",
+      priceType: "hour",
       capacity: "",
       equipment: [] as string[],
+      officeStyle: "",
+      officeColor: "",
       specialization: "",
       modality: "",
       experience: "",
@@ -127,7 +146,66 @@ const SearchFilters = ({ type, onSearch }: SearchFiltersProps) => {
                   distance={distance}
                   setDistance={setDistance}
                 />
-                <PriceFilter register={form.register} />
+                <PriceFilter 
+                  register={form.register}
+                  control={form.control}
+                />
+                {type === "office" && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <FormField
+                      control={form.control}
+                      name="officeStyle"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Styl gabinetu</FormLabel>
+                          <FormControl>
+                            <Select
+                              onValueChange={field.onChange}
+                              defaultValue={field.value}
+                            >
+                              <SelectTrigger>
+                                <SelectValue placeholder="Wybierz styl" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                {officeStyles.map(style => (
+                                  <SelectItem key={style.value} value={style.value}>
+                                    {style.label}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="officeColor"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Barwy gabinetu</FormLabel>
+                          <FormControl>
+                            <Select
+                              onValueChange={field.onChange}
+                              defaultValue={field.value}
+                            >
+                              <SelectTrigger>
+                                <SelectValue placeholder="Wybierz barwy" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                {officeColors.map(color => (
+                                  <SelectItem key={color.value} value={color.value}>
+                                    {color.label}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                )}
                 {type === "specialist" && (
                   <div className="space-y-2">
                     <Label className="flex items-center gap-2">

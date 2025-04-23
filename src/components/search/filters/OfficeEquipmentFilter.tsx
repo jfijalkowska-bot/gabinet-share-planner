@@ -1,5 +1,5 @@
 
-import { Building, Bed } from "lucide-react";
+import { Building, Coffee, Printer, Headphones, Elevator, FlipHorizontal } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { UseFormRegister } from "react-hook-form";
@@ -11,9 +11,15 @@ const officeEquipment = [
   { id: "ac", label: "Klimatyzacja", icon: null },
   { id: "projector", label: "Projektor", icon: null },
   { id: "waitingRoom", label: "Poczekalnia", icon: null },
-  { id: "therapeuticBed", label: "Łóżko terapeutyczne", icon: <Bed className="h-4 w-4" /> },
   { id: "manualTherapyTable", label: "Stół do terapii manualnych", icon: null },
-  { id: "workshopRoom", label: "Salka na warsztaty", icon: null }
+  { id: "workshopRoom", label: "Salka na warsztaty", icon: null },
+  { id: "coffeeTea", label: "Kawa i herbata", icon: <Coffee className="h-4 w-4" /> },
+  { id: "printer", label: "Drukarka", icon: <Printer className="h-4 w-4" /> },
+  { id: "soundproof", label: "Wyciszenie", icon: Headphones ? <Headphones className="h-4 w-4" /> : null },
+  { id: "biofeedback", label: "Sprzęt do biofeedback", icon: null },
+  { id: "headphones", label: "Słuchawki", icon: <Headphones className="h-4 w-4" /> },
+  { id: "groundOrElevator", label: "Parter lub winda", icon: <Elevator className="h-4 w-4" /> },
+  { id: "flipchart", label: "Flipchart", icon: <FlipHorizontal className="h-4 w-4" /> },
 ];
 
 interface OfficeEquipmentFilterProps {
