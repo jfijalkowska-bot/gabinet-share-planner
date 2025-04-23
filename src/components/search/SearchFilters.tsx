@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -78,7 +77,6 @@ const officeEquipment = [
   { id: "workshopRoom", label: "Salka na warsztaty", icon: null }
 ];
 
-// Nie używamy już useSpecializations ani useSuccessAreas - poniżej kod
 const SearchFilters = ({ type, onSearch }: SearchFiltersProps) => {
   const [distance, setDistance] = useState<number>(5);
 
