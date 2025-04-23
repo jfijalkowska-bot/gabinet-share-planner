@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -56,6 +57,8 @@ const specialistSpecializations = [
 ];
 
 const customSuccessAreas = [
+  { value: "depresja", label: "Depresja" },
+  { value: "leki", label: "Lęki" },
   { value: "terapia_par", label: "Terapia par" },
   { value: "terapia_rodzinna", label: "Terapia rodzinna" },
   { value: "terapia_traumy", label: "Terapia traumy" },
