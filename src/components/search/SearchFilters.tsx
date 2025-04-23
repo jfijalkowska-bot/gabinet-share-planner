@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -27,7 +28,6 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { 
   MapPin, Compass, Users, Building, Bed, Search, Clock, User, Star 
 } from "lucide-react";
-import { useSpecializations, useSuccessAreas } from "@/hooks/useTherapistData";
 import LocationFilter from "./filters/LocationFilter";
 import PriceFilter from "./filters/PriceFilter";
 import OfficeEquipmentFilter from "./filters/OfficeEquipmentFilter";
@@ -39,12 +39,49 @@ interface SearchFiltersProps {
   onSearch: (filters: any) => void;
 }
 
+const specialistSpecializations = [
+  { value: "psychoterapeuta", label: "Psychoterapeuta" },
+  { value: "psycholog", label: "Psycholog" },
+  { value: "logopeda", label: "Logopeda" },
+  { value: "doradca_zawodowy", label: "Doradca zawodowy" },
+  { value: "dietetyk", label: "Dietetyk" },
+  { value: "terapeuta_manualny", label: "Terapeuta manualny" },
+  { value: "terapeuta_ruchem", label: "Terapeuta ruchem" },
+  { value: "psychoonkolog", label: "Psychoonkolog" },
+  { value: "coach", label: "Coach" },
+  { value: "mentor", label: "Mentor" },
+  { value: "terapeuta_uzaleznien", label: "Terapeuta uzależnień" },
+  { value: "psychotraumatolog", label: "Psychotraumatolog" },
+  { value: "psychoseksuolog", label: "Psychoseksuolog" },
+  { value: "psycholog_diagnosta", label: "Psycholog - diagnosta" }
+];
+
+const customSuccessAreas = [
+  { value: "terapia_par", label: "Terapia par" },
+  { value: "terapia_rodzinna", label: "Terapia rodzinna" },
+  { value: "terapia_traumy", label: "Terapia traumy" },
+  { value: "terapia_dzieci", label: "Terapia dzieci" },
+  { value: "terapia_mlodziezy", label: "Terapia młodzieży" },
+  { value: "zaburzenia_psychosomatyczne", label: "Zaburzenia psychosomatyczne" },
+  { value: "zaburzenia_osobowosci", label: "Zaburzenia osobowości" }
+];
+
+const officeEquipment = [
+  { id: "desk", label: "Biurko", icon: null },
+  { id: "couch", label: "Kanapa", icon: null },
+  { id: "internet", label: "Internet", icon: null },
+  { id: "ac", label: "Klimatyzacja", icon: null },
+  { id: "projector", label: "Projektor", icon: null },
+  { id: "waitingRoom", label: "Poczekalnia", icon: null },
+  { id: "therapeuticBed", label: "Łóżko terapeutyczne", icon: <Bed className="h-4 w-4" /> },
+  { id: "manualTherapyTable", label: "Stół do terapii manualnych", icon: null },
+  { id: "workshopRoom", label: "Salka na warsztaty", icon: null }
+];
+
+// Nie używamy już useSpecializations ani useSuccessAreas - poniżej kod
 const SearchFilters = ({ type, onSearch }: SearchFiltersProps) => {
   const [distance, setDistance] = useState<number>(5);
-  
-  const specializations = useSpecializations();
-  const successAreas = useSuccessAreas();
-  
+
   const form = useForm({
     defaultValues: {
       location: "",
@@ -70,32 +107,6 @@ const SearchFilters = ({ type, onSearch }: SearchFiltersProps) => {
       distance
     });
   };
-
-  const officeEquipment = [
-    { id: "desk", label: "Biurko", icon: null },
-    { id: "couch", label: "Kanapa", icon: null },
-    { id: "internet", label: "Internet", icon: null },
-    { id: "ac", label: "Klimatyzacja", icon: null },
-    { id: "projector", label: "Projektor", icon: null },
-    { id: "waitingRoom", label: "Poczekalnia", icon: null },
-    { id: "therapeuticBed", label: "Łóżko terapeutyczne", icon: <Bed className="h-4 w-4" /> },
-    { id: "manualTherapyTable", label: "Stół do terapii manualnych", icon: null },
-    { id: "workshopRoom", label: "Salka na warsztaty", icon: null }
-  ];
-
-  const therapistServices = [
-    { id: "craniosacral", label: "Terapia czaszkowo-krzyżowa" },
-    { id: "accessBars", label: "Access Bars" },
-    { id: "tre", label: "TRE" },
-    { id: "bowen", label: "Terapia Bowena" },
-    { id: "individual", label: "Terapia indywidualna" },
-    { id: "couples", label: "Terapia par" },
-    { id: "family", label: "Terapia rodzinna" },
-    { id: "group", label: "Terapia grupowa" },
-    { id: "online", label: "Sesje online" },
-    { id: "crisis", label: "Interwencja kryzysowa" },
-    { id: "workshops", label: "Warsztaty" }
-  ];
 
   const trainingStatuses = [
     { id: "training", label: "W trakcie szkolenia" },
@@ -182,7 +193,7 @@ const SearchFilters = ({ type, onSearch }: SearchFiltersProps) => {
                                 <SelectValue placeholder="Wybierz" />
                               </SelectTrigger>
                               <SelectContent>
-                                {specializations.map((spec) => (
+                                {specialistSpecializations.map((spec) => (
                                   <SelectItem key={spec.value} value={spec.value}>
                                     {spec.label}
                                   </SelectItem>
@@ -203,7 +214,7 @@ const SearchFilters = ({ type, onSearch }: SearchFiltersProps) => {
                             Obszary sukcesów
                           </FormLabel>
                           <div className="grid grid-cols-2 gap-2">
-                            {successAreas.map((area) => (
+                            {customSuccessAreas.map((area) => (
                               <div key={`area-${area.value}`} className="flex items-center space-x-2">
                                 <Checkbox
                                   id={`area-${area.value}`}

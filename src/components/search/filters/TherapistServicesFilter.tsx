@@ -3,17 +3,18 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 
+// Nowa kolejność usług: popularne na górze, specjalistyczne na dole
 const therapistServices = [
-  { id: "craniosacral", label: "Terapia czaszkowo-krzyżowa" },
-  { id: "accessBars", label: "Access Bars" },
-  { id: "tre", label: "TRE" },
-  { id: "bowen", label: "Terapia Bowena" },
   { id: "individual", label: "Terapia indywidualna" },
   { id: "couples", label: "Terapia par" },
-  { id: "family", label: "Terapia rodzinna" },
   { id: "group", label: "Terapia grupowa" },
+  { id: "family", label: "Terapia rodzinna" },
   { id: "online", label: "Sesje online" },
   { id: "crisis", label: "Interwencja kryzysowa" },
+  { id: "tre", label: "TRE" },
+  { id: "bowen", label: "Terapia Bowena" },
+  { id: "accessBars", label: "Access Bars" },
+  { id: "craniosacral", label: "Terapia czaszkowo-krzyżowa" },
   { id: "workshops", label: "Warsztaty" }
 ];
 
