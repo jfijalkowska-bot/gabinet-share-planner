@@ -14,6 +14,8 @@ const officeStyles = [
   { value: "scandinavian", label: "Skandynawski" },
   { value: "loft", label: "Loft" },
   { value: "home", label: "Domowy" },
+  { value: "vintage", label: "Vintage" },
+  { value: "boho", label: "Boho" },
   { value: "other", label: "Inny" }
 ];
 
