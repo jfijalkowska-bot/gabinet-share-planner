@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/layout/Navbar";
@@ -85,7 +84,7 @@ const HowItWorksPage = () => {
                 </span>
               </div>
               <p className="text-gray-600 mb-6">
-                Pełen dostęp do kalendarza wizyt i narzędzi dla terapeutów.
+                Pełen dostęp do kalendarza wizyt i narzędzi dla terapeutów. Wizytówka gratis!
               </p>
               <ul className="space-y-3 mb-6">
                 <li className="flex items-start">
@@ -123,11 +122,11 @@ const HowItWorksPage = () => {
               <div className="flex justify-between items-center mb-4">
                 <h2 className="text-2xl font-semibold text-therapy-700">Właściciel gabinetu</h2>
                 <span className="px-3 py-1 bg-therapy-100 text-therapy-700 rounded-full text-sm font-medium">
-                  79 zł / miesiąc
+                  59 zł / miesiąc
                 </span>
               </div>
               <p className="text-gray-600 mb-6">
-                Zarządzaj gabinetem, udostępniaj terminy i wynajmuj powierzchnię.
+                Zarządzaj gabinetem, udostępniaj terminy, wynajmuj powierzchnię i obsługuj rezerwacje swoich klientów.
               </p>
               <ul className="space-y-3 mb-6">
                 <li className="flex items-start">

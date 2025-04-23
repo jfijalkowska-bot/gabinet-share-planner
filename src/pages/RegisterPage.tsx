@@ -140,15 +140,15 @@ const RegisterPage = () => {
                     <RadioGroupItem value="owner" id="owner" />
                     <Label htmlFor="owner" className="flex flex-col cursor-pointer w-full">
                       <span className="font-medium">Właściciel gabinetu</span>
-                      <span className="text-sm text-gray-500">Zarządzaj gabinetem i wynajmuj powierzchnię</span>
+                      <span className="text-sm text-gray-500">Zarządzaj gabinetem, wynajmuj powierzchnię i obsługuj rezerwacje swoich klientów</span>
                     </Label>
-                    <span className="font-medium text-therapy-600">79 zł/mies.</span>
+                    <span className="font-medium text-therapy-600">59 zł/mies.</span>
                   </div>
                   <div className="flex items-center space-x-2 border rounded-md p-3 hover:bg-gray-50">
                     <RadioGroupItem value="therapist" id="therapist" />
                     <Label htmlFor="therapist" className="flex flex-col cursor-pointer w-full">
                       <span className="font-medium">Terapeuta z kalendarzem</span>
-                      <span className="text-sm text-gray-500">Pełny dostęp do rezerwacji i kalendarza wizyt</span>
+                      <span className="text-sm text-gray-500">Pełny dostęp do rezerwacji, kalendarza wizyt i wizytówki w cenie</span>
                     </Label>
                     <span className="font-medium text-therapy-600">49 zł/mies.</span>
                   </div>
@@ -232,7 +232,7 @@ const RegisterPage = () => {
               </div>
               
               <Button className="w-full bg-therapy-600 hover:bg-therapy-700" type="submit" disabled={loading}>
-                {loading ? "Rejestracja..." : accountType === "free" ? "Utwórz wizytówkę za 49 zł/rok" : "Rozpocznij okres próbny"}
+                {loading ? "Rejestracja..." : accountType === "free" ? "Utwórz wizytówkę za 49 zł/rok" : accountType === "owner" ? "Rozpocznij okres próbny właściciela" : "Rozpocznij okres próbny terapeuty"}
               </Button>
               
               {accountType !== "free" && (
