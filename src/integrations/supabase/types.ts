@@ -9,6 +9,96 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      affiliate_clicks: {
+        Row: {
+          created_at: string
+          id: string
+          referrer_id: string
+          user_agent: string | null
+          visitor_ip: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          referrer_id: string
+          user_agent?: string | null
+          visitor_ip?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          referrer_id?: string
+          user_agent?: string | null
+          visitor_ip?: string | null
+        }
+        Relationships: []
+      }
+      affiliate_conversions: {
+        Row: {
+          amount: number
+          commission: number
+          created_at: string
+          id: string
+          plan_type: string
+          referred_user_id: string
+          referrer_id: string
+          status: string
+        }
+        Insert: {
+          amount: number
+          commission: number
+          created_at?: string
+          id?: string
+          plan_type: string
+          referred_user_id: string
+          referrer_id: string
+          status?: string
+        }
+        Update: {
+          amount?: number
+          commission?: number
+          created_at?: string
+          id?: string
+          plan_type?: string
+          referred_user_id?: string
+          referrer_id?: string
+          status?: string
+        }
+        Relationships: []
+      }
+      affiliate_payouts: {
+        Row: {
+          affiliate_id: string
+          amount: number
+          completed_at: string | null
+          created_at: string
+          id: string
+          payout_details: Json | null
+          payout_method: string | null
+          status: string
+        }
+        Insert: {
+          affiliate_id: string
+          amount: number
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          payout_details?: Json | null
+          payout_method?: string | null
+          status?: string
+        }
+        Update: {
+          affiliate_id?: string
+          amount?: number
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          payout_details?: Json | null
+          payout_method?: string | null
+          status?: string
+        }
+        Relationships: []
+      }
       bookings: {
         Row: {
           booking_type: string
@@ -182,7 +272,14 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_affiliate_earnings: {
+        Args: { affiliate_id: string }
+        Returns: {
+          total_earnings: number
+          pending_earnings: number
+          paid_earnings: number
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never

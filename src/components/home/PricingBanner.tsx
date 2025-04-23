@@ -14,7 +14,7 @@ const PricingBanner = () => {
               </h2>
               <p className="text-gray-600 mb-4">
                 Wyszukuj gabinety i terapeutów całkowicie bezpłatnie. 
-                Płać tylko za zaawansowane funkcje, gdy ich faktycznie potrzebujesz.
+                Wybierz plan dopasowany do swoich potrzeb - od wizytówki za 49 zł rocznie po pełny abonament.
               </p>
               <div className="flex flex-wrap gap-4">
                 <Link to="/how-it-works">

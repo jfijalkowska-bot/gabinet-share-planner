@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -25,11 +24,9 @@ const RegisterPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Sprawdź, czy użytkownik przyszedł z linku afiliacyjnego
   const [referralCode, setReferralCode] = useState<string | null>(null);
 
   useEffect(() => {
-    // Extract plan and ref from URL params (if any)
     const params = new URLSearchParams(location.search);
     const plan = params.get("plan");
     const ref = params.get("ref");
@@ -71,11 +68,9 @@ const RegisterPage = () => {
     setLoading(true);
 
     try {
-      // Rozdzielamy imię i nazwisko
       const [firstName, ...lastNameParts] = name.trim().split(' ');
       const lastName = lastNameParts.join(' ');
 
-      // Rejestracja użytkownika
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
@@ -147,7 +142,7 @@ const RegisterPage = () => {
                       <span className="font-medium">Właściciel gabinetu</span>
                       <span className="text-sm text-gray-500">Zarządzaj gabinetem i wynajmuj powierzchnię</span>
                     </Label>
-                    <span className="font-medium text-therapy-600">59 zł/mies.</span>
+                    <span className="font-medium text-therapy-600">79 zł/mies.</span>
                   </div>
                   <div className="flex items-center space-x-2 border rounded-md p-3 hover:bg-gray-50">
                     <RadioGroupItem value="therapist" id="therapist" />
@@ -155,7 +150,7 @@ const RegisterPage = () => {
                       <span className="font-medium">Terapeuta z kalendarzem</span>
                       <span className="text-sm text-gray-500">Pełny dostęp do rezerwacji i kalendarza wizyt</span>
                     </Label>
-                    <span className="font-medium text-therapy-600">29 zł/mies.</span>
+                    <span className="font-medium text-therapy-600">49 zł/mies.</span>
                   </div>
                   <div className="flex items-center space-x-2 border rounded-md p-3 hover:bg-gray-50">
                     <RadioGroupItem value="free" id="free" />
@@ -163,7 +158,7 @@ const RegisterPage = () => {
                       <span className="font-medium">Wizytówka terapeuty</span>
                       <span className="text-sm text-gray-500">Podstawowa wizytówka bez kalendarza</span>
                     </Label>
-                    <span className="font-medium text-green-600">Bezpłatnie</span>
+                    <span className="font-medium text-green-600">49 zł/rok</span>
                   </div>
                 </RadioGroup>
               </div>
@@ -237,7 +232,7 @@ const RegisterPage = () => {
               </div>
               
               <Button className="w-full bg-therapy-600 hover:bg-therapy-700" type="submit" disabled={loading}>
-                {loading ? "Rejestracja..." : accountType === "free" ? "Utwórz bezpłatną wizytówkę" : "Rozpocznij okres próbny"}
+                {loading ? "Rejestracja..." : accountType === "free" ? "Utwórz wizytówkę za 49 zł/rok" : "Rozpocznij okres próbny"}
               </Button>
               
               {accountType !== "free" && (

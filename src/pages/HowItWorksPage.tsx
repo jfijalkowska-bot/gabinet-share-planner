@@ -52,7 +52,7 @@ const HowItWorksPage = () => {
             <div className="bg-white rounded-lg p-6 shadow-md border border-gray-100">
               <h2 className="text-2xl font-semibold mb-4 text-therapy-600">Wizytówka terapeuty</h2>
               <p className="text-gray-600 mb-6">
-                Jednorazowa opłata 49 zł pozwala na stworzenie profesjonalnej wizytówki online.
+                Jednorazowa opłata 49 zł pozwala na stworzenie profesjonalnej wizytówki online na rok.
               </p>
               <ul className="space-y-3 mb-6">
                 <li className="flex items-start">
@@ -81,7 +81,7 @@ const HowItWorksPage = () => {
               <div className="flex justify-between items-center mb-4">
                 <h2 className="text-2xl font-semibold text-therapy-700">Terapeuta z kalendarzem</h2>
                 <span className="px-3 py-1 bg-therapy-100 text-therapy-700 rounded-full text-sm font-medium">
-                  29 zł / miesiąc
+                  49 zł / miesiąc
                 </span>
               </div>
               <p className="text-gray-600 mb-6">
@@ -104,6 +104,10 @@ const HowItWorksPage = () => {
                   <Check className="h-5 w-5 text-green-500 mr-2 mt-0.5" />
                   <span>Program partnerski (10% prowizji)</span>
                 </li>
+                <li className="flex items-start">
+                  <Check className="h-5 w-5 text-green-500 mr-2 mt-0.5" />
+                  <span>Wizytówka terapeuty w cenie</span>
+                </li>
               </ul>
               <Link to="/register?plan=therapist">
                 <Button className="w-full bg-therapy-600 hover:bg-therapy-700">
@@ -119,7 +123,7 @@ const HowItWorksPage = () => {
               <div className="flex justify-between items-center mb-4">
                 <h2 className="text-2xl font-semibold text-therapy-700">Właściciel gabinetu</h2>
                 <span className="px-3 py-1 bg-therapy-100 text-therapy-700 rounded-full text-sm font-medium">
-                  59 zł / miesiąc
+                  79 zł / miesiąc
                 </span>
               </div>
               <p className="text-gray-600 mb-6">
@@ -137,6 +141,10 @@ const HowItWorksPage = () => {
                 <li className="flex items-start">
                   <Check className="h-5 w-5 text-green-500 mr-2 mt-0.5" />
                   <span>Panel zarządzania wynajmem</span>
+                </li>
+                <li className="flex items-start">
+                  <Check className="h-5 w-5 text-green-500 mr-2 mt-0.5" />
+                  <span>Obsługa rezerwacji klientów</span>
                 </li>
                 <li className="flex items-start">
                   <Check className="h-5 w-5 text-green-500 mr-2 mt-0.5" />
@@ -188,8 +196,8 @@ const HowItWorksPage = () => {
                     Polecenie 5 terapeutów miesięcznie:
                   </p>
                   <div className="text-center">
-                    <p className="font-bold text-2xl text-therapy-600">145 zł / mies.</p>
-                    <p className="text-xs text-gray-500 mt-1">(5 x 29zł x 10%)</p>
+                    <p className="font-bold text-2xl text-therapy-600">245 zł / mies.</p>
+                    <p className="text-xs text-gray-500 mt-1">(5 x 49zł x 10%)</p>
                   </div>
                 </div>
               </div>
