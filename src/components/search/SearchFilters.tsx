@@ -38,7 +38,7 @@ const SearchFilters = ({ type, onSearch }: SearchFiltersProps) => {
       distance: 5,
       priceMin: "",
       priceMax: "",
-      priceType: "hour",
+      priceType: "",
       capacity: "",
       equipment: [] as string[],
       otherEquipment: "",
@@ -47,8 +47,9 @@ const SearchFilters = ({ type, onSearch }: SearchFiltersProps) => {
       specialization: "",
       modality: "",
       experience: "",
-      therapyApproach: "",
+      therapyApproach: [],
       successAreas: [] as string[],
+      otherSuccessAreas: "",
       services: [] as string[],
       keywords: "",
       otherServices: "",
@@ -78,6 +79,7 @@ const SearchFilters = ({ type, onSearch }: SearchFiltersProps) => {
                 <PriceFilter 
                   register={form.register}
                   control={form.control}
+                  type={type}
                 />
                 {type === "office" && (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

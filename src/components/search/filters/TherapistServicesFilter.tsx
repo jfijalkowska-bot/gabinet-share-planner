@@ -3,7 +3,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 
-// Nowa kolejność usług: popularne na górze, specjalistyczne na dole
+// Usługi terapeuty: popularne na górze, specjalistyczne na dole
 const therapistServices = [
   { id: "individual", label: "Terapia indywidualna" },
   { id: "couples", label: "Terapia par" },
@@ -11,6 +11,7 @@ const therapistServices = [
   { id: "family", label: "Terapia rodzinna" },
   { id: "online", label: "Sesje online" },
   { id: "crisis", label: "Interwencja kryzysowa" },
+  { id: "supportGroup", label: "Grupa wsparcia" },
   { id: "emdr", label: "EMDR" },
   { id: "brainspotting", label: "Brainspotting" },
   { id: "se", label: "SE" },

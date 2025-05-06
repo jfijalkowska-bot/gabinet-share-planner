@@ -4,6 +4,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { FormItem, FormLabel } from "@/components/ui/form";
 import { UseFormRegister } from "react-hook-form";
+import { Input } from "@/components/ui/input";
 
 interface SuccessAreasFilterProps {
   register: UseFormRegister<any>;
@@ -12,11 +13,14 @@ interface SuccessAreasFilterProps {
 const customSuccessAreas = [
   { value: "depresja", label: "Depresja" },
   { value: "leki", label: "Lęki" },
+  { value: "uzaleznienia", label: "Terapia uzależnień" },
   { value: "terapia_par", label: "Terapia par" },
   { value: "terapia_rodzinna", label: "Terapia rodzinna" },
   { value: "terapia_traumy", label: "Terapia traumy" },
   { value: "terapia_dzieci", label: "Terapia dzieci" },
   { value: "terapia_mlodziezy", label: "Terapia młodzieży" },
+  { value: "adhd_autyzm", label: "ADHD i Autyzm" },
+  { value: "lgbt_plus", label: "LGBT+" },
   { value: "zaburzenia_psychosomatyczne", label: "Zaburzenia psychosomatyczne" },
   { value: "zaburzenia_osobowosci", label: "Zaburzenia osobowości" }
 ];
@@ -43,6 +47,13 @@ const SuccessAreasFilter = ({ register }: SuccessAreasFilterProps) => (
           </Label>
         </div>
       ))}
+    </div>
+    <div className="mt-2">
+      <Label className="block mb-1">Inne obszary</Label>
+      <Input
+        placeholder="Wpisz inne obszary sukcesów"
+        {...register("otherSuccessAreas")}
+      />
     </div>
   </FormItem>
 );
