@@ -28,7 +28,7 @@ const Index = () => {
                 <Link to="/register">Rozpocznij za darmo</Link>
               </Button>
               <Button asChild size="lg" variant="outline">
-                <Link to="/search">Szukaj gabinetu</Link>
+                <Link to="/search">Wyszukaj gabinet/znajdź specjalistę</Link>
               </Button>
             </div>
           </div>

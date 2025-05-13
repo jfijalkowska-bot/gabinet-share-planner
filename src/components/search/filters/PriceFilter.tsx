@@ -18,7 +18,7 @@ const getOfficeTypes = [
 ];
 
 const getTherapistTypes = [
-  { value: "session", label: "Za spotkanie (50 minut)" },
+  { value: "session", label: "Za spotkanie" },
   { value: "custom", label: "Za spotkanie (czas określony przez terapeutę)" }
 ];
 
