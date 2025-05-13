@@ -19,7 +19,7 @@ const RegisterPage = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [acceptTerms, setAcceptTerms] = useState(false);
-  const [accountType, setAccountType] = useState<"owner" | "therapist" | "free">("therapist");
+  const [accountType, setAccountType] = useState<"owner" | "therapist" | "free" | "client">("therapist");
   const [loading, setLoading] = useState(false);
   const [expandedDetails, setExpandedDetails] = useState<string | null>(null);
   
@@ -43,6 +43,8 @@ const RegisterPage = () => {
       setAccountType("therapist");
     } else if (plan === "free") {
       setAccountType("free");
+    } else if (plan === "client") {
+      setAccountType("client");
     }
   }, [location]);
 
@@ -102,6 +104,17 @@ const RegisterPage = () => {
           variant: "destructive",
         });
       } else {
+        // If user is a client, create their profile entry
+        if (accountType === "client" && data.user) {
+          const { error: profileError } = await supabase
+            .from('client_profiles')
+            .insert({ id: data.user.id });
+          
+          if (profileError) {
+            console.error("Error creating client profile:", profileError);
+          }
+        }
+        
         toast({
           title: "Rejestracja pomyślna",
           description: "Sprawdź swoją skrzynkę email, aby potwierdzić konto.",
@@ -142,6 +155,14 @@ const RegisterPage = () => {
       "Możliwość kontaktu przez platformę",
       "Brak ograniczeń czasowych",
       "Opcja rozszerzenia w przyszłości"
+    ],
+    client: [
+      "Rezerwacja wizyt u specjalistów",
+      "Wystawianie ocen i opinii",
+      "Przeglądanie profili terapeutów",
+      "Płatności online za wizyty",
+      "Powiadomienia o terminach",
+      "Historia wizyt"
     ]
   };
 
@@ -169,7 +190,7 @@ const RegisterPage = () => {
                 <Label className="text-base font-medium">Wybierz rodzaj konta</Label>
                 <RadioGroup 
                   defaultValue={accountType} 
-                  onValueChange={(value) => setAccountType(value as "owner" | "therapist" | "free")} 
+                  onValueChange={(value) => setAccountType(value as "owner" | "therapist" | "free" | "client")} 
                   className="grid grid-cols-1 gap-4"
                 >
                   <div className="flex flex-col border rounded-md p-3 hover:bg-gray-50">
@@ -254,6 +275,33 @@ const RegisterPage = () => {
                       </ul>
                     )}
                   </div>
+                  <div className="flex flex-col border rounded-md p-3 hover:bg-gray-50">
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="client" id="client" />
+                      <Label htmlFor="client" className="flex flex-col cursor-pointer w-full">
+                        <span className="font-medium">Klient (przeglądaj za darmo)</span>
+                        <span className="text-sm text-gray-500">Rezerwuj wizyty i wystawiaj opinie terapeutom</span>
+                      </Label>
+                      <span className="font-medium text-green-600">Za darmo</span>
+                    </div>
+                    <Button 
+                      type="button" 
+                      variant="ghost" 
+                      size="sm" 
+                      className="mt-2 text-xs flex items-center w-fit"
+                      onClick={() => toggleDetails("client")}
+                    >
+                      {expandedDetails === "client" ? "Ukryj szczegóły" : "Zobacz co zawiera"}
+                      {expandedDetails === "client" ? <ChevronUp className="h-3 w-3 ml-1" /> : <ChevronDown className="h-3 w-3 ml-1" />}
+                    </Button>
+                    {expandedDetails === "client" && (
+                      <ul className="mt-2 text-sm text-gray-600 list-disc pl-5">
+                        {planDetails.client.map((item, index) => (
+                          <li key={index}>{item}</li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
                 </RadioGroup>
               </div>
               
@@ -326,13 +374,18 @@ const RegisterPage = () => {
               </div>
               
               <Button className="w-full bg-therapy-600 hover:bg-therapy-700" type="submit" disabled={loading}>
-                {loading ? "Rejestracja..." : accountType === "free" ? "Utwórz wizytówkę za 49 zł" : "Rozpocznij 30-dniowy okres próbny"}
+                {loading ? "Rejestracja..." : 
+                 accountType === "client" ? "Zarejestruj się za darmo" :
+                 accountType === "free" ? "Utwórz wizytówkę za 49 zł" : 
+                 "Rozpocznij 30-dniowy okres próbny"}
               </Button>
               
               <p className="text-xs text-center text-gray-500">
-                {accountType !== "free" ? 
+                {accountType !== "free" && accountType !== "client" ? 
                   "30 dni za darmo, bez automatycznego przedłużenia. Płatność wymagana po zakończeniu okresu próbnego." : 
-                  "Jednorazowa opłata, bez terminu ważności. Płatność po rejestracji."}
+                  accountType === "free" ? 
+                  "Jednorazowa opłata, bez terminu ważności. Płatność po rejestracji." :
+                  "Całkowicie za darmo. Płacisz tylko za wizyty, które rezerwujesz."}
               </p>
 
               {referralCode && (

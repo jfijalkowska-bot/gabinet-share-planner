@@ -135,6 +135,57 @@ export type Database = {
         }
         Relationships: []
       }
+      client_profiles: {
+        Row: {
+          created_at: string
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      office_reviews: {
+        Row: {
+          office_id: string
+          rental_id: string | null
+          review_id: string
+        }
+        Insert: {
+          office_id: string
+          rental_id?: string | null
+          review_id: string
+        }
+        Update: {
+          office_id?: string
+          rental_id?: string | null
+          review_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "office_reviews_office_id_fkey"
+            columns: ["office_id"]
+            isOneToOne: false
+            referencedRelation: "offices"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "office_reviews_review_id_fkey"
+            columns: ["review_id"]
+            isOneToOne: true
+            referencedRelation: "reviews"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       offices: {
         Row: {
           address: string | null
@@ -216,6 +267,59 @@ export type Database = {
         }
         Relationships: []
       }
+      reviews: {
+        Row: {
+          comment: string | null
+          created_at: string
+          id: string
+          rating: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          comment?: string | null
+          created_at?: string
+          id?: string
+          rating: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          comment?: string | null
+          created_at?: string
+          id?: string
+          rating?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      therapist_reviews: {
+        Row: {
+          appointment_id: string | null
+          review_id: string
+          therapist_id: string
+        }
+        Insert: {
+          appointment_id?: string | null
+          review_id: string
+          therapist_id: string
+        }
+        Update: {
+          appointment_id?: string | null
+          review_id?: string
+          therapist_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "therapist_reviews_review_id_fkey"
+            columns: ["review_id"]
+            isOneToOne: true
+            referencedRelation: "reviews"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       therapist_specializations: {
         Row: {
           category: string | null
@@ -264,6 +368,48 @@ export type Database = {
           label?: string
           updated_at?: string | null
           value?: string
+        }
+        Relationships: []
+      }
+      transactions: {
+        Row: {
+          amount: number
+          appointment_id: string | null
+          created_at: string
+          currency: string
+          id: string
+          payment_method: string | null
+          payment_type: string
+          rental_id: string | null
+          status: string
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          amount: number
+          appointment_id?: string | null
+          created_at?: string
+          currency?: string
+          id?: string
+          payment_method?: string | null
+          payment_type: string
+          rental_id?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          amount?: number
+          appointment_id?: string | null
+          created_at?: string
+          currency?: string
+          id?: string
+          payment_method?: string | null
+          payment_type?: string
+          rental_id?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string | null
         }
         Relationships: []
       }
