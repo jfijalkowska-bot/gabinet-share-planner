@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import PostCard from "./PostCard";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Post } from "./PostCard";
 
 type PostCategory = "pytania" | "inspiracje" | "szkolenia" | "recenzje" | null;
 
@@ -10,7 +11,7 @@ interface CommunityPostsProps {
 }
 
 // Dane testowe dla postów
-const dummyPosts = [
+const dummyPosts: Post[] = [
   {
     id: "1",
     title: "Jakie książki polecacie na temat terapii poznawczo-behawioralnej?",
@@ -71,7 +72,7 @@ const dummyPosts = [
 
 const CommunityPosts = ({ category }: CommunityPostsProps) => {
   const [loading, setLoading] = useState(true);
-  const [posts, setPosts] = useState<typeof dummyPosts>([]);
+  const [posts, setPosts] = useState<Post[]>([]);
 
   useEffect(() => {
     // Symulacja ładowania danych

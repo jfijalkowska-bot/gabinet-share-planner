@@ -20,6 +20,7 @@ import {
   SelectValue 
 } from "@/components/ui/select";
 import { toast } from "@/components/ui/use-toast";
+import { Post } from "./PostCard";
 
 interface CreatePostDialogProps {
   open: boolean;
@@ -30,7 +31,7 @@ const CreatePostDialog = ({ open, onOpenChange }: CreatePostDialogProps) => {
   const { user } = useAuth();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState<Post["category"] | "">("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = () => {
@@ -90,7 +91,7 @@ const CreatePostDialog = ({ open, onOpenChange }: CreatePostDialogProps) => {
         <div className="grid gap-5 py-4">
           <div className="grid gap-2">
             <Label htmlFor="category">Kategoria</Label>
-            <Select value={category} onValueChange={setCategory}>
+            <Select value={category} onValueChange={setCategory as (value: string) => void}>
               <SelectTrigger id="category">
                 <SelectValue placeholder="Wybierz kategorię" />
               </SelectTrigger>
