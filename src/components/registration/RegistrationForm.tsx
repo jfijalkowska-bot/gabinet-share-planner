@@ -114,7 +114,7 @@ const RegistrationForm = ({
       
       <Button className="w-full bg-therapy-600 hover:bg-therapy-700" type="submit" disabled={loading}>
         {loading ? "Rejestracja..." : 
-          accountType === "client" ? "Zarejestruj się za darmo" :
+          accountType === "client" ? "Zarejestruj się za darmo i zarabiaj na poleceniach" :
           accountType === "free" ? "Utwórz wizytówkę za 49 zł" : 
           "Rozpocznij 30-dniowy okres próbny"}
       </Button>
@@ -124,7 +124,7 @@ const RegistrationForm = ({
           "30 dni za darmo, bez automatycznego przedłużenia. Płatność wymagana po zakończeniu okresu próbnego." : 
           accountType === "free" ? 
           "Jednorazowa opłata, bez terminu ważności. Płatność po rejestracji." :
-          "Całkowicie za darmo. Płacisz tylko za wizyty, które rezerwujesz."}
+          "Całkowicie za darmo. Płacisz tylko za wizyty, które rezerwujesz. Zarabiaj 10% na poleceniach."}
       </p>
 
       {referralCode && (

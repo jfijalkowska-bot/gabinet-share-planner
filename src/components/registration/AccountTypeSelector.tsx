@@ -31,21 +31,24 @@ const AccountTypeSelector = ({ accountType, onChange }: AccountTypeSelectorProps
       "Kalendarz wizyt",
       "Wizytówka w cenie",
       "Panel administracyjny",
-      "Raportowanie i statystyki"
+      "Raportowanie i statystyki",
+      "Zarabiaj na poleceniach (program partnerski)"
     ],
     therapist: [
       "Pełny dostęp do kalendarza wizyt",
       "Zarządzanie rezerwacjami",
       "Wizytówka terapeuty",
       "Powiadomienia o wizytach",
-      "Historia spotkań z klientami"
+      "Historia spotkań z klientami",
+      "Zarabiaj na poleceniach (program partnerski)"
     ],
     free: [
       "Podstawowa wizytówka terapeuty",
       "Profil w katalogu specjalistów",
       "Możliwość kontaktu przez platformę",
       "Brak ograniczeń czasowych",
-      "Opcja rozszerzenia w przyszłości"
+      "Opcja rozszerzenia w przyszłości",
+      "Zarabiaj na poleceniach (program partnerski)"
     ],
     client: [
       "Rezerwacja wizyt u specjalistów",
@@ -53,7 +56,8 @@ const AccountTypeSelector = ({ accountType, onChange }: AccountTypeSelectorProps
       "Przeglądanie profili terapeutów",
       "Płatności online za wizyty",
       "Powiadomienia o terminach",
-      "Historia wizyt"
+      "Historia wizyt",
+      "Zarabiaj na poleceniach (program partnerski)"
     ]
   };
 
@@ -150,12 +154,12 @@ const AccountTypeSelector = ({ accountType, onChange }: AccountTypeSelectorProps
           )}
         </div>
 
-        <div className="flex flex-col border rounded-md p-3 hover:bg-gray-50">
+        <div className="flex flex-col border rounded-md p-3 hover:bg-gray-50 border-therapy-200 bg-therapy-50">
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="client" id="client" />
             <Label htmlFor="client" className="flex flex-col cursor-pointer w-full">
               <span className="font-medium">Klient (przeglądaj za darmo)</span>
-              <span className="text-sm text-gray-500">Rezerwuj wizyty i wystawiaj opinie terapeutom</span>
+              <span className="text-sm text-gray-500">Rezerwuj wizyty, wystawiaj opinie i zarabiaj na poleceniach</span>
             </Label>
             <span className="font-medium text-green-600">Za darmo</span>
           </div>

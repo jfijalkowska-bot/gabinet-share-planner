@@ -126,7 +126,7 @@ const AffiliatePage = () => {
             </Dialog>
             
             <Button variant="outline" className="w-full" asChild>
-              <a href="mailto:?subject=Poznaj GabinetShare&body=Cześć! Znalazłem/am świetną platformę do wynajmu gabinetów i zarządzania kalendarzem wizyt. Sprawdź: ${affiliateLink}">
+              <a href={`mailto:?subject=Poznaj GabinetShare&body=Cześć! Znalazłem/am świetną platformę do wynajmu gabinetów i zarządzania kalendarzem wizyt. Sprawdź: ${affiliateLink}`}>
                 Udostępnij przez email
               </a>
             </Button>
@@ -176,7 +176,7 @@ const AffiliatePage = () => {
             </div>
             <div>
               <h4 className="font-medium">Udostępnij swój link</h4>
-              <p className="text-sm text-gray-600">Podziel się swoim unikalnym linkiem afiliacyjnym z innymi terapeutami i właścicielami gabinetów.</p>
+              <p className="text-sm text-gray-600">Podziel się swoim unikalnym linkiem afiliacyjnym z innymi terapeutami, właścicielami gabinetów lub potencjalnymi klientami.</p>
             </div>
           </div>
           
@@ -200,8 +200,15 @@ const AffiliatePage = () => {
             </div>
             <div>
               <h4 className="font-medium">Otrzymuj prowizję</h4>
-              <p className="text-sm text-gray-600">Zarabiaj 10% prowizji od każdego zakupu dokonanego przez osoby, które skorzystały z Twojego linka.</p>
+              <p className="text-sm text-gray-600">Zarabiaj 10% prowizji od każdego zakupu dokonanego przez osoby, które skorzystały z Twojego linka. <strong>Program partnerski dostępny dla wszystkich typów kont!</strong></p>
             </div>
+          </div>
+          
+          <div className="mt-6 p-4 bg-green-50 border border-green-100 rounded-md">
+            <h3 className="font-medium text-green-800 mb-2">Nowość: Program partnerski dla klientów!</h3>
+            <p className="text-sm text-green-700">
+              Teraz każdy może zarabiać na poleceniach - również klienci! Wystarczy, że zarejestrujesz się jako klient, a Twój link afiliacyjny będzie aktywny. Zapraszaj innych do skorzystania z GabinetShare i zarabiaj 10% prowizji od ich płatnych planów.
+            </p>
           </div>
         </CardContent>
       </Card>
@@ -220,6 +227,9 @@ const AffiliatePage = () => {
             </h1>
             <p className="text-xl text-gray-600">
               Zarabiaj 10% prowizji polecając naszą platformę innym
+            </p>
+            <p className="text-md text-therapy-600 mt-2 font-medium">
+              Nowość: Program partnerski dostępny również dla klientów!
             </p>
           </div>
           
