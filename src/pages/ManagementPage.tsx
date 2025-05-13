@@ -4,7 +4,7 @@ import Footer from "@/components/layout/Footer";
 import PageHeader from "@/components/common/PageHeader";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { LayoutDashboard, Users, Briefcase, Cog } from "lucide-react";
+import { LayoutDashboard, Users, Briefcase, Cog, Calendar } from "lucide-react";
 
 const ManagementPage = () => {
   return (
