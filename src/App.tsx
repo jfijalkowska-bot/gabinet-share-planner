@@ -18,6 +18,7 @@ import { AuthProvider } from "./components/auth/AuthProvider";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import HowItWorksPage from "./pages/HowItWorksPage";
 import AffiliatePage from "./pages/AffiliatePage";
+import ManagementPage from "./pages/ManagementPage";
 
 const queryClient = new QueryClient();
 
@@ -43,6 +44,11 @@ const App = () => (
             <Route path="/appointments" element={
               <ProtectedRoute>
                 <AppointmentsPage />
+              </ProtectedRoute>
+            } />
+            <Route path="/management" element={
+              <ProtectedRoute>
+                <ManagementPage />
               </ProtectedRoute>
             } />
             <Route path="/login" element={<LoginPage />} />

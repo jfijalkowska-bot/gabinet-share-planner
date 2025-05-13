@@ -1,4 +1,5 @@
 
+
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
@@ -7,7 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Calendar, User, Search, LogOut } from "lucide-react";
+import { Calendar, User, Search, LogOut, LayoutDashboard } from "lucide-react";
 import { useAuth, signOut } from "@/components/auth/AuthProvider";
 
 const Navbar = () => {
@@ -25,14 +26,14 @@ const Navbar = () => {
         </div>
         
         <div className="hidden md:flex items-center space-x-6">
-          <Link to="/" className="text-gray-700 hover:text-therapy-600 transition-colors">
-            Strona główna
-          </Link>
           <Link to="/search" className="text-gray-700 hover:text-therapy-600 transition-colors">
             Wyszukaj specjalistę
           </Link>
           <Link to="/community" className="text-gray-700 hover:text-therapy-600 transition-colors">
             Społeczność
+          </Link>
+          <Link to="/affiliate" className="text-gray-700 hover:text-therapy-600 transition-colors">
+            Program partnerski
           </Link>
           {user && (
             <>
@@ -44,6 +45,9 @@ const Navbar = () => {
               </Link>
               <Link to="/appointments" className="text-gray-700 hover:text-therapy-600 transition-colors">
                 Wizyty
+              </Link>
+              <Link to="/management" className="text-gray-700 hover:text-therapy-600 transition-colors">
+                Zarządzanie
               </Link>
             </>
           )}
