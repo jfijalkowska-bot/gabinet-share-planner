@@ -31,6 +31,9 @@ const Navbar = () => {
           <Link to="/search" className="text-gray-700 hover:text-therapy-600 transition-colors">
             Wyszukaj specjalistę
           </Link>
+          <Link to="/community" className="text-gray-700 hover:text-therapy-600 transition-colors">
+            Społeczność
+          </Link>
           {user && (
             <>
               <Link to="/calendar" className="text-gray-700 hover:text-therapy-600 transition-colors">

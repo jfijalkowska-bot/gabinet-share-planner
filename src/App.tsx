@@ -13,6 +13,7 @@ import RegisterPage from "./pages/RegisterPage";
 import SearchPage from "./pages/SearchPage";
 import NotFound from "./pages/NotFound";
 import EmbedPage from "./pages/EmbedPage";
+import CommunityPage from "./pages/CommunityPage";
 import { AuthProvider } from "./components/auth/AuthProvider";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import HowItWorksPage from "./pages/HowItWorksPage";
@@ -47,6 +48,7 @@ const App = () => (
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/search" element={<SearchPage />} />
+            <Route path="/community" element={<CommunityPage />} />
             <Route path="/embed" element={<EmbedPage />} />
             <Route path="/how-it-works" element={<HowItWorksPage />} />
             <Route path="/affiliate" element={<AffiliatePage />} />
