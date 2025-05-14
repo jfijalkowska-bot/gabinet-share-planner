@@ -1,69 +1,57 @@
 
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
-import CalendarPage from "./pages/CalendarPage";
-import RentalPage from "./pages/RentalPage";
-import AppointmentsPage from "./pages/AppointmentsPage";
-import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
-import SearchPage from "./pages/SearchPage";
-import NotFound from "./pages/NotFound";
-import EmbedPage from "./pages/EmbedPage";
-import CommunityPage from "./pages/CommunityPage";
-import { AuthProvider } from "./components/auth/AuthProvider";
-import ProtectedRoute from "./components/auth/ProtectedRoute";
-import HowItWorksPage from "./pages/HowItWorksPage";
-import AffiliatePage from "./pages/AffiliatePage";
-import ManagementPage from "./pages/ManagementPage";
+import { AuthProvider } from "@/components/auth/AuthProvider";
+import ProtectedRoute from "@/components/auth/ProtectedRoute";
 
-const queryClient = new QueryClient();
+// Pages
+import Index from "@/pages/Index";
+import LoginPage from "@/pages/LoginPage";
+import RegisterPage from "@/pages/RegisterPage";
+import SearchPage from "@/pages/SearchPage";
+import CalendarPage from "@/pages/CalendarPage";
+import AppointmentsPage from "@/pages/AppointmentsPage";
+import ManagementPage from "@/pages/ManagementPage";
+import RentalPage from "@/pages/RentalPage";
+import EmbedPage from "@/pages/EmbedPage";
+import CommunityPage from "@/pages/CommunityPage";
+import AffiliatePage from "@/pages/AffiliatePage";
+import HowItWorksPage from "@/pages/HowItWorksPage";
+import NotFound from "@/pages/NotFound";
+import PaymentsInfoPage from "@/pages/PaymentsInfoPage";
+import TermsPage from "@/pages/TermsPage";
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
+import "./App.css";
+
+function App() {
+  return (
+    <Router>
       <AuthProvider>
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/search" element={<SearchPage />} />
+          <Route path="/how-it-works" element={<HowItWorksPage />} />
+          <Route path="/affiliate" element={<AffiliatePage />} />
+          <Route path="/payments-info" element={<PaymentsInfoPage />} />
+          <Route path="/terms" element={<TermsPage />} />
+          
+          {/* Chronione ścieżki */}
+          <Route path="/calendar" element={<ProtectedRoute><CalendarPage /></ProtectedRoute>} />
+          <Route path="/appointments" element={<ProtectedRoute><AppointmentsPage /></ProtectedRoute>} />
+          <Route path="/management" element={<ProtectedRoute><ManagementPage /></ProtectedRoute>} />
+          <Route path="/rental" element={<ProtectedRoute><RentalPage /></ProtectedRoute>} />
+          <Route path="/embed" element={<ProtectedRoute><EmbedPage /></ProtectedRoute>} />
+          <Route path="/community" element={<ProtectedRoute><CommunityPage /></ProtectedRoute>} />
+          
+          {/* 404 */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
         <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/calendar" element={
-              <ProtectedRoute>
-                <CalendarPage />
-              </ProtectedRoute>
-            } />
-            <Route path="/rent" element={
-              <ProtectedRoute>
-                <RentalPage />
-              </ProtectedRoute>
-            } />
-            <Route path="/appointments" element={
-              <ProtectedRoute>
-                <AppointmentsPage />
-              </ProtectedRoute>
-            } />
-            <Route path="/management" element={
-              <ProtectedRoute>
-                <ManagementPage />
-              </ProtectedRoute>
-            } />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/search" element={<SearchPage />} />
-            <Route path="/community" element={<CommunityPage />} />
-            <Route path="/embed" element={<EmbedPage />} />
-            <Route path="/how-it-works" element={<HowItWorksPage />} />
-            <Route path="/affiliate" element={<AffiliatePage />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
       </AuthProvider>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+    </Router>
+  );
+}
 
 export default App;
