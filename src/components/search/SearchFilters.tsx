@@ -23,6 +23,7 @@ import SpecializationFilter from "./filters/SpecializationFilter";
 import SuccessAreasFilter from "./filters/SuccessAreasFilter";
 import KeywordsFilter from "./filters/KeywordsFilter";
 import TherapyApproachFilter from "./filters/TherapyApproachFilter";
+import TimeAvailabilityFilter from "./filters/TimeAvailabilityFilter";
 
 interface SearchFiltersProps {
   type: "office" | "specialist";
@@ -53,7 +54,10 @@ const SearchFilters = ({ type, onSearch }: SearchFiltersProps) => {
       services: [] as string[],
       keywords: "",
       otherServices: "",
-      trainingStatus: [] as string[]
+      trainingStatus: [] as string[],
+      timeSlots: [] as string[],
+      daysOfWeek: [] as string[],
+      prioritizeEarliestSlot: false
     }
   });
 
@@ -91,6 +95,8 @@ const SearchFilters = ({ type, onSearch }: SearchFiltersProps) => {
                   <>
                     <KeywordsFilter register={form.register} />
                     <TherapyApproachFilter control={form.control} />
+                    {/* Add TimeAvailabilityFilter for specialists only */}
+                    <TimeAvailabilityFilter register={form.register} />
                   </>
                 )}
               </div>

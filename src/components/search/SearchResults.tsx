@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { MapPin, Star, Users, Building, Clock, User } from "lucide-react";
+import { MapPin, Star, Users, Building, Clock, User, Calendar } from "lucide-react";
 
 interface SearchResultsProps {
   results: any[];
@@ -72,6 +72,11 @@ const SearchResults = ({ results, isLoading, type }: SearchResultsProps) => {
                 <MapPin className="h-3 w-3" /> {item.distance} km
               </Badge>
             )}
+            {type === "specialist" && item.earliestAvailable === "Dziś" && (
+              <Badge variant="destructive" className="absolute top-2 left-2">
+                Dostępny dziś!
+              </Badge>
+            )}
           </div>
           <CardHeader className="p-4 pb-2">
             <div className="flex justify-between items-start">
@@ -120,6 +125,27 @@ const SearchResults = ({ results, isLoading, type }: SearchResultsProps) => {
                     <Clock className="h-3 w-3" /> Doświadczenie: {item.experience}
                   </p>
                 )}
+                
+                {/* New section for time availability */}
+                {item.earliestAvailable && (
+                  <div className="mt-2 mb-1 space-y-1">
+                    <p className="text-xs text-gray-500 flex items-center gap-1">
+                      <Calendar className="h-3 w-3" /> Terminy:
+                    </p>
+                    <div className="grid grid-cols-2 gap-1">
+                      <Badge variant="outline" className="text-xs flex items-center gap-1">
+                        <Clock className="h-3 w-3" /> {item.availableHours}
+                      </Badge>
+                      <Badge variant="outline" className="text-xs">
+                        {item.availableDays}
+                      </Badge>
+                    </div>
+                    <p className="text-xs flex items-center gap-1 text-green-600 font-medium">
+                      <Calendar className="h-3 w-3" /> Najbliższy termin: {item.earliestAvailable}
+                    </p>
+                  </div>
+                )}
+                
                 {item.successAreas && item.successAreas.length > 0 && (
                   <div className="mt-2 mb-1">
                     <p className="text-xs text-gray-500 mb-1 flex items-center gap-1">

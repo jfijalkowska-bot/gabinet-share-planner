@@ -6,6 +6,7 @@ import PageHeader from "@/components/common/PageHeader";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import SearchFilters from "@/components/search/SearchFilters";
 import SearchResults from "@/components/search/SearchResults";
+import { toast } from "@/components/ui/use-toast";
 
 type SearchType = "office" | "specialist";
 
@@ -43,7 +44,40 @@ const SearchPage = () => {
           [["Depresja", "Lęki"], ["Trauma", "Uzależnienia"], ["Problemy w związkach", "Samoocena"]][i % 3] : [],
         services: searchType === "specialist" ? 
           [["Terapia indywidualna", "Sesje online"], ["Terapia par", "Warsztaty"], ["Terapia grupowa", "Interwencja kryzysowa"]][i % 3] : [],
+        // For time availability
+        earliestAvailable: searchType === "specialist" ? 
+          [`${i + 1} dni`, "Jutro", "Dziś", "Za 3 dni", "Za tydzień"][i % 5] : null,
+        availableDays: searchType === "specialist" ? 
+          ["Pon, Śr, Pt", "Wt, Czw", "Pon, Wt, Pt", "Śr, Czw, Pt", "Pon-Pt"][i % 5] : null,
+        availableHours: searchType === "specialist" ? 
+          ["8:00-12:00", "12:00-16:00", "16:00-20:00", "10:00-18:00", "8:00-16:00"][i % 5] : null,
       }));
+      
+      // Handle time availability filter if it exists
+      if (searchType === "specialist" && filters.timeSlots?.length > 0) {
+        toast({
+          title: "Filtrowanie czasowe",
+          description: `Zastosowano filtr dostępności czasowej: ${filters.timeSlots.join(", ")}`,
+        });
+      }
+      
+      if (searchType === "specialist" && filters.prioritizeEarliestSlot) {
+        // Sort by earliest available
+        mockResults.sort((a, b) => {
+          const aValue = a.earliestAvailable === "Dziś" ? 0 : 
+                         a.earliestAvailable === "Jutro" ? 1 : 
+                         parseInt(a.earliestAvailable) || 100;
+          const bValue = b.earliestAvailable === "Dziś" ? 0 : 
+                         b.earliestAvailable === "Jutro" ? 1 :
+                         parseInt(b.earliestAvailable) || 100;
+          return aValue - bValue;
+        });
+        
+        toast({
+          title: "Sortowanie wyników",
+          description: "Wyniki posortowane według najwcześniejszych dostępnych terminów",
+        });
+      }
       
       setSearchResults(mockResults);
       setIsLoading(false);
