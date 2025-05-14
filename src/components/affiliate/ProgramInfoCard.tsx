@@ -29,7 +29,7 @@ const ProgramInfoCard: React.FC = () => {
           </div>
           <div>
             <h4 className="font-medium">Zyskaj nowych użytkowników</h4>
-            <p className="text-sm text-gray-600">Gdy ktoś zarejestruje się i wykupi abonament przez Twój link, zostaje przypisany do Twojego konta partnerskiego.</p>
+            <p className="text-sm text-gray-600">Gdy ktoś zarejestruje się przez Twój link, kod polecający jest zapisywany w systemie nawet jeśli użytkownik nie dokona natychmiastowego zakupu planu.</p>
           </div>
         </div>
         
@@ -43,14 +43,14 @@ const ProgramInfoCard: React.FC = () => {
           </div>
           <div>
             <h4 className="font-medium">Otrzymuj prowizję</h4>
-            <p className="text-sm text-gray-600">Zarabiaj 10% prowizji od każdego zakupu dokonanego przez osoby, które skorzystały z Twojego linka. <strong>Program partnerski dostępny dla wszystkich typów kont!</strong></p>
+            <p className="text-sm text-gray-600">Prowizja 10% jest naliczana w momencie pierwszej płatności za plan subskrypcyjny oraz za każdą przyszłą płatność tego użytkownika. Wypłaty są realizowane raz w miesiącu na podstawie umowy o dzieło.</p>
           </div>
         </div>
         
         <div className="mt-6 p-4 bg-green-50 border border-green-100 rounded-md">
-          <h3 className="font-medium text-green-800 mb-2">Nowość: Program partnerski dla klientów!</h3>
+          <h3 className="font-medium text-green-800 mb-2">Zasady wypłat prowizji</h3>
           <p className="text-sm text-green-700">
-            Teraz każdy może zarabiać na poleceniach - również klienci! Wystarczy, że zarejestrujesz się jako klient, a Twój link afiliacyjny będzie aktywny. Zapraszaj innych do skorzystania z GabinetShare i zarabiaj 10% prowizji od ich płatnych planów.
+            Minimalna kwota wypłaty to 50 zł. Wypłaty są realizowane do 15. dnia następnego miesiąca. Aby otrzymać wypłatę, należy mieć uzupełnione dane w profilu użytkownika oraz podpisać umowę o dzieło lub wystawić fakturę jeśli prowadzisz działalność gospodarczą.
           </p>
         </div>
       </CardContent>

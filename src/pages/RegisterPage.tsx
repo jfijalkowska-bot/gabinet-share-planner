@@ -30,6 +30,7 @@ const RegisterPage = () => {
     
     if (ref) {
       setReferralCode(ref);
+      console.log("Kod polecający:", ref);
     }
     
     if (plan === "owner") {
