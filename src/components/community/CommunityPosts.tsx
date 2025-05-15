@@ -8,6 +8,7 @@ type PostCategory = "pytania" | "inspiracje" | "szkolenia" | "recenzje" | null;
 
 interface CommunityPostsProps {
   category: PostCategory;
+  searchQuery?: string;
 }
 
 // Dane testowe dla postów
@@ -70,24 +71,37 @@ const dummyPosts: Post[] = [
   }
 ];
 
-const CommunityPosts = ({ category }: CommunityPostsProps) => {
+const CommunityPosts = ({ category, searchQuery = "" }: CommunityPostsProps) => {
   const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState<Post[]>([]);
 
   useEffect(() => {
+    // Reset loading state when search query or category changes
+    setLoading(true);
+    
     // Symulacja ładowania danych
     const timer = setTimeout(() => {
-      // Filtrowanie postów według kategorii, jeśli wybrano konkretną
-      const filteredPosts = category 
+      // Filtrowanie postów według kategorii i frazy wyszukiwania
+      let filteredPosts = category 
         ? dummyPosts.filter(post => post.category === category)
-        : dummyPosts;
+        : [...dummyPosts];
+      
+      // Filtrowanie postów według frazy wyszukiwania
+      if (searchQuery.trim() !== "") {
+        const query = searchQuery.toLowerCase();
+        filteredPosts = filteredPosts.filter(post => 
+          post.title.toLowerCase().includes(query) || 
+          post.content.toLowerCase().includes(query) ||
+          post.author.name.toLowerCase().includes(query)
+        );
+      }
       
       setPosts(filteredPosts);
       setLoading(false);
     }, 800);
     
     return () => clearTimeout(timer);
-  }, [category]);
+  }, [category, searchQuery]);
 
   if (loading) {
     return (
@@ -111,7 +125,9 @@ const CommunityPosts = ({ category }: CommunityPostsProps) => {
   if (posts.length === 0) {
     return (
       <div className="text-center py-12">
-        <p className="text-xl text-gray-500">Nie znaleziono postów w tej kategorii</p>
+        <p className="text-xl text-gray-500">
+          {searchQuery ? "Nie znaleziono postów odpowiadających kryteriom wyszukiwania" : "Nie znaleziono postów w tej kategorii"}
+        </p>
         <p className="text-gray-400 mt-2">Bądź pierwszą osobą, która doda post!</p>
       </div>
     );

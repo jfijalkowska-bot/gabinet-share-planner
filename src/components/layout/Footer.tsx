@@ -22,18 +22,18 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/calendar" className="text-gray-600 hover:text-therapy-600 transition-colors">
-                  Kalendarz
+                <Link to="/search" className="text-gray-600 hover:text-therapy-600 transition-colors">
+                  Wyszukiwarka
                 </Link>
               </li>
               <li>
-                <Link to="/rent" className="text-gray-600 hover:text-therapy-600 transition-colors">
-                  Wynajem gabinetu
+                <Link to="/community" className="text-gray-600 hover:text-therapy-600 transition-colors">
+                  Społeczność
                 </Link>
               </li>
               <li>
-                <Link to="/appointments" className="text-gray-600 hover:text-therapy-600 transition-colors">
-                  Wizyty
+                <Link to="/terms" className="text-gray-600 hover:text-therapy-600 transition-colors">
+                  Regulamin
                 </Link>
               </li>
             </ul>
@@ -42,14 +42,13 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold mb-4 text-therapy-800">Kontakt</h4>
             <ul className="space-y-2">
-              <li className="text-gray-600">Email: kontakt@gabinetshare.pl</li>
-              <li className="text-gray-600">Telefon: +48 123 456 789</li>
+              <li className="text-gray-600">Email: kontakt@gabinet-psychologa.com.pl</li>
             </ul>
           </div>
         </div>
         
         <div className="border-t mt-8 pt-6 text-center text-gray-500 text-sm">
-          <p>&copy; {new Date().getFullYear()} GabinetShare. Wszelkie prawa zastrzeżone.</p>
+          <p>&copy; {new Date().getFullYear()} GabinetShare. Jadwiga Fijałkowska</p>
         </div>
       </div>
     </footer>

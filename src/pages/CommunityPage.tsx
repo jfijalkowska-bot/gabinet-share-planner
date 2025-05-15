@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import PageHeader from "@/components/common/PageHeader";
@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/components/auth/AuthProvider";
 import CommunityPosts from "@/components/community/CommunityPosts";
 import CreatePostDialog from "@/components/community/CreatePostDialog";
+import SearchBar from "@/components/community/SearchBar";
 import { toast } from "@/components/ui/use-toast";
 
 type CommunityTab = "wszystkie" | "pytania" | "inspiracje" | "szkolenia" | "recenzje";
@@ -16,6 +17,7 @@ const CommunityPage = () => {
   const [activeTab, setActiveTab] = useState<CommunityTab>("wszystkie");
   const { user } = useAuth();
   const [isCreatePostOpen, setIsCreatePostOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleCreatePost = () => {
     if (user) {
@@ -28,6 +30,10 @@ const CommunityPage = () => {
       });
     }
   };
+
+  const handleSearch = useCallback((query: string) => {
+    setSearchQuery(query);
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -47,6 +53,10 @@ const CommunityPage = () => {
           </Button>
         </div>
 
+        <div className="mb-6">
+          <SearchBar onSearch={handleSearch} />
+        </div>
+
         <Tabs 
           defaultValue="wszystkie" 
           className="w-full mb-8"
@@ -61,23 +71,23 @@ const CommunityPage = () => {
           </TabsList>
           
           <TabsContent value="wszystkie">
-            <CommunityPosts category={null} />
+            <CommunityPosts category={null} searchQuery={searchQuery} />
           </TabsContent>
           
           <TabsContent value="pytania">
-            <CommunityPosts category="pytania" />
+            <CommunityPosts category="pytania" searchQuery={searchQuery} />
           </TabsContent>
           
           <TabsContent value="inspiracje">
-            <CommunityPosts category="inspiracje" />
+            <CommunityPosts category="inspiracje" searchQuery={searchQuery} />
           </TabsContent>
           
           <TabsContent value="szkolenia">
-            <CommunityPosts category="szkolenia" />
+            <CommunityPosts category="szkolenia" searchQuery={searchQuery} />
           </TabsContent>
           
           <TabsContent value="recenzje">
-            <CommunityPosts category="recenzje" />
+            <CommunityPosts category="recenzje" searchQuery={searchQuery} />
           </TabsContent>
         </Tabs>
       </main>
