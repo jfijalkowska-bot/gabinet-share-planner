@@ -5,9 +5,10 @@ import { useAuth } from './AuthProvider';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
+  requireAuth?: boolean; // Opcjonalny parametr - domyślnie false
 }
 
-const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
+const ProtectedRoute = ({ children, requireAuth = false }: ProtectedRouteProps) => {
   const { user, loading } = useAuth();
   const location = useLocation();
 
@@ -20,12 +21,12 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
     );
   }
 
-  // Jeśli brak zalogowanego użytkownika, przekieruj do strony logowania
-  if (!user) {
+  // Jeśli strona wymaga uwierzytelnienia i nie ma zalogowanego użytkownika, przekieruj do strony logowania
+  if (requireAuth && !user) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  // Jeśli użytkownik jest zalogowany, wyświetlamy zawartość
+  // W przeciwnym razie wyświetlamy zawartość
   return <>{children}</>;
 };
 

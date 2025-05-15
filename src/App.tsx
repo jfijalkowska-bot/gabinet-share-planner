@@ -28,6 +28,7 @@ function App() {
     <Router>
       <AuthProvider>
         <Routes>
+          {/* Strony dostępne dla wszystkich bez logowania */}
           <Route path="/" element={<Index />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
@@ -36,14 +37,14 @@ function App() {
           <Route path="/affiliate" element={<AffiliatePage />} />
           <Route path="/payments-info" element={<PaymentsInfoPage />} />
           <Route path="/terms" element={<TermsPage />} />
-          
-          {/* Chronione ścieżki */}
           <Route path="/calendar" element={<ProtectedRoute><CalendarPage /></ProtectedRoute>} />
-          <Route path="/appointments" element={<ProtectedRoute><AppointmentsPage /></ProtectedRoute>} />
-          <Route path="/management" element={<ProtectedRoute><ManagementPage /></ProtectedRoute>} />
           <Route path="/rental" element={<ProtectedRoute><RentalPage /></ProtectedRoute>} />
-          <Route path="/embed" element={<ProtectedRoute><EmbedPage /></ProtectedRoute>} />
           <Route path="/community" element={<ProtectedRoute><CommunityPage /></ProtectedRoute>} />
+          
+          {/* Strony wymagające uwierzytelnienia */}
+          <Route path="/appointments" element={<ProtectedRoute requireAuth={true}><AppointmentsPage /></ProtectedRoute>} />
+          <Route path="/management" element={<ProtectedRoute requireAuth={true}><ManagementPage /></ProtectedRoute>} />
+          <Route path="/embed" element={<ProtectedRoute requireAuth={true}><EmbedPage /></ProtectedRoute>} />
           
           {/* 404 */}
           <Route path="*" element={<NotFound />} />
