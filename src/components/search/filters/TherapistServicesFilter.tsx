@@ -2,6 +2,8 @@
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
+import { Video } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 // Usługi terapeuty: popularne na górze, specjalistyczne na dole
 const therapistServices = [
@@ -9,7 +11,6 @@ const therapistServices = [
   { id: "couples", label: "Terapia par" },
   { id: "group", label: "Terapia grupowa" },
   { id: "family", label: "Terapia rodzinna" },
-  { id: "online", label: "Sesje online" },
   { id: "crisis", label: "Interwencja kryzysowa" },
   { id: "supportGroup", label: "Grupa wsparcia" },
   { id: "emdr", label: "EMDR" },
@@ -30,6 +31,26 @@ interface TherapistServicesFilterProps {
 const TherapistServicesFilter = ({ register }: TherapistServicesFilterProps) => (
   <div className="space-y-2">
     <Label className="mb-2 font-medium">Usługi terapeuty</Label>
+    
+    {/* Online Sessions option with special highlighting */}
+    <div className="mb-4 border rounded-md p-3 bg-blue-50 border-blue-200">
+      <div className="flex items-center space-x-2">
+        <Checkbox
+          id="service-online"
+          {...register("services")}
+          value="Sesje online"
+        />
+        <Label htmlFor="service-online" className="cursor-pointer flex items-center">
+          <Video className="h-4 w-4 mr-2 text-blue-600" />
+          <span className="font-medium">Sesje online</span>
+          <Badge variant="outline" className="ml-2 bg-blue-100 text-blue-700">Popularne</Badge>
+        </Label>
+      </div>
+      <p className="text-sm text-gray-600 mt-2 pl-6">
+        Zaznacz, jeśli szukasz specjalistów oferujących sesje zdalne przez internet
+      </p>
+    </div>
+    
     <div className="grid grid-cols-2 gap-2">
       {therapistServices.map((service) => (
         <div key={service.id} className="flex items-center space-x-2">
