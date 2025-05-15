@@ -47,7 +47,7 @@ const Navbar = () => {
             Kalendarz
           </Link>
           
-          <Link to="/rent" className="text-gray-700 hover:text-therapy-600 transition-colors">
+          <Link to="/rental" className="text-gray-700 hover:text-therapy-600 transition-colors">
             Wynajem
           </Link>
           
@@ -101,7 +101,7 @@ const Navbar = () => {
                 <Calendar className="h-5 w-5" /> Kalendarz
               </Link>
               
-              <Link to="/rent" className="py-2 px-4 hover:bg-gray-100 rounded-md" onClick={() => setMobileMenuOpen(false)}>
+              <Link to="/rental" className="py-2 px-4 hover:bg-gray-100 rounded-md" onClick={() => setMobileMenuOpen(false)}>
                 Wynajem
               </Link>
               
