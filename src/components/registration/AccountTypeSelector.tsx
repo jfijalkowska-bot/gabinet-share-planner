@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { ChevronDown, ChevronUp } from "lucide-react";
 
-type AccountType = "owner" | "therapist" | "free" | "client";
+type AccountType = "owner" | "therapist" | "therapist-seeking" | "free" | "client";
 
 interface AccountTypeSelectorProps {
   accountType: AccountType;
@@ -41,6 +41,14 @@ const AccountTypeSelector = ({ accountType, onChange }: AccountTypeSelectorProps
       "Powiadomienia o wizytach",
       "Historia spotkań z klientami",
       "Zarabiaj na poleceniach (program partnerski)"
+    ],
+    "therapist-seeking": [
+      "Przeglądanie dostępnych gabinetów",
+      "Kontakt z właścicielami gabinetów",
+      "Filtrowanie według lokalizacji i wyposażenia",
+      "Dostęp do szczegółów ofert wynajmu",
+      "Zarabiaj na poleceniach (program partnerski)",
+      "Możliwość rozszerzenia do pełnego planu"
     ],
     free: [
       "Podstawowa wizytówka terapeuty",
@@ -120,6 +128,34 @@ const AccountTypeSelector = ({ accountType, onChange }: AccountTypeSelectorProps
           {expandedDetails === "therapist" && (
             <ul className="mt-2 text-sm text-gray-600 list-disc pl-5">
               {planDetails.therapist.map((item, index) => (
+                <li key={index}>{item}</li>
+              ))}
+            </ul>
+          )}
+        </div>
+
+        <div className="flex flex-col border rounded-md p-3 hover:bg-gray-50 border-green-200 bg-green-50">
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="therapist-seeking" id="therapist-seeking" />
+            <Label htmlFor="therapist-seeking" className="flex flex-col cursor-pointer w-full">
+              <span className="font-medium">Terapeuta poszukujący gabinetu</span>
+              <span className="text-sm text-gray-500">Przeglądaj dostępne gabinety i kontaktuj się z właścicielami</span>
+            </Label>
+            <span className="font-medium text-green-600">Za darmo</span>
+          </div>
+          <Button 
+            type="button" 
+            variant="ghost" 
+            size="sm" 
+            className="mt-2 text-xs flex items-center w-fit"
+            onClick={() => toggleDetails("therapist-seeking")}
+          >
+            {expandedDetails === "therapist-seeking" ? "Ukryj szczegóły" : "Zobacz co zawiera"}
+            {expandedDetails === "therapist-seeking" ? <ChevronUp className="h-3 w-3 ml-1" /> : <ChevronDown className="h-3 w-3 ml-1" />}
+          </Button>
+          {expandedDetails === "therapist-seeking" && (
+            <ul className="mt-2 text-sm text-gray-600 list-disc pl-5">
+              {planDetails["therapist-seeking"].map((item, index) => (
                 <li key={index}>{item}</li>
               ))}
             </ul>

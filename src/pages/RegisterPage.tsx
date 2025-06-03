@@ -7,7 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/components/ui/use-toast";
 import RegistrationCard from "@/components/registration/RegistrationCard";
 
-type AccountType = "owner" | "therapist" | "free" | "client";
+type AccountType = "owner" | "therapist" | "therapist-seeking" | "free" | "client";
 
 const RegisterPage = () => {
   const [name, setName] = useState("");
@@ -37,6 +37,8 @@ const RegisterPage = () => {
       setAccountType("owner");
     } else if (plan === "therapist") {
       setAccountType("therapist");
+    } else if (plan === "therapist-seeking") {
+      setAccountType("therapist-seeking");
     } else if (plan === "free") {
       setAccountType("free");
     } else if (plan === "client") {
@@ -92,8 +94,8 @@ const RegisterPage = () => {
           variant: "destructive",
         });
       } else {
-        // If user is a client, create their profile entry
-        if (accountType === "client" && data.user) {
+        // If user is a client or therapist-seeking, create their profile entry
+        if ((accountType === "client" || accountType === "therapist-seeking") && data.user) {
           const { error: profileError } = await supabase
             .from('client_profiles')
             .insert({ id: data.user.id });

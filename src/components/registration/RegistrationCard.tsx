@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import AccountTypeSelector from "./AccountTypeSelector";
 import RegistrationForm from "./RegistrationForm";
 
-type AccountType = "owner" | "therapist" | "free" | "client";
+type AccountType = "owner" | "therapist" | "therapist-seeking" | "free" | "client";
 
 interface RegistrationCardProps {
   name: string;

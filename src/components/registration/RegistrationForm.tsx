@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 
-type AccountType = "owner" | "therapist" | "free" | "client";
+type AccountType = "owner" | "therapist" | "therapist-seeking" | "free" | "client";
 
 interface RegistrationFormProps {
   name: string;
@@ -115,15 +115,18 @@ const RegistrationForm = ({
       <Button className="w-full bg-therapy-600 hover:bg-therapy-700" type="submit" disabled={loading}>
         {loading ? "Rejestracja..." : 
           accountType === "client" ? "Zarejestruj się za darmo i zarabiaj na poleceniach" :
+          accountType === "therapist-seeking" ? "Zarejestruj się za darmo jako terapeuta" :
           accountType === "free" ? "Utwórz wizytówkę za 49 zł" : 
           "Rozpocznij 30-dniowy okres próbny"}
       </Button>
       
       <p className="text-xs text-center text-gray-500">
-        {accountType !== "free" && accountType !== "client" ? 
+        {accountType !== "free" && accountType !== "client" && accountType !== "therapist-seeking" ? 
           "30 dni za darmo, bez automatycznego przedłużenia. Płatność wymagana po zakończeniu okresu próbnego." : 
           accountType === "free" ? 
           "Jednorazowa opłata, bez terminu ważności. Płatność po rejestracji." :
+          accountType === "therapist-seeking" ?
+          "Całkowicie za darmo. Przeglądaj gabinety i zarabiaj 10% na poleceniach." :
           "Całkowicie za darmo. Płacisz tylko za wizyty, które rezerwujesz. Zarabiaj 10% na poleceniach."}
       </p>
 
