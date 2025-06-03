@@ -1,4 +1,3 @@
-
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -48,93 +47,170 @@ const TermsPage = () => {
                       2.3. <strong>Terapeuta</strong> - Użytkownik oferujący usługi terapeutyczne za pośrednictwem Serwisu.
                     </p>
                     <p className="text-gray-700 mb-2">
-                      2.4. <strong>Właściciel gabinetu</strong> - Użytkownik oferujący przestrzeń gabinetową do wynajęcia za pośrednictwem Serwisu.
+                      2.4. <strong>Terapeuta poszukujący gabinetu</strong> - Użytkownik poszukujący przestrzeni gabinetowej do wynajęcia oraz klientów za pośrednictwem Serwisu, korzystający z bezpłatnego konta.
+                    </p>
+                    <p className="text-gray-700 mb-2">
+                      2.5. <strong>Właściciel gabinetu</strong> - Użytkownik oferujący przestrzeń gabinetową do wynajęcia za pośrednictwem Serwisu.
+                    </p>
+                    <p className="text-gray-700 mb-2">
+                      2.6. <strong>Klient</strong> - Użytkownik poszukujący usług terapeutycznych za pośrednictwem Serwisu.
                     </p>
                     <p className="text-gray-700">
-                      2.5. <strong>Klient</strong> - Użytkownik poszukujący usług terapeutycznych za pośrednictwem Serwisu.
+                      2.7. <strong>Program partnerski</strong> - system prowizji za polecanie nowych użytkowników Serwisu.
                     </p>
                   </div>
                   
                   <div>
-                    <h2 className="text-xl font-semibold mb-3">3. Zasady korzystania z Serwisu</h2>
+                    <h2 className="text-xl font-semibold mb-3">3. Rodzaje kont użytkowników</h2>
                     <p className="text-gray-700 mb-2">
-                      3.1. Korzystanie z podstawowych funkcji Serwisu (przeglądanie ofert) jest bezpłatne i nie wymaga rejestracji.
+                      3.1. Serwis oferuje następujące rodzaje kont:
                     </p>
+                    <ul className="list-disc pl-6 text-gray-700 space-y-1 mb-2">
+                      <li><strong>Konto właściciela gabinetu</strong> - płatny abonament umożliwiający zarządzanie jednym lub wieloma gabinetami, kalendarzem rezerwacji oraz profilem firmy</li>
+                      <li><strong>Konto terapeuty</strong> - płatny abonament umożliwiający tworzenie wizytówki, kalendarz rezerwacji oraz zarządzanie profiliem zawodowym</li>
+                      <li><strong>Konto terapeuty poszukującego gabinetu</strong> - bezpłatne konto umożliwiające przeglądanie ofert gabinetów, kontakt z właścicielami oraz udział w programie partnerskim</li>
+                      <li><strong>Wizytówka podstawowa</strong> - jednorazowa opłata za utworzenie podstawowego profilu terapeuty bez kalendarza rezerwacji</li>
+                      <li><strong>Konto klienta</strong> - bezpłatne konto umożliwiające rezerwację wizyt oraz udział w programie partnerskim</li>
+                    </ul>
                     <p className="text-gray-700 mb-2">
-                      3.2. Pełny dostęp do funkcji Serwisu wymaga utworzenia konta i wyboru odpowiedniego planu abonamentowego.
-                    </p>
-                    <p className="text-gray-700 mb-2">
-                      3.3. Użytkownik zobowiązuje się do podania prawdziwych danych podczas rejestracji i aktualizowania ich w przypadku zmian.
-                    </p>
-                    <p className="text-gray-700 mb-2">
-                      3.4. Użytkownik odpowiada za bezpieczeństwo swojego konta i hasła. Wszelkie działania wykonane z wykorzystaniem konta Użytkownika uznaje się za działania Użytkownika.
+                      3.2. Właściciele gabinetów mogą zarządzać wieloma przestrzeniami w ramach jednego abonamentu.
                     </p>
                     <p className="text-gray-700">
-                      3.5. Zabrania się korzystania z Serwisu w sposób sprzeczny z prawem lub dobrymi obyczajami.
+                      3.3. Administrator Serwisu może zwolnić wybranych użytkowników z opłat abonamentowych.
                     </p>
                   </div>
                   
                   <div>
-                    <h2 className="text-xl font-semibold mb-3">4. Płatności i rozliczenia</h2>
+                    <h2 className="text-xl font-semibold mb-3">4. Zasady korzystania z Serwisu</h2>
                     <p className="text-gray-700 mb-2">
-                      4.1. Serwis pobiera opłaty wyłącznie za korzystanie z platformy, zgodnie z wybranym planem abonamentowym.
+                      4.1. Korzystanie z podstawowych funkcji Serwisu (przeglądanie ofert) jest bezpłatne i nie wymaga rejestracji.
                     </p>
                     <p className="text-gray-700 mb-2">
-                      4.2. Aktualne ceny planów abonamentowych są dostępne na stronie Serwisu.
+                      4.2. Pełny dostęp do funkcji Serwisu wymaga utworzenia konta i wyboru odpowiedniego planu abonamentowego.
                     </p>
                     <p className="text-gray-700 mb-2">
-                      4.3. Za każdą opłatę abonamentową Użytkownik otrzymuje fakturę VAT, dostępną do pobrania w panelu użytkownika.
+                      4.3. Użytkownik zobowiązuje się do podania prawdziwych danych podczas rejestracji i aktualizowania ich w przypadku zmian.
                     </p>
                     <p className="text-gray-700 mb-2">
-                      4.4. Serwis nie pośredniczy w rozliczeniach finansowych między Terapeutami a Klientami ani między Właścicielami gabinetów a Terapeutami.
+                      4.4. Użytkownik odpowiada za bezpieczeństwo swojego konta i hasła. Wszelkie działania wykonane z wykorzystaniem konta Użytkownika uznaje się za działania Użytkownika.
                     </p>
                     <p className="text-gray-700">
-                      4.5. Szczegółowe zasady dotyczące płatności i programu partnerskiego określa oddzielny regulamin, dostępny na stronie Serwisu.
+                      4.5. Zabrania się korzystania z Serwisu w sposób sprzeczny z prawem lub dobrymi obyczajami.
                     </p>
                   </div>
                   
                   <div>
-                    <h2 className="text-xl font-semibold mb-3">5. Odpowiedzialność</h2>
+                    <h2 className="text-xl font-semibold mb-3">5. System rezerwacji i kalendarze</h2>
                     <p className="text-gray-700 mb-2">
-                      5.1. Serwis nie ponosi odpowiedzialności za treści zamieszczane przez Użytkowników.
+                      5.1. Kalendarz rezerwacji wykorzystuje sloty 30-minutowe, umożliwiając rezerwację sesji o różnej długości.
                     </p>
                     <p className="text-gray-700 mb-2">
-                      5.2. Serwis nie ponosi odpowiedzialności za jakość usług świadczonych przez Terapeutów ani za stan i jakość wynajmowanych gabinetów.
+                      5.2. Szczegóły rezerwacji (dane klientów, typ sesji) są widoczne wyłącznie dla właściciela kalendarza.
                     </p>
                     <p className="text-gray-700 mb-2">
-                      5.3. Serwis dokłada wszelkich starań, aby zapewnić prawidłowe funkcjonowanie platformy, jednak nie gwarantuje nieprzerwanego dostępu do swoich usług.
+                      5.3. Osoby postronne widzą jedynie dostępność terminów (zajęte/wolne), bez szczegółów rezerwacji.
                     </p>
-                    <p className="text-gray-700">
-                      5.4. Serwis nie ponosi odpowiedzialności za szkody wynikające z korzystania lub niemożności korzystania z Serwisu.
+                    <p className="text-gray-700 mb-2">
+                      5.4. Użytkownicy mogą rezerwować sesje o różnej długości: 30, 60, 90 lub 120 minut.
+                    </p>
+                    <p className="text-gray-700 mb-2">
+                      5.5. Właściciele kalendarzy mogą zarządzać dostępnością i ustawieniami prywatności swojich terminów.
                     </p>
                   </div>
                   
                   <div>
-                    <h2 className="text-xl font-semibold mb-3">6. Prawa własności intelektualnej</h2>
+                    <h2 className="text-xl font-semibold mb-3">6. Program partnerski</h2>
                     <p className="text-gray-700 mb-2">
-                      6.1. Wszelkie prawa do treści zamieszczonych w Serwisie, w tym prawa autorskie, znaki towarowe, nazwy, grafiki, zdjęcia, filmy, dźwięki i materiały, należą do Serwisu lub podmiotów, z którymi Serwis zawarł stosowne umowy.
+                      6.1. Użytkownicy z kontami bezpłatnymi (klienci i terapeuci poszukujący gabinetu) mogą uczestniczyć w programie partnerskim.
+                    </p>
+                    <p className="text-gray-700 mb-2">
+                      6.2. Program partnerski polega na otrzymywaniu prowizji za polecanie nowych użytkowników Serwisu.
+                    </p>
+                    <p className="text-gray-700 mb-2">
+                      6.3. Wysokość prowizji oraz szczegółowe warunki programu partnerskiego są dostępne w panelu użytkownika.
                     </p>
                     <p className="text-gray-700">
-                      6.2. Zabrania się kopiowania, modyfikowania, rozpowszechniania lub wykorzystywania w inny sposób treści zamieszczonych w Serwisie bez wyraźnej pisemnej zgody Serwisu.
+                      6.4. Serwis zastrzega sobie prawo do modyfikacji warunków programu partnerskiego z 30-dniowym wypowiedzeniem.
                     </p>
                   </div>
                   
                   <div>
-                    <h2 className="text-xl font-semibold mb-3">7. Postanowienia końcowe</h2>
+                    <h2 className="text-xl font-semibold mb-3">7. Płatności i rozliczenia</h2>
                     <p className="text-gray-700 mb-2">
-                      7.1. Administrator zastrzega sobie prawo do zmiany Regulaminu. Zmiany wchodzą w życie po upływie 14 dni od daty ich publikacji w Serwisie.
+                      7.1. Serwis pobiera opłaty wyłącznie za korzystanie z platformy, zgodnie z wybranym planem abonamentowym.
                     </p>
                     <p className="text-gray-700 mb-2">
-                      7.2. W przypadku zmiany Regulaminu, Użytkownicy zostaną poinformowani o tym fakcie za pośrednictwem poczty elektronicznej lub poprzez komunikat w Serwisie.
+                      7.2. Aktualne ceny planów abonamentowych są dostępne na stronie Serwisu.
                     </p>
                     <p className="text-gray-700 mb-2">
-                      7.3. W kwestiach nieuregulowanych niniejszym Regulaminem zastosowanie mają przepisy prawa polskiego.
+                      7.3. Za każdą opłatę abonamentową Użytkownik otrzymuje fakturę VAT, dostępną do pobrania w panelu użytkownika.
                     </p>
                     <p className="text-gray-700 mb-2">
-                      7.4. Wszelkie spory wynikające z korzystania z Serwisu będą rozstrzygane przez sąd właściwy dla siedziby Administratora.
+                      7.4. Serwis nie pośredniczy w rozliczeniach finansowych między Terapeutami a Klientami ani między Właścicielami gabinetów a Terapeutami.
+                    </p>
+                    <p className="text-gray-700 mb-2">
+                      7.5. Szczegółowe zasady dotyczące płatności i programu partnerskiego określa oddzielny regulamin, dostępny na stronie Serwisu.
+                    </p>
+                    <p className="text-gray-700 mb-2">
+                      7.6. Administrator może zwolnić wybranych użytkowników z opłat abonamentowych zgodnie z własnym uznaniem.
+                    </p>
+                  </div>
+                  
+                  <div>
+                    <h2 className="text-xl font-semibold mb-3">8. Zarządzanie wieloma gabinetami</h2>
+                    <p className="text-gray-700 mb-2">
+                      8.1. Właściciele gabinetów mogą zarządzać wieloma przestrzeniami w ramach jednego konta i abonamentu.
+                    </p>
+                    <p className="text-gray-700 mb-2">
+                      8.2. Każdy gabinet może mieć osobny kalendarz, ustawienia oraz dane kontaktowe.
                     </p>
                     <p className="text-gray-700">
-                      7.5. Regulamin wchodzi w życie z dniem [DATA].
+                      8.3. Rozliczenia za wszystkie gabinety danego właściciela są prowadzone centralnie w ramach jednego konta.
+                    </p>
+                  </div>
+                  
+                  <div>
+                    <h2 className="text-xl font-semibold mb-3">9. Odpowiedzialność</h2>
+                    <p className="text-gray-700 mb-2">
+                      9.1. Serwis nie ponosi odpowiedzialności za treści zamieszczane przez Użytkowników.
+                    </p>
+                    <p className="text-gray-700 mb-2">
+                      9.2. Serwis nie ponosi odpowiedzialności za jakość usług świadczonych przez Terapeutów ani za stan i jakość wynajmowanych gabinetów.
+                    </p>
+                    <p className="text-gray-700 mb-2">
+                      9.3. Serwis dokłada wszelkich starań, aby zapewnić prawidłowe funkcjonowanie platformy, jednak nie gwarantuje nieprzerwanego dostępu do swoich usług.
+                    </p>
+                    <p className="text-gray-700">
+                      9.4. Serwis nie ponosi odpowiedzialności za szkody wynikające z korzystania lub niemożności korzystania z Serwisu.
+                    </p>
+                  </div>
+                  
+                  <div>
+                    <h2 className="text-xl font-semibold mb-3">10. Prawa własności intelektualnej</h2>
+                    <p className="text-gray-700 mb-2">
+                      10.1. Wszelkie prawa do treści zamieszczonych w Serwisie, w tym prawa autorskie, znaki towarowe, nazwy, grafiki, zdjęcia, filmy, dźwięki i materiały, należą do Serwisu lub podmiotów, z którymi Serwis zawarł stosowne umowy.
+                    </p>
+                    <p className="text-gray-700">
+                      10.2. Zabrania się kopiowania, modyfikowania, rozpowszechniania lub wykorzystywania w inny sposób treści zamieszczonych w Serwisie bez wyraźnej pisemnej zgody Serwisu.
+                    </p>
+                  </div>
+                  
+                  <div>
+                    <h2 className="text-xl font-semibold mb-3">11. Postanowienia końcowe</h2>
+                    <p className="text-gray-700 mb-2">
+                      11.1. Administrator zastrzega sobie prawo do zmiany Regulaminu. Zmiany wchodzą w życie po upływie 14 dni od daty ich publikacji w Serwisie.
+                    </p>
+                    <p className="text-gray-700 mb-2">
+                      11.2. W przypadku zmiany Regulaminu, Użytkownicy zostaną poinformowani o tym fakcie za pośrednictwem poczty elektronicznej lub poprzez komunikat w Serwisie.
+                    </p>
+                    <p className="text-gray-700 mb-2">
+                      11.3. W kwestiach nieuregulowanych niniejszym Regulaminem zastosowanie mają przepisy prawa polskiego.
+                    </p>
+                    <p className="text-gray-700 mb-2">
+                      11.4. Wszelkie spory wynikające z korzystania z Serwisu będą rozstrzygane przez sąd właściwy dla siedziby Administratora.
+                    </p>
+                    <p className="text-gray-700 mb-2">
+                      11.5. Regulamin wchodzi w życie z dniem [DATA].
                     </p>
                   </div>
                 </CardContent>
