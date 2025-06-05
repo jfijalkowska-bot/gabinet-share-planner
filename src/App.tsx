@@ -1,58 +1,64 @@
 
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Suspense, lazy } from "react";
 import { Toaster } from "@/components/ui/toaster";
+import { Toaster as Sonner } from "@/components/ui/sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/components/auth/AuthProvider";
-import ProtectedRoute from "@/components/auth/ProtectedRoute";
+import Index from "./pages/Index";
 
-// Pages
-import Index from "@/pages/Index";
-import LoginPage from "@/pages/LoginPage";
-import RegisterPage from "@/pages/RegisterPage";
-import SearchPage from "@/pages/SearchPage";
-import CalendarPage from "@/pages/CalendarPage";
-import AppointmentsPage from "@/pages/AppointmentsPage";
-import ManagementPage from "@/pages/ManagementPage";
-import RentalPage from "@/pages/RentalPage";
-import EmbedPage from "@/pages/EmbedPage";
-import CommunityPage from "@/pages/CommunityPage";
-import AffiliatePage from "@/pages/AffiliatePage";
-import HowItWorksPage from "@/pages/HowItWorksPage";
-import NotFound from "@/pages/NotFound";
-import PaymentsInfoPage from "@/pages/PaymentsInfoPage";
-import TermsPage from "@/pages/TermsPage";
+const SearchPage = lazy(() => import("./pages/SearchPage"));
+const CalendarPage = lazy(() => import("./pages/CalendarPage"));
+const RentalPage = lazy(() => import("./pages/RentalPage"));
+const AppointmentsPage = lazy(() => import("./pages/AppointmentsPage"));
+const ManagementPage = lazy(() => import("./pages/ManagementPage"));
+const LoginPage = lazy(() => import("./pages/LoginPage"));
+const RegisterPage = lazy(() => import("./pages/RegisterPage"));
+const CommunityPage = lazy(() => import("./pages/CommunityPage"));
+const HowItWorksPage = lazy(() => import("./pages/HowItWorksPage"));
+const PaymentsInfoPage = lazy(() => import("./pages/PaymentsInfoPage"));
+const AffiliatePage = lazy(() => import("./pages/AffiliatePage"));
+const EmbedPage = lazy(() => import("./pages/EmbedPage"));
+const TermsPage = lazy(() => import("./pages/TermsPage"));
+const TherapistProfileDemo = lazy(() => import("./pages/TherapistProfileDemo"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+const PaymentSuccessPage = lazy(() => import("./pages/PaymentSuccessPage"));
 
-import "./App.css";
+const queryClient = new QueryClient();
 
-function App() {
-  return (
-    <Router>
-      <AuthProvider>
-        <Routes>
-          {/* Strony dostępne dla wszystkich bez logowania */}
-          <Route path="/" element={<Index />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/search" element={<SearchPage />} />
-          <Route path="/how-it-works" element={<HowItWorksPage />} />
-          <Route path="/affiliate" element={<AffiliatePage />} />
-          <Route path="/payments-info" element={<PaymentsInfoPage />} />
-          <Route path="/terms" element={<TermsPage />} />
-          <Route path="/calendar" element={<ProtectedRoute><CalendarPage /></ProtectedRoute>} />
-          <Route path="/rental" element={<ProtectedRoute><RentalPage /></ProtectedRoute>} />
-          <Route path="/community" element={<ProtectedRoute><CommunityPage /></ProtectedRoute>} />
-          
-          {/* Strony wymagające uwierzytelnienia */}
-          <Route path="/appointments" element={<ProtectedRoute requireAuth={true}><AppointmentsPage /></ProtectedRoute>} />
-          <Route path="/management" element={<ProtectedRoute requireAuth={true}><ManagementPage /></ProtectedRoute>} />
-          <Route path="/embed" element={<ProtectedRoute requireAuth={true}><EmbedPage /></ProtectedRoute>} />
-          
-          {/* 404 */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-        <Toaster />
-      </AuthProvider>
-    </Router>
-  );
-}
+const App = () => (
+  <QueryClientProvider client={queryClient}>
+    <TooltipProvider>
+      <Toaster />
+      <Sonner />
+      <BrowserRouter>
+        <AuthProvider>
+          <Suspense fallback={<div>Loading...</div>}>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/search" element={<SearchPage />} />
+              <Route path="/calendar" element={<CalendarPage />} />
+              <Route path="/rental" element={<RentalPage />} />
+              <Route path="/appointments" element={<AppointmentsPage />} />
+              <Route path="/management" element={<ManagementPage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/community" element={<CommunityPage />} />
+              <Route path="/how-it-works" element={<HowItWorksPage />} />
+              <Route path="/payments-info" element={<PaymentsInfoPage />} />
+              <Route path="/affiliate" element={<AffiliatePage />} />
+              <Route path="/embed" element={<EmbedPage />} />
+              <Route path="/terms" element={<TermsPage />} />
+              <Route path="/therapist-demo" element={<TherapistProfileDemo />} />
+              <Route path="/payment-success" element={<PaymentSuccessPage />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
+        </AuthProvider>
+      </BrowserRouter>
+    </TooltipProvider>
+  </QueryClientProvider>
+);
 
 export default App;

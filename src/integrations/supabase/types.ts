@@ -99,6 +99,84 @@ export type Database = {
         }
         Relationships: []
       }
+      appointments: {
+        Row: {
+          client_id: string
+          created_at: string | null
+          end_time: string
+          id: string
+          notes: string | null
+          payment_status: string | null
+          price: number | null
+          provider_id: string
+          provider_type: string
+          start_time: string
+          status: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          client_id: string
+          created_at?: string | null
+          end_time: string
+          id?: string
+          notes?: string | null
+          payment_status?: string | null
+          price?: number | null
+          provider_id: string
+          provider_type: string
+          start_time: string
+          status?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          client_id?: string
+          created_at?: string | null
+          end_time?: string
+          id?: string
+          notes?: string | null
+          payment_status?: string | null
+          price?: number | null
+          provider_id?: string
+          provider_type?: string
+          start_time?: string
+          status?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      availability_slots: {
+        Row: {
+          created_at: string | null
+          day_of_week: number
+          end_time: string
+          id: string
+          is_active: boolean | null
+          provider_id: string
+          provider_type: string
+          start_time: string
+        }
+        Insert: {
+          created_at?: string | null
+          day_of_week: number
+          end_time: string
+          id?: string
+          is_active?: boolean | null
+          provider_id: string
+          provider_type: string
+          start_time: string
+        }
+        Update: {
+          created_at?: string | null
+          day_of_week?: number
+          end_time?: string
+          id?: string
+          is_active?: boolean | null
+          provider_id?: string
+          provider_type?: string
+          start_time?: string
+        }
+        Relationships: []
+      }
       bookings: {
         Row: {
           booking_type: string
@@ -150,6 +228,101 @@ export type Database = {
           created_at?: string
           id?: string
           updated_at?: string
+        }
+        Relationships: []
+      }
+      notifications: {
+        Row: {
+          created_at: string | null
+          id: string
+          is_read: boolean | null
+          message: string
+          related_appointment_id: string | null
+          title: string
+          type: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          is_read?: boolean | null
+          message: string
+          related_appointment_id?: string | null
+          title: string
+          type: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          is_read?: boolean | null
+          message?: string
+          related_appointment_id?: string | null
+          title?: string
+          type?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notifications_related_appointment_id_fkey"
+            columns: ["related_appointment_id"]
+            isOneToOne: false
+            referencedRelation: "appointments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      office_profiles: {
+        Row: {
+          address: string
+          capacity: number | null
+          city: string
+          color_scheme: string | null
+          created_at: string | null
+          description: string | null
+          equipment: string[] | null
+          id: string
+          images: string[] | null
+          is_active: boolean | null
+          name: string
+          owner_id: string
+          price_per_hour: number | null
+          style: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          address: string
+          capacity?: number | null
+          city: string
+          color_scheme?: string | null
+          created_at?: string | null
+          description?: string | null
+          equipment?: string[] | null
+          id?: string
+          images?: string[] | null
+          is_active?: boolean | null
+          name: string
+          owner_id: string
+          price_per_hour?: number | null
+          style?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          address?: string
+          capacity?: number | null
+          city?: string
+          color_scheme?: string | null
+          created_at?: string | null
+          description?: string | null
+          equipment?: string[] | null
+          id?: string
+          images?: string[] | null
+          is_active?: boolean | null
+          name?: string
+          owner_id?: string
+          price_per_hour?: number | null
+          style?: string | null
+          updated_at?: string | null
         }
         Relationships: []
       }
@@ -267,6 +440,47 @@ export type Database = {
         }
         Relationships: []
       }
+      payments: {
+        Row: {
+          amount: number
+          appointment_id: string
+          created_at: string | null
+          currency: string | null
+          id: string
+          status: string | null
+          stripe_payment_intent_id: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          amount: number
+          appointment_id: string
+          created_at?: string | null
+          currency?: string | null
+          id?: string
+          status?: string | null
+          stripe_payment_intent_id?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          amount?: number
+          appointment_id?: string
+          created_at?: string | null
+          currency?: string | null
+          id?: string
+          status?: string | null
+          stripe_payment_intent_id?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payments_appointment_id_fkey"
+            columns: ["appointment_id"]
+            isOneToOne: false
+            referencedRelation: "appointments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       review_responses: {
         Row: {
           author_id: string
@@ -359,6 +573,60 @@ export type Database = {
           proficiency_level?: string | null
           therapist_id?: string
           updated_at?: string
+        }
+        Relationships: []
+      }
+      therapist_profiles: {
+        Row: {
+          address: string | null
+          avatar_url: string | null
+          bio: string | null
+          city: string | null
+          created_at: string | null
+          experience_years: number | null
+          first_name: string
+          id: string
+          is_verified: boolean | null
+          last_name: string
+          phone: string | null
+          price_per_hour: number | null
+          specialization: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          address?: string | null
+          avatar_url?: string | null
+          bio?: string | null
+          city?: string | null
+          created_at?: string | null
+          experience_years?: number | null
+          first_name: string
+          id?: string
+          is_verified?: boolean | null
+          last_name: string
+          phone?: string | null
+          price_per_hour?: number | null
+          specialization?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          address?: string | null
+          avatar_url?: string | null
+          bio?: string | null
+          city?: string | null
+          created_at?: string | null
+          experience_years?: number | null
+          first_name?: string
+          id?: string
+          is_verified?: boolean | null
+          last_name?: string
+          phone?: string | null
+          price_per_hour?: number | null
+          specialization?: string | null
+          updated_at?: string | null
+          user_id?: string
         }
         Relationships: []
       }
