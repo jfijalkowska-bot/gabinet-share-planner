@@ -267,6 +267,44 @@ export type Database = {
         }
         Relationships: []
       }
+      review_responses: {
+        Row: {
+          author_id: string
+          author_type: string
+          created_at: string
+          id: string
+          response_text: string
+          review_id: string
+          updated_at: string
+        }
+        Insert: {
+          author_id: string
+          author_type: string
+          created_at?: string
+          id?: string
+          response_text: string
+          review_id: string
+          updated_at?: string
+        }
+        Update: {
+          author_id?: string
+          author_type?: string
+          created_at?: string
+          id?: string
+          response_text?: string
+          review_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "review_responses_review_id_fkey"
+            columns: ["review_id"]
+            isOneToOne: false
+            referencedRelation: "therapist_reviews_detailed"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       reviews: {
         Row: {
           comment: string | null
@@ -291,6 +329,36 @@ export type Database = {
           rating?: number
           updated_at?: string
           user_id?: string
+        }
+        Relationships: []
+      }
+      therapist_languages: {
+        Row: {
+          created_at: string
+          id: string
+          language_code: string
+          language_name: string
+          proficiency_level: string | null
+          therapist_id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          language_code: string
+          language_name: string
+          proficiency_level?: string | null
+          therapist_id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          language_code?: string
+          language_name?: string
+          proficiency_level?: string | null
+          therapist_id?: string
+          updated_at?: string
         }
         Relationships: []
       }
@@ -319,6 +387,39 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      therapist_reviews_detailed: {
+        Row: {
+          appointment_id: string | null
+          client_id: string
+          comment: string
+          created_at: string
+          id: string
+          is_anonymous: boolean | null
+          therapist_id: string
+          updated_at: string
+        }
+        Insert: {
+          appointment_id?: string | null
+          client_id: string
+          comment: string
+          created_at?: string
+          id?: string
+          is_anonymous?: boolean | null
+          therapist_id: string
+          updated_at?: string
+        }
+        Update: {
+          appointment_id?: string | null
+          client_id?: string
+          comment?: string
+          created_at?: string
+          id?: string
+          is_anonymous?: boolean | null
+          therapist_id?: string
+          updated_at?: string
+        }
+        Relationships: []
       }
       therapist_specializations: {
         Row: {

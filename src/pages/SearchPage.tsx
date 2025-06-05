@@ -44,6 +44,11 @@ const SearchPage = () => {
           [["Depresja", "Lęki"], ["Trauma", "Uzależnienia"], ["Problemy w związkach", "Samoocena"]][i % 3] : [],
         services: searchType === "specialist" ? 
           [["Terapia indywidualna", "Sesje online"], ["Terapia par", "Warsztaty"], ["Terapia grupowa", "Interwencja kryzysowa"]][i % 3] : [],
+        // Languages for specialists
+        languages: searchType === "specialist" ? 
+          [["Polski", "Angielski"], ["Polski", "Niemiecki"], ["Polski", "Francuski", "Angielski"], ["Polski"], ["Polski", "Hiszpański"]][i % 5] : [],
+        // Reviews count
+        reviewsCount: searchType === "specialist" ? Math.floor(Math.random() * 20) : undefined,
         // For time availability
         earliestAvailable: searchType === "specialist" ? 
           [`${i + 1} dni`, "Jutro", "Dziś", "Za 3 dni", "Za tydzień"][i % 5] : null,
@@ -52,6 +57,14 @@ const SearchPage = () => {
         availableHours: searchType === "specialist" ? 
           ["8:00-12:00", "12:00-16:00", "16:00-20:00", "10:00-18:00", "8:00-16:00"][i % 5] : null,
       }));
+      
+      // Handle language filter
+      if (searchType === "specialist" && filters.languages?.length > 0) {
+        toast({
+          title: "Filtrowanie językowe",
+          description: `Zastosowano filtr językowy: ${filters.languages.join(", ")}`,
+        });
+      }
       
       // Handle time availability filter if it exists
       if (searchType === "specialist" && filters.timeSlots?.length > 0) {

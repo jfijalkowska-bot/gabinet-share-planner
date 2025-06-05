@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { MapPin, Star, Users, Building, Clock, User, Calendar } from "lucide-react";
+import { MapPin, Star, Users, Building, Clock, User, Calendar, MessageCircle } from "lucide-react";
 
 interface SearchResultsProps {
   results: any[];
@@ -125,8 +125,27 @@ const SearchResults = ({ results, isLoading, type }: SearchResultsProps) => {
                     <Clock className="h-3 w-3" /> Doświadczenie: {item.experience}
                   </p>
                 )}
+
+                {/* Languages section */}
+                {item.languages && item.languages.length > 0 && (
+                  <div className="mt-2 mb-1">
+                    <p className="text-xs text-gray-500 mb-1 flex items-center gap-1">
+                      🌍 Języki:
+                    </p>
+                    <div className="flex flex-wrap gap-1">
+                      {item.languages.slice(0, 3).map((lang: string, i: number) => (
+                        <Badge variant="outline" key={`lang-${item.id}-${i}`} className="text-xs">
+                          {lang}
+                        </Badge>
+                      ))}
+                      {item.languages.length > 3 && (
+                        <Badge variant="outline" className="text-xs">+{item.languages.length - 3}</Badge>
+                      )}
+                    </div>
+                  </div>
+                )}
                 
-                {/* New section for time availability */}
+                {/* Time availability section */}
                 {item.earliestAvailable && (
                   <div className="mt-2 mb-1 space-y-1">
                     <p className="text-xs text-gray-500 flex items-center gap-1">
@@ -164,7 +183,7 @@ const SearchResults = ({ results, isLoading, type }: SearchResultsProps) => {
                   </div>
                 )}
                 {item.services && item.services.length > 0 && (
-                  <div className="mt-2">
+                  <div className="mt-2 mb-1">
                     <p className="text-xs text-gray-500 mb-1 flex items-center gap-1">
                       <User className="h-3 w-3" /> Usługi:
                     </p>
@@ -178,6 +197,16 @@ const SearchResults = ({ results, isLoading, type }: SearchResultsProps) => {
                         <Badge variant="outline" className="text-xs">+{item.services.length - 2}</Badge>
                       )}
                     </div>
+                  </div>
+                )}
+
+                {/* Reviews count */}
+                {item.reviewsCount !== undefined && (
+                  <div className="mt-2">
+                    <p className="text-xs text-gray-500 flex items-center gap-1">
+                      <MessageCircle className="h-3 w-3" /> 
+                      {item.reviewsCount} {item.reviewsCount === 1 ? 'opinia' : 'opinii'}
+                    </p>
                   </div>
                 )}
               </>
