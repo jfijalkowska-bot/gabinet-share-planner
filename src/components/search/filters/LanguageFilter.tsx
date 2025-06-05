@@ -33,6 +33,7 @@ const LanguageFilter = ({ control }: LanguageFilterProps) => {
                 control={control}
                 name="languages"
                 render={({ field }) => {
+                  const currentValue = field.value || [];
                   return (
                     <FormItem
                       key={language.code}
@@ -40,15 +41,17 @@ const LanguageFilter = ({ control }: LanguageFilterProps) => {
                     >
                       <FormControl>
                         <Checkbox
-                          checked={field.value?.includes(language.code)}
+                          checked={currentValue.includes(language.code)}
                           onCheckedChange={(checked) => {
-                            return checked
-                              ? field.onChange([...field.value, language.code])
-                              : field.onChange(
-                                  field.value?.filter(
-                                    (value: string) => value !== language.code
-                                  )
-                                );
+                            if (checked === true) {
+                              field.onChange([...currentValue, language.code]);
+                            } else {
+                              field.onChange(
+                                currentValue.filter(
+                                  (value: string) => value !== language.code
+                                )
+                              );
+                            }
                           }}
                         />
                       </FormControl>
