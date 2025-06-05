@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -154,7 +153,7 @@ const TherapistReviews = ({ therapistId, canAddReview = false }: TherapistReview
                 <Checkbox
                   id="anonymous"
                   checked={isAnonymous}
-                  onCheckedChange={setIsAnonymous}
+                  onCheckedChange={(checked) => setIsAnonymous(checked === true)}
                 />
                 <Label htmlFor="anonymous">Opinia anonimowa</Label>
               </div>
