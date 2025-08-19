@@ -70,6 +70,23 @@ serve(async (req) => {
       status: "pending",
     });
 
+    // Wyślij powiadomienie email o utworzeniu płatności
+    try {
+      await supabaseClient.functions.invoke('send-notification', {
+        body: {
+          userId: user.id,
+          title: "Płatność została zainicjowana",
+          message: `Twoja płatność w wysokości ${amount} ${currency} została zainicjowana. Kliknij w link z emaila Stripe, aby dokończyć płatność.`,
+          type: "payment",
+          email: user.email,
+          appointmentId: appointmentId,
+        },
+      });
+    } catch (notificationError) {
+      console.log("Nie udało się wysłać powiadomienia:", notificationError);
+      // Nie przerywamy procesu płatności jeśli powiadomienie się nie udało
+    }
+
     return new Response(JSON.stringify({ url: session.url }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
       status: 200,

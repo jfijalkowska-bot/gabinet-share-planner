@@ -36,7 +36,7 @@ serve(async (req) => {
     // Wyślij email jeśli podano
     if (email && Deno.env.get("RESEND_API_KEY")) {
       await resend.emails.send({
-        from: "GabinetShare <noreply@gabinetshare.pl>",
+        from: "GabinetShare <onboarding@resend.dev>",
         to: [email],
         subject: title,
         html: `
