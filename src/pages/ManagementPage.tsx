@@ -38,6 +38,7 @@ const ManagementPage = () => {
           <TabsList className="mb-6">
             <TabsTrigger value="dashboard">Pulpit</TabsTrigger>
             <TabsTrigger value="profile">Profil</TabsTrigger>
+            <TabsTrigger value="supervisions">Superwizje</TabsTrigger>
             <TabsTrigger value="notifications">Powiadomienia</TabsTrigger>
             <TabsTrigger value="admin">Administracja</TabsTrigger>
             <TabsTrigger value="settings">Ustawienia</TabsTrigger>
@@ -66,6 +67,10 @@ const ManagementPage = () => {
           
           <TabsContent value="profile">
             <TherapistProfileForm />
+          </TabsContent>
+          
+          <TabsContent value="supervisions">
+            <SupervisionForm />
           </TabsContent>
           
           <TabsContent value="notifications">

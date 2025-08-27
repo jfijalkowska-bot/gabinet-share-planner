@@ -7,7 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Calendar, User, Search, LogOut, LayoutDashboard, Menu } from "lucide-react";
+import { Calendar, User, Search, LogOut, LayoutDashboard, Menu, UserCheck } from "lucide-react";
 import { useAuth, signOut } from "@/components/auth/AuthProvider";
 import { useState } from "react";
 
@@ -40,6 +40,11 @@ const Navbar = () => {
           <Link to="/search" className="text-gray-700 hover:text-therapy-600 transition-colors flex items-center gap-1">
             <Search className="h-4 w-4" /> 
             Wyszukaj gabinet/specjalistę
+          </Link>
+          
+          <Link to="/supervisions" className="text-gray-700 hover:text-therapy-600 transition-colors flex items-center gap-1">
+            <UserCheck className="h-4 w-4" /> 
+            Superwizje
           </Link>
           
           <Link to="/calendar" className="text-gray-700 hover:text-therapy-600 transition-colors flex items-center gap-1">
@@ -95,6 +100,10 @@ const Navbar = () => {
             <div className="flex flex-col p-4 space-y-4 overflow-auto">
               <Link to="/search" className="py-2 px-4 hover:bg-gray-100 rounded-md flex items-center gap-2" onClick={() => setMobileMenuOpen(false)}>
                 <Search className="h-5 w-5" /> Wyszukaj gabinet/specjalistę
+              </Link>
+              
+              <Link to="/supervisions" className="py-2 px-4 hover:bg-gray-100 rounded-md flex items-center gap-2" onClick={() => setMobileMenuOpen(false)}>
+                <UserCheck className="h-5 w-5" /> Superwizje
               </Link>
               
               <Link to="/calendar" className="py-2 px-4 hover:bg-gray-100 rounded-md flex items-center gap-2" onClick={() => setMobileMenuOpen(false)}>

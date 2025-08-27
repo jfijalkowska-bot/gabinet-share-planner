@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/components/auth/AuthProvider";
 import Index from "./pages/Index";
 
+const SupervisionsPage = lazy(() => import("./pages/SupervisionsPage"));
 const SearchPage = lazy(() => import("./pages/SearchPage"));
 const CalendarPage = lazy(() => import("./pages/CalendarPage"));
 const RentalPage = lazy(() => import("./pages/RentalPage"));
@@ -37,6 +38,7 @@ const App = () => (
           <Suspense fallback={<div>Loading...</div>}>
             <Routes>
               <Route path="/" element={<Index />} />
+              <Route path="/supervisions" element={<SupervisionsPage />} />
               <Route path="/search" element={<SearchPage />} />
               <Route path="/calendar" element={<CalendarPage />} />
               <Route path="/rental" element={<RentalPage />} />
