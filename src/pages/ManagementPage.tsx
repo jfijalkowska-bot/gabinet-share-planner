@@ -8,6 +8,7 @@ import { useAuth } from "@/components/auth/AuthProvider";
 import TherapistProfileForm from "@/components/therapist/TherapistProfileForm";
 import NotificationCenter from "@/components/notifications/NotificationCenter";
 import AdminDashboard from "@/components/admin/AdminDashboard";
+import { SupervisionForm } from "@/components/supervision/SupervisionForm";
 
 const ManagementPage = () => {
   const { user } = useAuth();
