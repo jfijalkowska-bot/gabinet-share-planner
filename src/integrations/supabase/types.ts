@@ -551,6 +551,113 @@ export type Database = {
         }
         Relationships: []
       }
+      supervision_applications: {
+        Row: {
+          applicant_id: string
+          contact_email: string
+          contact_phone: string | null
+          created_at: string
+          experience_description: string | null
+          id: string
+          message: string | null
+          status: string
+          supervision_id: string
+          updated_at: string
+        }
+        Insert: {
+          applicant_id: string
+          contact_email: string
+          contact_phone?: string | null
+          created_at?: string
+          experience_description?: string | null
+          id?: string
+          message?: string | null
+          status?: string
+          supervision_id: string
+          updated_at?: string
+        }
+        Update: {
+          applicant_id?: string
+          contact_email?: string
+          contact_phone?: string | null
+          created_at?: string
+          experience_description?: string | null
+          id?: string
+          message?: string | null
+          status?: string
+          supervision_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "supervision_applications_supervision_id_fkey"
+            columns: ["supervision_id"]
+            isOneToOne: false
+            referencedRelation: "supervisions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      supervisions: {
+        Row: {
+          available_dates: Json | null
+          created_at: string
+          current_participants: number | null
+          description: string | null
+          format: string
+          id: string
+          is_active: boolean | null
+          location: string | null
+          max_participants: number | null
+          price_per_session: number
+          required_experience: string | null
+          required_preparation: string | null
+          supervision_type: string
+          supervisor_id: string
+          therapy_approach: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          available_dates?: Json | null
+          created_at?: string
+          current_participants?: number | null
+          description?: string | null
+          format: string
+          id?: string
+          is_active?: boolean | null
+          location?: string | null
+          max_participants?: number | null
+          price_per_session: number
+          required_experience?: string | null
+          required_preparation?: string | null
+          supervision_type: string
+          supervisor_id: string
+          therapy_approach?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          available_dates?: Json | null
+          created_at?: string
+          current_participants?: number | null
+          description?: string | null
+          format?: string
+          id?: string
+          is_active?: boolean | null
+          location?: string | null
+          max_participants?: number | null
+          price_per_session?: number
+          required_experience?: string | null
+          required_preparation?: string | null
+          supervision_type?: string
+          supervisor_id?: string
+          therapy_approach?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       therapist_languages: {
         Row: {
           created_at: string
