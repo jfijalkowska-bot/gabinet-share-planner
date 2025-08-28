@@ -27,8 +27,8 @@ const SupervisionsPage = () => {
                          supervision.description?.toLowerCase().includes(filters.search.toLowerCase()) ||
                          `${supervision.supervisor_profile?.first_name} ${supervision.supervisor_profile?.last_name}`.toLowerCase().includes(filters.search.toLowerCase());
     
-    const matchesType = !filters.type || supervision.supervision_type === filters.type;
-    const matchesFormat = !filters.format || supervision.format === filters.format;
+    const matchesType = !filters.type || filters.type === 'all' || supervision.supervision_type === filters.type;
+    const matchesFormat = !filters.format || filters.format === 'all' || supervision.format === filters.format;
     const matchesApproach = !filters.approach || supervision.therapy_approach?.includes(filters.approach);
 
     return matchesSearch && matchesType && matchesFormat && matchesApproach;
@@ -87,7 +87,7 @@ const SupervisionsPage = () => {
                   <SelectValue placeholder="Typ superwizji" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">Wszystkie typy</SelectItem>
+                  <SelectItem value="all">Wszystkie typy</SelectItem>
                   <SelectItem value="individual">Indywidualna</SelectItem>
                   <SelectItem value="group">Grupowa</SelectItem>
                 </SelectContent>
@@ -98,7 +98,7 @@ const SupervisionsPage = () => {
                   <SelectValue placeholder="Format" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">Wszystkie formaty</SelectItem>
+                  <SelectItem value="all">Wszystkie formaty</SelectItem>
                   <SelectItem value="online">Online</SelectItem>
                   <SelectItem value="stationary">Stacjonarnie</SelectItem>
                 </SelectContent>

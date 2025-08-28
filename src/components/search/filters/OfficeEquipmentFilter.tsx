@@ -8,6 +8,10 @@ import { Input } from "@/components/ui/input";
 const officeEquipment = [
   { id: "desk", label: "Biurko", icon: null },
   { id: "couch", label: "Kanapa", icon: null },
+  { id: "chairs", label: "Fotele", icon: null },
+  { id: "table", label: "Stolik", icon: null },
+  { id: "tissues", label: "Chusteczki :)", icon: null },
+  { id: "bathroom", label: "Łazienka z natryskiem", icon: null },
   { id: "internet", label: "Internet", icon: <Wifi className="h-4 w-4" /> },
   { id: "ac", label: "Klimatyzacja", icon: null },
   { id: "projector", label: "Projektor", icon: null },

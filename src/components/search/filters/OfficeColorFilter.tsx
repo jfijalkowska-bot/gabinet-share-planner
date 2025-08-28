@@ -8,11 +8,12 @@ interface OfficeColorFilterProps {
 }
 
 const officeColors = [
-  { value: "bright", label: "Jasne" },
-  { value: "neutral", label: "Neutralne" },
-  { value: "pastels", label: "Pastele" },
-  { value: "bold", label: "Wyraziste" },
-  { value: "dark", label: "Ciemne" }
+  { value: "calming-blue", label: "Uspokajający niebieski" },
+  { value: "nature-green", label: "Naturalny zielony" },
+  { value: "warm-beige", label: "Ciepły beż" },
+  { value: "soft-gray", label: "Miękki szary" },
+  { value: "therapeutic-white", label: "Terapeutyczna biel" },
+  { value: "earth-brown", label: "Ziemisty brąz" }
 ];
 
 const OfficeColorFilter = ({ control }: OfficeColorFilterProps) => (
