@@ -7,7 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Calendar, User, Search, LogOut, LayoutDashboard, Menu, UserCheck } from "lucide-react";
+import { Calendar, User, Search, LogOut, LayoutDashboard, Menu, UserCheck, MessageCircle, GraduationCap } from "lucide-react";
 import { useAuth, signOut } from "@/components/auth/AuthProvider";
 import { useState } from "react";
 
@@ -69,6 +69,16 @@ const Navbar = () => {
             Społeczność
           </Link>
           
+          <Link to="/messages" className="text-gray-700 hover:text-therapy-600 transition-colors flex items-center gap-1">
+            <MessageCircle className="h-4 w-4" /> 
+            Wiadomości
+          </Link>
+          
+          <Link to="/trainings" className="text-gray-700 hover:text-therapy-600 transition-colors flex items-center gap-1">
+            <GraduationCap className="h-4 w-4" /> 
+            Szkolenia
+          </Link>
+          
           <Link to="/affiliate" className="text-gray-700 hover:text-therapy-600 transition-colors">
             Program partnerski
           </Link>
@@ -124,6 +134,14 @@ const Navbar = () => {
               
               <Link to="/community" className="py-2 px-4 hover:bg-gray-100 rounded-md" onClick={() => setMobileMenuOpen(false)}>
                 Społeczność
+              </Link>
+              
+              <Link to="/messages" className="py-2 px-4 hover:bg-gray-100 rounded-md flex items-center gap-2" onClick={() => setMobileMenuOpen(false)}>
+                <MessageCircle className="h-5 w-5" /> Wiadomości
+              </Link>
+              
+              <Link to="/trainings" className="py-2 px-4 hover:bg-gray-100 rounded-md flex items-center gap-2" onClick={() => setMobileMenuOpen(false)}>
+                <GraduationCap className="h-5 w-5" /> Szkolenia
               </Link>
               
               <Link to="/affiliate" className="py-2 px-4 hover:bg-gray-100 rounded-md" onClick={() => setMobileMenuOpen(false)}>

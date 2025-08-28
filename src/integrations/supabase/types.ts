@@ -236,6 +236,97 @@ export type Database = {
         }
         Relationships: []
       }
+      conversation_participants: {
+        Row: {
+          conversation_id: string
+          id: string
+          joined_at: string
+          last_read_at: string | null
+          user_id: string
+        }
+        Insert: {
+          conversation_id: string
+          id?: string
+          joined_at?: string
+          last_read_at?: string | null
+          user_id: string
+        }
+        Update: {
+          conversation_id?: string
+          id?: string
+          joined_at?: string
+          last_read_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "conversation_participants_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "conversations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      conversations: {
+        Row: {
+          created_at: string
+          id: string
+          last_message_at: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          last_message_at?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          last_message_at?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      messages: {
+        Row: {
+          content: string
+          conversation_id: string
+          created_at: string
+          id: string
+          is_read: boolean | null
+          sender_id: string
+          updated_at: string
+        }
+        Insert: {
+          content: string
+          conversation_id: string
+          created_at?: string
+          id?: string
+          is_read?: boolean | null
+          sender_id: string
+          updated_at?: string
+        }
+        Update: {
+          content?: string
+          conversation_id?: string
+          created_at?: string
+          id?: string
+          is_read?: boolean | null
+          sender_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "messages_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "conversations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       notifications: {
         Row: {
           created_at: string | null
@@ -849,6 +940,119 @@ export type Database = {
           label?: string
           updated_at?: string | null
           value?: string
+        }
+        Relationships: []
+      }
+      training_registrations: {
+        Row: {
+          id: string
+          notes: string | null
+          participant_id: string
+          payment_status: string | null
+          registered_at: string
+          status: string | null
+          training_id: string
+        }
+        Insert: {
+          id?: string
+          notes?: string | null
+          participant_id: string
+          payment_status?: string | null
+          registered_at?: string
+          status?: string | null
+          training_id: string
+        }
+        Update: {
+          id?: string
+          notes?: string | null
+          participant_id?: string
+          payment_status?: string | null
+          registered_at?: string
+          status?: string | null
+          training_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "training_registrations_training_id_fkey"
+            columns: ["training_id"]
+            isOneToOne: false
+            referencedRelation: "trainings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      trainings: {
+        Row: {
+          certificate_available: boolean | null
+          created_at: string
+          currency: string | null
+          current_participants: number | null
+          description: string | null
+          end_date: string | null
+          format: string
+          id: string
+          instructor_bio: string | null
+          instructor_name: string | null
+          is_active: boolean | null
+          keywords: string[] | null
+          location: string | null
+          max_participants: number | null
+          organizer_id: string
+          price: number | null
+          registration_deadline: string | null
+          requirements: string | null
+          start_date: string
+          title: string
+          topic: string | null
+          updated_at: string
+        }
+        Insert: {
+          certificate_available?: boolean | null
+          created_at?: string
+          currency?: string | null
+          current_participants?: number | null
+          description?: string | null
+          end_date?: string | null
+          format: string
+          id?: string
+          instructor_bio?: string | null
+          instructor_name?: string | null
+          is_active?: boolean | null
+          keywords?: string[] | null
+          location?: string | null
+          max_participants?: number | null
+          organizer_id: string
+          price?: number | null
+          registration_deadline?: string | null
+          requirements?: string | null
+          start_date: string
+          title: string
+          topic?: string | null
+          updated_at?: string
+        }
+        Update: {
+          certificate_available?: boolean | null
+          created_at?: string
+          currency?: string | null
+          current_participants?: number | null
+          description?: string | null
+          end_date?: string | null
+          format?: string
+          id?: string
+          instructor_bio?: string | null
+          instructor_name?: string | null
+          is_active?: boolean | null
+          keywords?: string[] | null
+          location?: string | null
+          max_participants?: number | null
+          organizer_id?: string
+          price?: number | null
+          registration_deadline?: string | null
+          requirements?: string | null
+          start_date?: string
+          title?: string
+          topic?: string | null
+          updated_at?: string
         }
         Relationships: []
       }

@@ -17,6 +17,8 @@ const ManagementPage = lazy(() => import("./pages/ManagementPage"));
 const LoginPage = lazy(() => import("./pages/LoginPage"));
 const RegisterPage = lazy(() => import("./pages/RegisterPage"));
 const CommunityPage = lazy(() => import("./pages/CommunityPage"));
+const MessagesPage = lazy(() => import("./pages/MessagesPage"));
+const TrainingsPage = lazy(() => import("./pages/TrainingsPage"));
 const HowItWorksPage = lazy(() => import("./pages/HowItWorksPage"));
 const PaymentsInfoPage = lazy(() => import("./pages/PaymentsInfoPage"));
 const AffiliatePage = lazy(() => import("./pages/AffiliatePage"));
@@ -47,6 +49,8 @@ const App = () => (
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />
               <Route path="/community" element={<CommunityPage />} />
+              <Route path="/messages" element={<MessagesPage />} />
+              <Route path="/trainings" element={<TrainingsPage />} />
               <Route path="/how-it-works" element={<HowItWorksPage />} />
               <Route path="/payments-info" element={<PaymentsInfoPage />} />
               <Route path="/affiliate" element={<AffiliatePage />} />
