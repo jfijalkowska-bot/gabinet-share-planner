@@ -196,21 +196,51 @@ const TermsPage = () => {
                   </div>
                   
                   <div>
-                    <h2 className="text-xl font-semibold mb-3">11. Postanowienia końcowe</h2>
+                    <h2 className="text-xl font-semibold mb-3">11. Procedura reklamacyjna</h2>
                     <p className="text-gray-700 mb-2">
-                      11.1. Administrator zastrzega sobie prawo do zmiany Regulaminu. Zmiany wchodzą w życie po upływie 14 dni od daty ich publikacji w Serwisie.
+                      11.1. Użytkownicy mają prawo do składania reklamacji dotyczących działania Serwisu lub świadczonych usług.
                     </p>
                     <p className="text-gray-700 mb-2">
-                      11.2. W przypadku zmiany Regulaminu, Użytkownicy zostaną poinformowani o tym fakcie za pośrednictwem poczty elektronicznej lub poprzez komunikat w Serwisie.
+                      11.2. Reklamacje można składać:
+                    </p>
+                    <ul className="list-disc pl-6 text-gray-700 space-y-1 mb-2">
+                      <li>Pisemnie na adres siedziby Administratora</li>
+                      <li>Drogą elektroniczną na adres: kontakt@gabinetshare.pl</li>
+                      <li>Poprzez formularz kontaktowy dostępny w Serwisie</li>
+                    </ul>
+                    <p className="text-gray-700 mb-2">
+                      11.3. Reklamacja powinna zawierać:
+                    </p>
+                    <ul className="list-disc pl-6 text-gray-700 space-y-1 mb-2">
+                      <li>Imię i nazwisko lub nazwę podmiotu składającego reklamację</li>
+                      <li>Adres do korespondencji</li>
+                      <li>Opis przedmiotu reklamacji i okoliczności uzasadniających reklamację</li>
+                      <li>Żądanie sposobu załatwienia reklamacji</li>
+                    </ul>
+                    <p className="text-gray-700 mb-2">
+                      11.4. Administrator rozpatuje reklamacje w terminie 14 dni roboczych od daty otrzymania.
+                    </p>
+                    <p className="text-gray-700">
+                      11.5. Odpowiedź na reklamację zostanie udzielona w formie, w jakiej wpłynęła reklamacja, chyba że Użytkownik zażąda innej formy odpowiedzi.
+                    </p>
+                  </div>
+                  
+                  <div>
+                    <h2 className="text-xl font-semibold mb-3">12. Postanowienia końcowe</h2>
+                    <p className="text-gray-700 mb-2">
+                      12.1. Administrator zastrzega sobie prawo do zmiany Regulaminu. Zmiany wchodzą w życie po upływie 14 dni od daty ich publikacji w Serwisie.
                     </p>
                     <p className="text-gray-700 mb-2">
-                      11.3. W kwestiach nieuregulowanych niniejszym Regulaminem zastosowanie mają przepisy prawa polskiego.
+                      12.2. W przypadku zmiany Regulaminu, Użytkownicy zostaną poinformowani o tym fakcie za pośrednictwem poczty elektronicznej lub poprzez komunikat w Serwisie.
                     </p>
                     <p className="text-gray-700 mb-2">
-                      11.4. Wszelkie spory wynikające z korzystania z Serwisu będą rozstrzygane przez sąd właściwy dla siedziby Administratora.
+                      12.3. W kwestiach nieuregulowanych niniejszym Regulaminem zastosowanie mają przepisy prawa polskiego.
                     </p>
                     <p className="text-gray-700 mb-2">
-                      11.5. Regulamin wchodzi w życie z dniem [DATA].
+                      12.4. Wszelkie spory wynikające z korzystania z Serwisu będą rozstrzygane przez sąd właściwy dla siedziby Administratora.
+                    </p>
+                    <p className="text-gray-700 mb-2">
+                      12.5. Regulamin wchodzi w życie z dniem [DATA].
                     </p>
                   </div>
                 </CardContent>

@@ -41,6 +41,42 @@ const ContactPage = () => {
               Skontaktuj się z nami - chętnie odpowiemy na Twoje pytania
             </p>
           </div>
+
+          {/* Sekcja reklamacji */}
+          <div className="mb-12">
+            <Card className="bg-gradient-to-r from-therapy-50 to-blue-50 border-therapy-200">
+              <CardHeader>
+                <CardTitle className="text-center text-therapy-700">
+                  <HelpCircle className="h-6 w-6 mx-auto mb-2" />
+                  Reklamacje i skargi
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-center space-y-4">
+                  <p className="text-gray-700">
+                    Masz problem z działaniem platformy? Chcesz złożyć reklamację?
+                  </p>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                    <div className="flex items-center justify-center gap-2">
+                      <Mail className="h-4 w-4 text-therapy-600" />
+                      <span><strong>Email:</strong> kontakt@gabinetshare.pl</span>
+                    </div>
+                    <div className="flex items-center justify-center gap-2">
+                      <MessageCircle className="h-4 w-4 text-therapy-600" />
+                      <span>Formularz kontaktowy poniżej</span>
+                    </div>
+                    <div className="flex items-center justify-center gap-2">
+                      <Clock className="h-4 w-4 text-therapy-600" />
+                      <span>Odpowiedź w ciągu 14 dni</span>
+                    </div>
+                  </div>
+                  <p className="text-xs text-gray-500">
+                    Szczegółowe procedury znajdziesz w <a href="/terms" className="text-therapy-600 hover:underline">Regulaminie</a>
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Formularz kontaktowy */}

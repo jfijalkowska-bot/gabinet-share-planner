@@ -39,7 +39,7 @@ const Index = () => {
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold text-center mb-12">Wszystko, czego potrzebujesz</h2>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               <FeatureCard 
                 icon={Search}
                 title="Znajdź gabinet do wynajęcia"
@@ -55,6 +55,45 @@ const Index = () => {
                 title="Wynajmuj na godziny"
                 description="Udostępniaj swój gabinet innym terapeutom, gdy z niego nie korzystasz. Zarabiaj więcej."
               />
+            </div>
+          </div>
+        </section>
+
+        {/* Services Section */}
+        <section className="py-16 bg-gray-50">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold text-center mb-12">Kompletna platforma dla branży terapeutycznej</h2>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <Card className="p-6 text-center hover:shadow-lg transition-shadow">
+                <h3 className="text-xl font-semibold mb-3 text-therapy-700">Wyszukiwarka terapeutów</h3>
+                <p className="text-gray-600">Znajdź specjalistę według specjalizacji, lokalizacji, podejścia terapeutycznego i dostępności.</p>
+              </Card>
+              
+              <Card className="p-6 text-center hover:shadow-lg transition-shadow">
+                <h3 className="text-xl font-semibold mb-3 text-therapy-700">Superwizja</h3>
+                <p className="text-gray-600">Znajdź superwizora lub oferuj superwizję. System aplikacji i zarządzania procesem superwizyjnym.</p>
+              </Card>
+              
+              <Card className="p-6 text-center hover:shadow-lg transition-shadow">
+                <h3 className="text-xl font-semibold mb-3 text-therapy-700">Społeczność specjalistów</h3>
+                <p className="text-gray-600">Dyskutuj, wymieniaj się doświadczeniami i buduj sieć kontaktów z innymi terapeutami.</p>
+              </Card>
+              
+              <Card className="p-6 text-center hover:shadow-lg transition-shadow">
+                <h3 className="text-xl font-semibold mb-3 text-therapy-700">Kalendarz do wbudowania</h3>
+                <p className="text-gray-600">Gotowy kod do implementacji na stronie gabinetu. Klienci mogą rezerwować wizyty bezpośrednio.</p>
+              </Card>
+              
+              <Card className="p-6 text-center hover:shadow-lg transition-shadow">
+                <h3 className="text-xl font-semibold mb-3 text-therapy-700">Szkolenia i kursy</h3>
+                <p className="text-gray-600">Znajdź szkolenie lub zorganizuj własne. System zapisów i zarządzania uczestnikami.</p>
+              </Card>
+              
+              <Card className="p-6 text-center hover:shadow-lg transition-shadow">
+                <h3 className="text-xl font-semibold mb-3 text-therapy-700">Program partnerski</h3>
+                <p className="text-gray-600">Zarabiaj 10% prowizji za każde polecenie nowego użytkownika - niezależnie od Twojej roli.</p>
+              </Card>
             </div>
           </div>
         </section>
