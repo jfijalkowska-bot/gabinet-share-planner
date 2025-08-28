@@ -24,9 +24,11 @@ const PaymentsInfoPage = lazy(() => import("./pages/PaymentsInfoPage"));
 const AffiliatePage = lazy(() => import("./pages/AffiliatePage"));
 const EmbedPage = lazy(() => import("./pages/EmbedPage"));
 const TermsPage = lazy(() => import("./pages/TermsPage"));
+const ContactPage = lazy(() => import("./pages/ContactPage"));
+const KnowledgeBasePage = lazy(() => import("./pages/KnowledgeBasePage"));
 const TherapistProfileDemo = lazy(() => import("./pages/TherapistProfileDemo"));
-const NotFound = lazy(() => import("./pages/NotFound"));
 const PaymentSuccessPage = lazy(() => import("./pages/PaymentSuccessPage"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
 
@@ -56,6 +58,8 @@ const App = () => (
               <Route path="/affiliate" element={<AffiliatePage />} />
               <Route path="/embed" element={<EmbedPage />} />
               <Route path="/terms" element={<TermsPage />} />
+              <Route path="/contact" element={<ContactPage />} />
+              <Route path="/knowledge-base" element={<KnowledgeBasePage />} />
               <Route path="/therapist-demo" element={<TherapistProfileDemo />} />
               <Route path="/payment-success" element={<PaymentSuccessPage />} />
               <Route path="*" element={<NotFound />} />
