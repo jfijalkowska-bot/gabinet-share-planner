@@ -381,6 +381,8 @@ export type Database = {
           images: string[] | null
           is_active: boolean | null
           name: string
+          offers_practicums: boolean | null
+          offers_trainings: boolean | null
           owner_id: string
           price_per_hour: number | null
           style: string | null
@@ -398,6 +400,8 @@ export type Database = {
           images?: string[] | null
           is_active?: boolean | null
           name: string
+          offers_practicums?: boolean | null
+          offers_trainings?: boolean | null
           owner_id: string
           price_per_hour?: number | null
           style?: string | null
@@ -415,6 +419,8 @@ export type Database = {
           images?: string[] | null
           is_active?: boolean | null
           name?: string
+          offers_practicums?: boolean | null
+          offers_trainings?: boolean | null
           owner_id?: string
           price_per_hour?: number | null
           style?: string | null
@@ -857,6 +863,9 @@ export type Database = {
           id: string
           is_verified: boolean | null
           last_name: string
+          offers_practicums: boolean | null
+          offers_supervisions: boolean | null
+          offers_trainings: boolean | null
           phone: string | null
           price_per_hour: number | null
           specialization: string | null
@@ -874,6 +883,9 @@ export type Database = {
           id?: string
           is_verified?: boolean | null
           last_name: string
+          offers_practicums?: boolean | null
+          offers_supervisions?: boolean | null
+          offers_trainings?: boolean | null
           phone?: string | null
           price_per_hour?: number | null
           specialization?: string | null
@@ -891,6 +903,9 @@ export type Database = {
           id?: string
           is_verified?: boolean | null
           last_name?: string
+          offers_practicums?: boolean | null
+          offers_supervisions?: boolean | null
+          offers_trainings?: boolean | null
           phone?: string | null
           price_per_hour?: number | null
           specialization?: string | null

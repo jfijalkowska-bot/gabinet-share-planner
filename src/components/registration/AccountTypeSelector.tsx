@@ -3,16 +3,25 @@ import { useState } from "react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { ChevronDown, ChevronUp } from "lucide-react";
 
 type AccountType = "owner" | "therapist" | "therapist-seeking" | "free" | "client";
 
-interface AccountTypeSelectorProps {
-  accountType: AccountType;
-  onChange: (value: AccountType) => void;
+interface ServiceOfferings {
+  supervisions: boolean;
+  trainings: boolean;
+  practicums: boolean;
 }
 
-const AccountTypeSelector = ({ accountType, onChange }: AccountTypeSelectorProps) => {
+interface AccountTypeSelectorProps {
+  accountType: AccountType;
+  serviceOfferings: ServiceOfferings;
+  onChange: (value: AccountType) => void;
+  onServiceOfferingsChange: (offerings: ServiceOfferings) => void;
+}
+
+const AccountTypeSelector = ({ accountType, serviceOfferings, onChange, onServiceOfferingsChange }: AccountTypeSelectorProps) => {
   const [expandedDetails, setExpandedDetails] = useState<string | null>(null);
 
   const toggleDetails = (type: string) => {
@@ -32,14 +41,16 @@ const AccountTypeSelector = ({ accountType, onChange }: AccountTypeSelectorProps
       "Wizytówka w cenie",
       "Panel administracyjny",
       "Raportowanie i statystyki",
+      "Możliwość oferowania praktyk i szkoleń",
       "Zarabiaj na poleceniach (program partnerski)"
     ],
     therapist: [
       "Pełny dostęp do kalendarza wizyt",
       "Zarządzanie rezerwacjami",
-      "Wizytówka terapeuty",
+      "Wizytówka terapeuty", 
       "Powiadomienia o wizytach",
       "Historia spotkań z klientami",
+      "Możliwość oferowania superwizji, praktyk i szkoleń",
       "Zarabiaj na poleceniach (program partnerski)"
     ],
     "therapist-seeking": [
@@ -98,11 +109,40 @@ const AccountTypeSelector = ({ accountType, onChange }: AccountTypeSelectorProps
             {expandedDetails === "owner" ? <ChevronUp className="h-3 w-3 ml-1" /> : <ChevronDown className="h-3 w-3 ml-1" />}
           </Button>
           {expandedDetails === "owner" && (
-            <ul className="mt-2 text-sm text-gray-600 list-disc pl-5">
-              {planDetails.owner.map((item, index) => (
-                <li key={index}>{item}</li>
-              ))}
-            </ul>
+            <div className="mt-2 space-y-3">
+              <ul className="text-sm text-gray-600 list-disc pl-5">
+                {planDetails.owner.map((item, index) => (
+                  <li key={index}>{item}</li>
+                ))}
+              </ul>
+              <div className="border-t pt-3">
+                <Label className="text-sm font-medium text-gray-700 mb-2 block">
+                  Jakie usługi planujesz oferować?
+                </Label>
+                <div className="space-y-2">
+                  <div className="flex items-center space-x-2">
+                    <Checkbox
+                      id="practicums-owner"
+                      checked={serviceOfferings.practicums}
+                      onCheckedChange={(checked) => 
+                        onServiceOfferingsChange({...serviceOfferings, practicums: !!checked})
+                      }
+                    />
+                    <Label htmlFor="practicums-owner" className="text-sm">Praktyki psychologiczne</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Checkbox
+                      id="trainings-owner"
+                      checked={serviceOfferings.trainings}
+                      onCheckedChange={(checked) => 
+                        onServiceOfferingsChange({...serviceOfferings, trainings: !!checked})
+                      }
+                    />
+                    <Label htmlFor="trainings-owner" className="text-sm">Szkolenia i warsztaty</Label>
+                  </div>
+                </div>
+              </div>
+            </div>
           )}
         </div>
 
@@ -126,11 +166,50 @@ const AccountTypeSelector = ({ accountType, onChange }: AccountTypeSelectorProps
             {expandedDetails === "therapist" ? <ChevronUp className="h-3 w-3 ml-1" /> : <ChevronDown className="h-3 w-3 ml-1" />}
           </Button>
           {expandedDetails === "therapist" && (
-            <ul className="mt-2 text-sm text-gray-600 list-disc pl-5">
-              {planDetails.therapist.map((item, index) => (
-                <li key={index}>{item}</li>
-              ))}
-            </ul>
+            <div className="mt-2 space-y-3">
+              <ul className="text-sm text-gray-600 list-disc pl-5">
+                {planDetails.therapist.map((item, index) => (
+                  <li key={index}>{item}</li>
+                ))}
+              </ul>
+              <div className="border-t pt-3">
+                <Label className="text-sm font-medium text-gray-700 mb-2 block">
+                  Jakie usługi planujesz oferować?
+                </Label>
+                <div className="space-y-2">
+                  <div className="flex items-center space-x-2">
+                    <Checkbox
+                      id="supervisions-therapist"
+                      checked={serviceOfferings.supervisions}
+                      onCheckedChange={(checked) => 
+                        onServiceOfferingsChange({...serviceOfferings, supervisions: !!checked})
+                      }
+                    />
+                    <Label htmlFor="supervisions-therapist" className="text-sm">Superwizje</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Checkbox
+                      id="practicums-therapist"
+                      checked={serviceOfferings.practicums}
+                      onCheckedChange={(checked) => 
+                        onServiceOfferingsChange({...serviceOfferings, practicums: !!checked})
+                      }
+                    />
+                    <Label htmlFor="practicums-therapist" className="text-sm">Praktyki psychologiczne</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Checkbox
+                      id="trainings-therapist"
+                      checked={serviceOfferings.trainings}
+                      onCheckedChange={(checked) => 
+                        onServiceOfferingsChange({...serviceOfferings, trainings: !!checked})
+                      }
+                    />
+                    <Label htmlFor="trainings-therapist" className="text-sm">Szkolenia i warsztaty</Label>
+                  </div>
+                </div>
+              </div>
+            </div>
           )}
         </div>
 

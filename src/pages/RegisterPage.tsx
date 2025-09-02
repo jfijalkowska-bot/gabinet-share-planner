@@ -9,6 +9,12 @@ import RegistrationCard from "@/components/registration/RegistrationCard";
 
 type AccountType = "owner" | "therapist" | "therapist-seeking" | "free" | "client";
 
+interface ServiceOfferings {
+  supervisions: boolean;
+  trainings: boolean;
+  practicums: boolean;
+}
+
 const RegisterPage = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -16,6 +22,11 @@ const RegisterPage = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [accountType, setAccountType] = useState<AccountType>("therapist");
+  const [serviceOfferings, setServiceOfferings] = useState<ServiceOfferings>({
+    supervisions: false,
+    trainings: false,
+    practicums: false
+  });
   const [loading, setLoading] = useState(false);
   
   const location = useLocation();
@@ -82,7 +93,8 @@ const RegisterPage = () => {
             last_name: lastName || '',
             account_type: accountType,
             full_name: name.trim(),
-            referral_code: referralCode
+            referral_code: referralCode,
+            service_offerings: serviceOfferings
           }
         }
       });
@@ -134,6 +146,7 @@ const RegisterPage = () => {
           confirmPassword={confirmPassword}
           acceptTerms={acceptTerms}
           accountType={accountType}
+          serviceOfferings={serviceOfferings}
           loading={loading}
           referralCode={referralCode}
           onNameChange={setName}
@@ -142,6 +155,7 @@ const RegisterPage = () => {
           onConfirmPasswordChange={setConfirmPassword}
           onAcceptTermsChange={setAcceptTerms}
           onAccountTypeChange={setAccountType}
+          onServiceOfferingsChange={setServiceOfferings}
           onSubmit={handleSubmit}
         />
       </main>

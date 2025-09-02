@@ -6,6 +6,12 @@ import RegistrationForm from "./RegistrationForm";
 
 type AccountType = "owner" | "therapist" | "therapist-seeking" | "free" | "client";
 
+interface ServiceOfferings {
+  supervisions: boolean;
+  trainings: boolean;
+  practicums: boolean;
+}
+
 interface RegistrationCardProps {
   name: string;
   email: string;
@@ -13,6 +19,7 @@ interface RegistrationCardProps {
   confirmPassword: string;
   acceptTerms: boolean;
   accountType: AccountType;
+  serviceOfferings: ServiceOfferings;
   loading: boolean;
   referralCode: string | null;
   onNameChange: (value: string) => void;
@@ -21,6 +28,7 @@ interface RegistrationCardProps {
   onConfirmPasswordChange: (value: string) => void;
   onAcceptTermsChange: (checked: boolean) => void;
   onAccountTypeChange: (value: AccountType) => void;
+  onServiceOfferingsChange: (offerings: ServiceOfferings) => void;
   onSubmit: (e: React.FormEvent) => void;
 }
 
@@ -31,6 +39,7 @@ const RegistrationCard = ({
   confirmPassword,
   acceptTerms,
   accountType,
+  serviceOfferings,
   loading,
   referralCode,
   onNameChange,
@@ -39,6 +48,7 @@ const RegistrationCard = ({
   onConfirmPasswordChange,
   onAcceptTermsChange,
   onAccountTypeChange,
+  onServiceOfferingsChange,
   onSubmit
 }: RegistrationCardProps) => {
   
@@ -59,7 +69,9 @@ const RegistrationCard = ({
       <CardContent>
         <AccountTypeSelector 
           accountType={accountType}
+          serviceOfferings={serviceOfferings}
           onChange={onAccountTypeChange}
+          onServiceOfferingsChange={onServiceOfferingsChange}
         />
         
         <RegistrationForm
