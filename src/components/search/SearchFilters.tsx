@@ -14,7 +14,9 @@ import { useForm } from "react-hook-form";
 import LocationFilter from "./filters/LocationFilter";
 import PriceFilter from "./filters/PriceFilter";
 import OfficeEquipmentFilter from "./filters/OfficeEquipmentFilter";
+import OfficeServicesFilter from "./filters/OfficeServicesFilter";
 import TherapistServicesFilter from "./filters/TherapistServicesFilter";
+import TherapistAdvancedServicesFilter from "./filters/TherapistAdvancedServicesFilter";
 import TrainingStatusFilter from "./filters/TrainingStatusFilter";
 import OfficeStyleFilter from "./filters/OfficeStyleFilter";
 import OfficeColorFilter from "./filters/OfficeColorFilter";
@@ -55,6 +57,8 @@ const SearchFilters = ({ type, onSearch }: SearchFiltersProps) => {
       successAreas: [] as string[],
       otherSuccessAreas: "",
       services: [] as string[],
+      advancedServices: [] as string[],
+      officeServices: [] as string[],
       keywords: "",
       otherServices: "",
       trainingStatus: [] as string[],
@@ -121,6 +125,7 @@ const SearchFilters = ({ type, onSearch }: SearchFiltersProps) => {
                   <>
                     <OfficeCapacityFilter control={form.control} />
                     <OfficeEquipmentFilter register={form.register} />
+                    <OfficeServicesFilter register={form.register} />
                   </>
                 )}
 
@@ -129,6 +134,7 @@ const SearchFilters = ({ type, onSearch }: SearchFiltersProps) => {
                     <SpecializationFilter control={form.control} />
                     <SuccessAreasFilter register={form.register} />
                     <TherapistServicesFilter register={form.register} />
+                    <TherapistAdvancedServicesFilter register={form.register} />
                     <TrainingStatusFilter register={form.register} />
                   </>
                 )}

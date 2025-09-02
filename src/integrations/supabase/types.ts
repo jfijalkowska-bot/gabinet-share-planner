@@ -382,6 +382,7 @@ export type Database = {
           is_active: boolean | null
           name: string
           offers_practicums: boolean | null
+          offers_supervisions: boolean | null
           offers_trainings: boolean | null
           owner_id: string
           price_per_hour: number | null
@@ -401,6 +402,7 @@ export type Database = {
           is_active?: boolean | null
           name: string
           offers_practicums?: boolean | null
+          offers_supervisions?: boolean | null
           offers_trainings?: boolean | null
           owner_id: string
           price_per_hour?: number | null
@@ -420,6 +422,7 @@ export type Database = {
           is_active?: boolean | null
           name?: string
           offers_practicums?: boolean | null
+          offers_supervisions?: boolean | null
           offers_trainings?: boolean | null
           owner_id?: string
           price_per_hour?: number | null

@@ -41,7 +41,7 @@ const AccountTypeSelector = ({ accountType, serviceOfferings, onChange, onServic
       "Wizytówka w cenie",
       "Panel administracyjny",
       "Raportowanie i statystyki",
-      "Możliwość oferowania praktyk i szkoleń",
+      "Możliwość oferowania superwizji, praktyk i szkoleń",
       "Zarabiaj na poleceniach (program partnerski)"
     ],
     therapist: [
@@ -120,6 +120,16 @@ const AccountTypeSelector = ({ accountType, serviceOfferings, onChange, onServic
                   Jakie usługi planujesz oferować?
                 </Label>
                 <div className="space-y-2">
+                  <div className="flex items-center space-x-2">
+                    <Checkbox
+                      id="supervisions-owner"
+                      checked={serviceOfferings.supervisions}
+                      onCheckedChange={(checked) => 
+                        onServiceOfferingsChange({...serviceOfferings, supervisions: !!checked})
+                      }
+                    />
+                    <Label htmlFor="supervisions-owner" className="text-sm">Superwizje</Label>
+                  </div>
                   <div className="flex items-center space-x-2">
                     <Checkbox
                       id="practicums-owner"
