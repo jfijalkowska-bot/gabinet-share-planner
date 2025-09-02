@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 // Usługi terapeuty: popularne na górze, specjalistyczne na dole
 const therapistServices = [
   { id: "individual", label: "Terapia indywidualna" },
+  { id: "diagnosis", label: "Diagnoza psychologiczna" },
   { id: "couples", label: "Terapia par" },
   { id: "group", label: "Terapia grupowa" },
   { id: "family", label: "Terapia rodzinna" },
