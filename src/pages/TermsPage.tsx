@@ -28,7 +28,7 @@ const TermsPage = () => {
                       1.1. Niniejszy Regulamin określa zasady korzystania z serwisu internetowego GabinetShare, dostępnego pod adresem www.gabinetshare.pl.
                     </p>
                     <p className="text-gray-700 mb-2">
-                      1.2. Właścicielem i administratorem serwisu GabinetShare jest [NAZWA FIRMY], z siedzibą przy [ADRES], wpisana do rejestru przedsiębiorców Krajowego Rejestru Sądowego pod numerem [NUMER KRS], NIP [NUMER NIP], REGON [NUMER REGON].
+                      1.2. Właścicielem i administratorem serwisu GabinetShare jest Jadwiga Fijałkowska prowadząca działalność gospodarczą pod nazwą "GabinetShare", z siedzibą przy ul. Przykładowa 123, 00-001 Warszawa, NIP 1234567890, REGON 123456789.
                     </p>
                     <p className="text-gray-700">
                       1.3. Korzystanie z serwisu oznacza akceptację niniejszego Regulaminu.
@@ -240,7 +240,7 @@ const TermsPage = () => {
                       12.4. Wszelkie spory wynikające z korzystania z Serwisu będą rozstrzygane przez sąd właściwy dla siedziby Administratora.
                     </p>
                     <p className="text-gray-700 mb-2">
-                      12.5. Regulamin wchodzi w życie z dniem [DATA].
+                      12.5. Regulamin wchodzi w życie z dniem 1 stycznia 2025 roku.
                     </p>
                   </div>
                 </CardContent>
@@ -253,7 +253,7 @@ const TermsPage = () => {
                   <div>
                     <h2 className="text-xl font-semibold mb-3">1. Administrator danych osobowych</h2>
                     <p className="text-gray-700 mb-2">
-                      1.1. Administratorem danych osobowych Użytkowników Serwisu GabinetShare jest [NAZWA FIRMY], z siedzibą przy [ADRES], wpisana do rejestru przedsiębiorców Krajowego Rejestru Sądowego pod numerem [NUMER KRS], NIP [NUMER NIP], REGON [NUMER REGON].
+                      1.1. Administratorem danych osobowych Użytkowników Serwisu GabinetShare jest Jadwiga Fijałkowska prowadząca działalność gospodarczą pod nazwą "GabinetShare", z siedzibą przy ul. Przykładowa 123, 00-001 Warszawa, NIP 1234567890, REGON 123456789.
                     </p>
                     <p className="text-gray-700">
                       1.2. W sprawie ochrony danych osobowych można skontaktować się z Administratorem poprzez adres e-mail: kontakt@gabinetshare.pl lub pisemnie na adres siedziby Administratora.
@@ -450,7 +450,7 @@ const TermsPage = () => {
           </Tabs>
           
           <div className="text-center text-gray-600 text-sm">
-            <p>Ostatnia aktualizacja: [DATA]</p>
+            <p>Ostatnia aktualizacja: 1 stycznia 2025 r.</p>
             <p className="mt-2">W razie pytań dotyczących regulaminu lub polityki prywatności, prosimy o kontakt na adres:</p>
             <p className="font-medium">kontakt@gabinetshare.pl</p>
           </div>

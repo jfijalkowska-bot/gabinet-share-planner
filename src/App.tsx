@@ -25,6 +25,8 @@ const AffiliatePage = lazy(() => import("./pages/AffiliatePage"));
 const EmbedPage = lazy(() => import("./pages/EmbedPage"));
 const TermsPage = lazy(() => import("./pages/TermsPage"));
 const ContactPage = lazy(() => import("./pages/ContactPage"));
+const AboutPage = lazy(() => import("./pages/AboutPage"));
+const GDPRPage = lazy(() => import("./pages/GDPRPage"));
 const KnowledgeBasePage = lazy(() => import("./pages/KnowledgeBasePage"));
 const TherapistProfileDemo = lazy(() => import("./pages/TherapistProfileDemo"));
 const PaymentSuccessPage = lazy(() => import("./pages/PaymentSuccessPage"));
@@ -59,6 +61,8 @@ const App = () => (
               <Route path="/embed" element={<EmbedPage />} />
               <Route path="/terms" element={<TermsPage />} />
               <Route path="/contact" element={<ContactPage />} />
+              <Route path="/about" element={<AboutPage />} />
+              <Route path="/gdpr" element={<GDPRPage />} />
               <Route path="/knowledge-base" element={<KnowledgeBasePage />} />
               <Route path="/therapist-demo" element={<TherapistProfileDemo />} />
               <Route path="/payment-success" element={<PaymentSuccessPage />} />

@@ -48,6 +48,21 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
+                <Link to="/about" className="text-gray-600 hover:text-therapy-600 transition-colors">
+                  O firmie
+                </Link>
+              </li>
+              <li>
+                <Link to="/payments-info" className="text-gray-600 hover:text-therapy-600 transition-colors">
+                  Informacje o płatnościach
+                </Link>
+              </li>
+              <li>
+                <Link to="/gdpr" className="text-gray-600 hover:text-therapy-600 transition-colors">
+                  Prawa RODO
+                </Link>
+              </li>
+              <li>
                 <Link to="/contact" className="text-gray-600 hover:text-therapy-600 transition-colors">
                   Kontakt i reklamacje
                 </Link>
@@ -58,7 +73,7 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold mb-4 text-therapy-800">Kontakt</h4>
             <ul className="space-y-2">
-              <li className="text-gray-600">Email: kontakt@gabinet-psychologa.com.pl</li>
+              <li className="text-gray-600">Email: kontakt@gabinetshare.pl</li>
             </ul>
           </div>
         </div>
