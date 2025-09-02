@@ -26,8 +26,10 @@ import TherapyApproachFilter from "./filters/TherapyApproachFilter";
 import TimeAvailabilityFilter from "./filters/TimeAvailabilityFilter";
 import LanguageFilter from "./filters/LanguageFilter";
 
+import PracticumFilters from "./filters/PracticumFilters";
+
 interface SearchFiltersProps {
-  type: "office" | "specialist";
+  type: "office" | "specialist" | "practicum";
   onSearch: (filters: any) => void;
 }
 
@@ -59,7 +61,12 @@ const SearchFilters = ({ type, onSearch }: SearchFiltersProps) => {
       timeSlots: [] as string[],
       daysOfWeek: [] as string[],
       prioritizeEarliestSlot: false,
-      languages: [] as string[]
+      languages: [] as string[],
+      // Practicum specific fields
+      compensationType: "",
+      minDuration: "",
+      maxDuration: "",
+      hoursPerWeek: ""
     }
   });
 
@@ -100,6 +107,12 @@ const SearchFilters = ({ type, onSearch }: SearchFiltersProps) => {
                     <LanguageFilter control={form.control} />
                     <TimeAvailabilityFilter register={form.register} />
                   </>
+                )}
+                {type === "practicum" && (
+                  <PracticumFilters 
+                    control={form.control} 
+                    register={form.register}
+                  />
                 )}
               </div>
 

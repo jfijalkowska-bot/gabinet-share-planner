@@ -10,6 +10,7 @@ import OfficeProfileForm from "@/components/office/OfficeProfileForm";
 import NotificationCenter from "@/components/notifications/NotificationCenter";
 import AdminDashboard from "@/components/admin/AdminDashboard";
 import { SupervisionForm } from "@/components/supervision/SupervisionForm";
+import PracticumForm from "@/components/practicum/PracticumForm";
 
 const ManagementPage = () => {
   const { user } = useAuth();
@@ -42,6 +43,7 @@ const ManagementPage = () => {
             <TabsTrigger value="profile">Profil terapeuty</TabsTrigger>
             <TabsTrigger value="office">Gabinet</TabsTrigger>
             <TabsTrigger value="supervisions">Superwizje</TabsTrigger>
+            <TabsTrigger value="practicum">Praktyki</TabsTrigger>
             <TabsTrigger value="notifications">Powiadomienia</TabsTrigger>
             <TabsTrigger value="admin">Administracja</TabsTrigger>
             <TabsTrigger value="settings">Ustawienia</TabsTrigger>
@@ -76,6 +78,10 @@ const ManagementPage = () => {
                     <h4 className="font-medium text-blue-700 mb-1">Oferuj superwizje</h4>
                     <p className="text-sm text-gray-600">Zostań superwizorem i dziel się wiedzą</p>
                   </div>
+                  <div className="p-3 bg-purple-50 rounded-lg">
+                    <h4 className="font-medium text-purple-700 mb-1">Dodaj praktyki</h4>
+                    <p className="text-sm text-gray-600">Oferuj praktyki psychologiczne studentom</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -91,6 +97,10 @@ const ManagementPage = () => {
           
           <TabsContent value="supervisions">
             <SupervisionForm />
+          </TabsContent>
+          
+          <TabsContent value="practicum">
+            <PracticumForm />
           </TabsContent>
           
           <TabsContent value="notifications">

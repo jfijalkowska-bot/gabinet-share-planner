@@ -577,6 +577,72 @@ export type Database = {
           },
         ]
       }
+      practicums: {
+        Row: {
+          application_deadline: string | null
+          compensation_amount: number | null
+          compensation_type: string
+          contact_email: string
+          contact_phone: string | null
+          created_at: string
+          description: string | null
+          duration_weeks: number | null
+          hours_per_week: number | null
+          id: string
+          is_active: boolean | null
+          is_online: boolean | null
+          location: string | null
+          organization_id: string
+          requirements: string | null
+          responsibilities: string | null
+          start_date: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          application_deadline?: string | null
+          compensation_amount?: number | null
+          compensation_type: string
+          contact_email: string
+          contact_phone?: string | null
+          created_at?: string
+          description?: string | null
+          duration_weeks?: number | null
+          hours_per_week?: number | null
+          id?: string
+          is_active?: boolean | null
+          is_online?: boolean | null
+          location?: string | null
+          organization_id: string
+          requirements?: string | null
+          responsibilities?: string | null
+          start_date?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          application_deadline?: string | null
+          compensation_amount?: number | null
+          compensation_type?: string
+          contact_email?: string
+          contact_phone?: string | null
+          created_at?: string
+          description?: string | null
+          duration_weeks?: number | null
+          hours_per_week?: number | null
+          id?: string
+          is_active?: boolean | null
+          is_online?: boolean | null
+          location?: string | null
+          organization_id?: string
+          requirements?: string | null
+          responsibilities?: string | null
+          start_date?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       review_responses: {
         Row: {
           author_id: string

@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 interface PriceFilterProps {
   register: UseFormRegister<any>;
   control?: Control<any>;
-  type: "office" | "specialist";
+  type: "office" | "specialist" | "practicum";
 }
 
 const getOfficeTypes = [
@@ -23,7 +23,13 @@ const getTherapistTypes = [
 ];
 
 const PriceFilter = ({ register, control, type }: PriceFilterProps) => {
-  const priceTypes = type === "office" ? getOfficeTypes : getTherapistTypes;
+  const priceTypes = type === "office" ? getOfficeTypes : 
+                     type === "specialist" ? getTherapistTypes : [];
+  
+  // Don't show price filter for practicum as compensation is handled separately
+  if (type === "practicum") {
+    return null;
+  }
   
   return (
     <div className="space-y-2">

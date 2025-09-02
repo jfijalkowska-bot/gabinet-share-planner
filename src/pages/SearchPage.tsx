@@ -8,7 +8,7 @@ import SearchFilters from "@/components/search/SearchFilters";
 import SearchResults from "@/components/search/SearchResults";
 import { toast } from "@/components/ui/use-toast";
 
-type SearchType = "office" | "specialist";
+type SearchType = "office" | "specialist" | "practicum";
 
 const SearchPage = () => {
   const [searchType, setSearchType] = useState<SearchType>("office");
@@ -26,13 +26,15 @@ const SearchPage = () => {
         id: i,
         name: searchType === "office" 
           ? `Gabinet ${i + 1}` 
-          : `Specjalista ${i + 1}`,
+          : searchType === "specialist"
+          ? `Specjalista ${i + 1}`
+          : `Praktyki w ${["Szpitalu Uniwersyteckim", "Poradni Zdrowia Psychicznego", "Ośrodku Terapii", "Centrum Diagnostycznym", "Klinice Prywatnej", "Fundacji"][i]}`,
         address: "ul. Przykładowa 123, Warszawa",
         distance: Math.floor(Math.random() * 10) + 1,
         equipment: searchType === "office" ? ["Kanapa", "Biurko", "Internet"] : [],
         capacity: searchType === "office" ? Math.floor(Math.random() * 5) + 1 : null,
         specialization: searchType === "specialist" ? ["Psychoterapia", "Terapia par"][i % 2] : null,
-        price: (Math.floor(Math.random() * 10) + 15) * 10,
+        price: searchType === "practicum" ? null : (Math.floor(Math.random() * 10) + 15) * 10,
         rating: (Math.random() * 2 + 3).toFixed(1),
         image: `/placeholder.svg`,
         // New fields for specialists
@@ -53,9 +55,17 @@ const SearchPage = () => {
         earliestAvailable: searchType === "specialist" ? 
           [`${i + 1} dni`, "Jutro", "Dziś", "Za 3 dni", "Za tydzień"][i % 5] : null,
         availableDays: searchType === "specialist" ? 
-          ["Pon, Śr, Pt", "Wt, Czw", "Pon, Wt, Pt", "Śr, Czw, Pt", "Pon-Pt"][i % 5] : null,
+          ["Pon, Śr, Pt", "Wt, Czw", "Pon, Wt, Ft", "Śr, Czw, Pt", "Pon-Pt"][i % 5] : null,
         availableHours: searchType === "specialist" ? 
           ["8:00-12:00", "12:00-16:00", "16:00-20:00", "10:00-18:00", "8:00-16:00"][i % 5] : null,
+        // Practicum specific fields
+        compensationType: searchType === "practicum" ? 
+          ["paid", "unpaid", "compensated"][i % 3] : null,
+        duration: searchType === "practicum" ? 
+          [8, 12, 16, 20, 26][i % 5] : null,
+        hoursPerWeek: searchType === "practicum" ? 
+          [15, 20, 25, 30, 40][i % 5] : null,
+        isOnline: searchType === "practicum" ? Math.random() > 0.7 : null,
       }));
       
       // Handle language filter
@@ -108,9 +118,10 @@ const SearchPage = () => {
         />
 
         <Tabs defaultValue="office" className="w-full" onValueChange={(value) => setSearchType(value as SearchType)}>
-          <TabsList className="grid w-full grid-cols-2 mb-8">
+          <TabsList className="grid w-full grid-cols-3 mb-8">
             <TabsTrigger value="office">Wyszukaj gabinet</TabsTrigger>
             <TabsTrigger value="specialist">Wyszukaj specjalistę</TabsTrigger>
+            <TabsTrigger value="practicum">Praktyki/Staże</TabsTrigger>
           </TabsList>
           
           <TabsContent value="office" className="mt-0">
@@ -123,6 +134,13 @@ const SearchPage = () => {
           <TabsContent value="specialist" className="mt-0">
             <SearchFilters 
               type="specialist" 
+              onSearch={handleSearch}
+            />
+          </TabsContent>
+          
+          <TabsContent value="practicum" className="mt-0">
+            <SearchFilters 
+              type="practicum" 
               onSearch={handleSearch}
             />
           </TabsContent>

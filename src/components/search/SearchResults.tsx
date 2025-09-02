@@ -12,7 +12,7 @@ import { MapPin, Star, Users, Building, Clock, User, Calendar, MessageCircle } f
 interface SearchResultsProps {
   results: any[];
   isLoading: boolean;
-  type: "office" | "specialist";
+  type: "office" | "specialist" | "practicum";
 }
 
 const SearchResults = ({ results, isLoading, type }: SearchResultsProps) => {
@@ -49,7 +49,7 @@ const SearchResults = ({ results, isLoading, type }: SearchResultsProps) => {
           <Building className="h-16 w-16 text-gray-400" />
           <h3 className="text-xl font-semibold">Brak wyników</h3>
           <p className="text-gray-500 max-w-md mx-auto">
-            Nie znaleziono {type === "office" ? "gabinetów" : "specjalistów"}{" "}
+            Nie znaleziono {type === "office" ? "gabinetów" : type === "specialist" ? "specjalistów" : "praktyk"}{" "}
             spełniających podane kryteria. Spróbuj zmienić parametry wyszukiwania.
           </p>
         </div>
@@ -211,14 +211,47 @@ const SearchResults = ({ results, isLoading, type }: SearchResultsProps) => {
                 )}
               </>
             )}
+            {type === "practicum" && (
+              <>
+                {item.compensationType && (
+                  <Badge variant="secondary" className="mt-1 mb-2">
+                    {item.compensationType === 'paid' ? 'Płatny' : 
+                     item.compensationType === 'unpaid' ? 'Bezpłatny' : 'Dofinansowany'}
+                  </Badge>
+                )}
+                {item.duration && (
+                  <p className="text-sm flex items-center gap-1 text-gray-600 mb-1">
+                    <Clock className="h-3 w-3" /> Czas trwania: {item.duration} tygodni
+                  </p>
+                )}
+                {item.hoursPerWeek && (
+                  <p className="text-sm flex items-center gap-1 text-gray-600 mb-1">
+                    <Users className="h-3 w-3" /> {item.hoursPerWeek}h tygodniowo
+                  </p>
+                )}
+                {item.isOnline && (
+                  <Badge variant="outline" className="text-xs">Online</Badge>
+                )}
+              </>
+            )}
           </CardContent>
           <CardFooter className="p-4 flex justify-between items-center border-t">
-            <p className="font-medium">
-              {item.price} zł
-              {type === "office" ? "/h" : ""}
-            </p>
+            {type !== "practicum" && (
+              <p className="font-medium">
+                {item.price} zł
+                {type === "office" ? "/h" : ""}
+              </p>
+            )}
+            {type === "practicum" && (
+              <div className="text-sm text-gray-600">
+                {item.compensationType === 'paid' && item.price && `${item.price} zł/mies`}
+                {item.compensationType === 'unpaid' && 'Bezpłatny'}
+                {item.compensationType === 'compensated' && 'Dofinansowany'}
+              </div>
+            )}
             <Button size="sm" className="bg-therapy-600 hover:bg-therapy-700">
-              {type === "office" ? "Sprawdź dostępność" : "Umów wizytę"}
+              {type === "office" ? "Sprawdź dostępność" : 
+               type === "specialist" ? "Umów wizytę" : "Aplikuj"}
             </Button>
           </CardFooter>
         </Card>
