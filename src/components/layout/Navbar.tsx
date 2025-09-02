@@ -10,6 +10,7 @@ import {
 import { Calendar, User, Search, LogOut, LayoutDashboard, Menu, UserCheck, MessageCircle, GraduationCap } from "lucide-react";
 import { useAuth, signOut } from "@/components/auth/AuthProvider";
 import { useState } from "react";
+import GlobalSearch from "@/components/common/GlobalSearch";
 
 const Navbar = () => {
   const { user } = useAuth();
@@ -18,12 +19,17 @@ const Navbar = () => {
 
   return (
     <nav className="border-b shadow-sm py-3 px-4 bg-white">
-      <div className="container mx-auto flex items-center justify-between">
+      <div className="container mx-auto flex items-center justify-between gap-4">
         <div className="flex items-center gap-2">
           <Calendar className="h-6 w-6 text-therapy-600" />
           <Link to="/" className="font-semibold text-lg text-therapy-800">
             GabinetShare
           </Link>
+        </div>
+        
+        {/* Global search - visible on desktop */}
+        <div className="hidden md:flex flex-1 justify-center max-w-md">
+          <GlobalSearch />
         </div>
         
         {/* Mobile menu button */}
@@ -108,8 +114,13 @@ const Navbar = () => {
             </div>
             
             <div className="flex flex-col p-4 space-y-4 overflow-auto">
+              {/* Mobile search */}
+              <div className="pb-4 border-b">
+                <GlobalSearch />
+              </div>
+              
               <Link to="/search" className="py-2 px-4 hover:bg-gray-100 rounded-md flex items-center gap-2" onClick={() => setMobileMenuOpen(false)}>
-                <Search className="h-5 w-5" /> Wyszukaj gabinet/specjalistę
+                <Search className="h-5 w-5" /> Wyszukaj zaawansowane
               </Link>
               
               <Link to="/supervisions" className="py-2 px-4 hover:bg-gray-100 rounded-md flex items-center gap-2" onClick={() => setMobileMenuOpen(false)}>
