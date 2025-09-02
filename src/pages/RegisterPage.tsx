@@ -106,17 +106,6 @@ const RegisterPage = () => {
           variant: "destructive",
         });
       } else {
-        // If user is a client or therapist-seeking, create their profile entry
-        if ((accountType === "client" || accountType === "therapist-seeking") && data.user) {
-          const { error: profileError } = await supabase
-            .from('client_profiles')
-            .insert({ id: data.user.id });
-          
-          if (profileError) {
-            console.error("Error creating client profile:", profileError);
-          }
-        }
-        
         toast({
           title: "Rejestracja pomyślna",
           description: "Sprawdź swoją skrzynkę email, aby potwierdzić konto.",
