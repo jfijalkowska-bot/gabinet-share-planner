@@ -45,7 +45,7 @@ const Navbar = () => {
         <div className="hidden md:flex items-center space-x-6">
           <Link to="/search" className="text-gray-700 hover:text-therapy-600 transition-colors flex items-center gap-1">
             <Search className="h-4 w-4" /> 
-            Wyszukaj gabinet/specjalistę/praktykę
+            Wyszukiwarka
           </Link>
           
           <Link to="/supervisions" className="text-gray-700 hover:text-therapy-600 transition-colors flex items-center gap-1">
@@ -120,7 +120,7 @@ const Navbar = () => {
               </div>
               
               <Link to="/search" className="py-2 px-4 hover:bg-gray-100 rounded-md flex items-center gap-2" onClick={() => setMobileMenuOpen(false)}>
-                <Search className="h-5 w-5" /> Wyszukaj gabinet/specjalistę/praktykę
+                <Search className="h-5 w-5" /> Wyszukiwarka
               </Link>
               
               <Link to="/supervisions" className="py-2 px-4 hover:bg-gray-100 rounded-md flex items-center gap-2" onClick={() => setMobileMenuOpen(false)}>
