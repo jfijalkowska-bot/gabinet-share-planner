@@ -9,6 +9,13 @@ import fr from './locales/fr.json';
 import es from './locales/es.json';
 import ru from './locales/ru.json';
 import el from './locales/el.json';
+import cs from './locales/cs.json';
+import pt from './locales/pt.json';
+import nl from './locales/nl.json';
+import sv from './locales/sv.json';
+import ja from './locales/ja.json';
+import ko from './locales/ko.json';
+import zh from './locales/zh.json';
 
 i18n
   .use(LanguageDetector)
@@ -22,7 +29,14 @@ i18n
       fr: { translation: fr },
       es: { translation: es },
       ru: { translation: ru },
-      el: { translation: el }
+      el: { translation: el },
+      cs: { translation: cs },
+      pt: { translation: pt },
+      nl: { translation: nl },
+      sv: { translation: sv },
+      ja: { translation: ja },
+      ko: { translation: ko },
+      zh: { translation: zh }
     },
     fallbackLng: 'pl',
     lng: 'pl',

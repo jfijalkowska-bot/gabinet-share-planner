@@ -1,0 +1,39 @@
+{
+  "nav": {
+    "home": "ホーム",
+    "search": "セラピスト/オフィス",
+    "supervisions": "スーパービジョン/インターンシップ/研修",
+    "trainings": "トレーニング",
+    "community": "コミュニティ",
+    "about": "概要",
+    "contact": "お問い合わせ",
+    "login": "ログイン",
+    "register": "登録",
+    "logout": "ログアウト"
+  },
+  "search": {
+    "title": "セラピストまたはオフィスを探す",
+    "description": "完璧な専門家や治療スペースを見つけましょう",
+    "therapist": "セラピスト",
+    "office": "オフィス",
+    "searchButton": "検索"
+  },
+  "footer": {
+    "owner": "オーナー",
+    "contact": "お問い合わせ",
+    "links": "便利なリンク",
+    "gdpr": "GDPR",
+    "terms": "利用規約",
+    "about": "プラットフォームについて",
+    "allRights": "全著作権所有"
+  },
+  "common": {
+    "loading": "読み込み中...",
+    "error": "エラーが発生しました",
+    "save": "保存",
+    "cancel": "キャンセル",
+    "delete": "削除",
+    "edit": "編集",
+    "close": "閉じる"
+  }
+}

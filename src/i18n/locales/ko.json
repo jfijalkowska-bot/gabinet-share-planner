@@ -1,0 +1,39 @@
+{
+  "nav": {
+    "home": "홈",
+    "search": "치료사/사무실",
+    "supervisions": "슈퍼비전/인턴십/실습",
+    "trainings": "교육",
+    "community": "커뮤니티",
+    "about": "소개",
+    "contact": "문의",
+    "login": "로그인",
+    "register": "회원가입",
+    "logout": "로그아웃"
+  },
+  "search": {
+    "title": "치료사 또는 사무실 찾기",
+    "description": "완벽한 전문가나 치료 공간을 찾아보세요",
+    "therapist": "치료사",
+    "office": "사무실",
+    "searchButton": "검색"
+  },
+  "footer": {
+    "owner": "소유자",
+    "contact": "문의",
+    "links": "유용한 링크",
+    "gdpr": "GDPR",
+    "terms": "약관",
+    "about": "플랫폼 소개",
+    "allRights": "모든 권리 보유"
+  },
+  "common": {
+    "loading": "로딩 중...",
+    "error": "오류가 발생했습니다",
+    "save": "저장",
+    "cancel": "취소",
+    "delete": "삭제",
+    "edit": "편집",
+    "close": "닫기"
+  }
+}

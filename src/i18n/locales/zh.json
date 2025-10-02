@@ -1,0 +1,39 @@
+{
+  "nav": {
+    "home": "首页",
+    "search": "治疗师/诊所",
+    "supervisions": "督导/实习/实践",
+    "trainings": "培训",
+    "community": "社区",
+    "about": "关于",
+    "contact": "联系",
+    "login": "登录",
+    "register": "注册",
+    "logout": "退出"
+  },
+  "search": {
+    "title": "查找治疗师或诊所",
+    "description": "找到完美的专家或治疗空间",
+    "therapist": "治疗师",
+    "office": "诊所",
+    "searchButton": "搜索"
+  },
+  "footer": {
+    "owner": "所有者",
+    "contact": "联系",
+    "links": "有用链接",
+    "gdpr": "GDPR",
+    "terms": "条款",
+    "about": "关于平台",
+    "allRights": "版权所有"
+  },
+  "common": {
+    "loading": "加载中...",
+    "error": "发生错误",
+    "save": "保存",
+    "cancel": "取消",
+    "delete": "删除",
+    "edit": "编辑",
+    "close": "关闭"
+  }
+}

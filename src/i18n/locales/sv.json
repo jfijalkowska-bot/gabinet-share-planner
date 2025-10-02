@@ -1,0 +1,39 @@
+{
+  "nav": {
+    "home": "Hem",
+    "search": "Terapeuter/Mottagningar",
+    "supervisions": "Handledning/Praktik/Praktikplatser",
+    "trainings": "Utbildningar",
+    "community": "Gemenskap",
+    "about": "Om oss",
+    "contact": "Kontakt",
+    "login": "Logga in",
+    "register": "Registrera",
+    "logout": "Logga ut"
+  },
+  "search": {
+    "title": "Hitta en terapeut eller mottagning",
+    "description": "Hitta den perfekta specialisten eller terapeutiska utrymmet",
+    "therapist": "Terapeut",
+    "office": "Mottagning",
+    "searchButton": "Sök"
+  },
+  "footer": {
+    "owner": "Ägare",
+    "contact": "Kontakt",
+    "links": "Användbara länkar",
+    "gdpr": "GDPR",
+    "terms": "Villkor",
+    "about": "Om plattformen",
+    "allRights": "Alla rättigheter förbehållna"
+  },
+  "common": {
+    "loading": "Laddar...",
+    "error": "Ett fel uppstod",
+    "save": "Spara",
+    "cancel": "Avbryt",
+    "delete": "Ta bort",
+    "edit": "Redigera",
+    "close": "Stäng"
+  }
+}

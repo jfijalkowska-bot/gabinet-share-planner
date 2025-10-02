@@ -1,0 +1,39 @@
+{
+  "nav": {
+    "home": "Domů",
+    "search": "Terapeuti/Ordinace",
+    "supervisions": "Supervize/Stáže/Praxe",
+    "trainings": "Školení",
+    "community": "Komunita",
+    "about": "O nás",
+    "contact": "Kontakt",
+    "login": "Přihlásit se",
+    "register": "Registrovat",
+    "logout": "Odhlásit se"
+  },
+  "search": {
+    "title": "Najít terapeuta nebo ordinaci",
+    "description": "Najděte ideálního specialistu nebo terapeutický prostor",
+    "therapist": "Terapeut",
+    "office": "Ordinace",
+    "searchButton": "Hledat"
+  },
+  "footer": {
+    "owner": "Vlastník",
+    "contact": "Kontakt",
+    "links": "Užitečné odkazy",
+    "gdpr": "GDPR",
+    "terms": "Podmínky",
+    "about": "O platformě",
+    "allRights": "Všechna práva vyhrazena"
+  },
+  "common": {
+    "loading": "Načítání...",
+    "error": "Došlo k chybě",
+    "save": "Uložit",
+    "cancel": "Zrušit",
+    "delete": "Smazat",
+    "edit": "Upravit",
+    "close": "Zavřít"
+  }
+}

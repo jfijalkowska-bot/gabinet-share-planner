@@ -1,0 +1,39 @@
+{
+  "nav": {
+    "home": "Home",
+    "search": "Therapeuten/Praktijken",
+    "supervisions": "Supervisies/Stages/Praktijken",
+    "trainings": "Trainingen",
+    "community": "Gemeenschap",
+    "about": "Over ons",
+    "contact": "Contact",
+    "login": "Inloggen",
+    "register": "Registreren",
+    "logout": "Uitloggen"
+  },
+  "search": {
+    "title": "Vind een therapeut of praktijk",
+    "description": "Vind de perfecte specialist of therapeutische ruimte",
+    "therapist": "Therapeut",
+    "office": "Praktijk",
+    "searchButton": "Zoeken"
+  },
+  "footer": {
+    "owner": "Eigenaar",
+    "contact": "Contact",
+    "links": "Nuttige links",
+    "gdpr": "AVG",
+    "terms": "Voorwaarden",
+    "about": "Over het platform",
+    "allRights": "Alle rechten voorbehouden"
+  },
+  "common": {
+    "loading": "Laden...",
+    "error": "Er is een fout opgetreden",
+    "save": "Opslaan",
+    "cancel": "Annuleren",
+    "delete": "Verwijderen",
+    "edit": "Bewerken",
+    "close": "Sluiten"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "nav": {
+    "home": "Início",
+    "search": "Terapeutas/Consultórios",
+    "supervisions": "Supervisões/Estágios/Práticas",
+    "trainings": "Formações",
+    "community": "Comunidade",
+    "about": "Sobre",
+    "contact": "Contacto",
+    "login": "Entrar",
+    "register": "Registar",
+    "logout": "Sair"
+  },
+  "search": {
+    "title": "Encontrar um terapeuta ou consultório",
+    "description": "Encontre o especialista ou espaço terapêutico perfeito",
+    "therapist": "Terapeuta",
+    "office": "Consultório",
+    "searchButton": "Procurar"
+  },
+  "footer": {
+    "owner": "Proprietária",
+    "contact": "Contacto",
+    "links": "Links úteis",
+    "gdpr": "RGPD",
+    "terms": "Termos",
+    "about": "Sobre a plataforma",
+    "allRights": "Todos os direitos reservados"
+  },
+  "common": {
+    "loading": "A carregar...",
+    "error": "Ocorreu um erro",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "close": "Fechar"
+  }
+}

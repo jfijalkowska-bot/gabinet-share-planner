@@ -9,6 +9,7 @@ type PostCategory = "pytania" | "inspiracje" | "szkolenia" | "recenzje" | null;
 interface CommunityPostsProps {
   category: PostCategory;
   searchQuery?: string;
+  languageFilter?: string | null;
 }
 
 // Dane testowe dla postów
@@ -71,7 +72,7 @@ const dummyPosts: Post[] = [
   }
 ];
 
-const CommunityPosts = ({ category, searchQuery = "" }: CommunityPostsProps) => {
+const CommunityPosts = ({ category, searchQuery = "", languageFilter = null }: CommunityPostsProps) => {
   const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState<Post[]>([]);
 
@@ -96,12 +97,15 @@ const CommunityPosts = ({ category, searchQuery = "" }: CommunityPostsProps) => 
         );
       }
       
+      // Note: Language filtering would be applied here when posts have language property
+      // For now, we just show all posts in language sections
+      
       setPosts(filteredPosts);
       setLoading(false);
     }, 800);
     
     return () => clearTimeout(timer);
-  }, [category, searchQuery]);
+  }, [category, searchQuery, languageFilter]);
 
   if (loading) {
     return (
