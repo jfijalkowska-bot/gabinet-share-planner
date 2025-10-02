@@ -71,15 +71,19 @@ const Footer = () => {
           </div>
           
           <div>
-            <h4 className="font-semibold mb-4 text-therapy-800">Kontakt</h4>
-            <ul className="space-y-2">
-              <li className="text-gray-600">Email: kontakt@gabinetshare.pl</li>
+            <h4 className="font-semibold mb-4 text-therapy-800">Właściciel</h4>
+            <ul className="space-y-2 text-gray-600">
+              <li>Jadwiga Fijałkowska</li>
+              <li>Działalność nierejestrowana</li>
+              <li>Osiedle Piastowskie 100/6</li>
+              <li>61-163 Poznań</li>
+              <li className="pt-2">Email: kontakt@gabinetshare.pl</li>
             </ul>
           </div>
         </div>
         
         <div className="border-t mt-8 pt-6 text-center text-gray-500 text-sm">
-          <p>&copy; {new Date().getFullYear()} GabinetShare. Jadwiga Fijałkowska</p>
+          <p>&copy; {new Date().getFullYear()} GabinetShare. Wszystkie prawa zastrzeżone.</p>
         </div>
       </div>
     </footer>
