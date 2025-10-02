@@ -50,7 +50,7 @@ const Navbar = () => {
           
           <Link to="/supervisions" className="text-gray-700 hover:text-therapy-600 transition-colors flex items-center gap-1">
             <UserCheck className="h-4 w-4" /> 
-            Superwizje
+            Superwizje/Praktyki/Staże
           </Link>
           
           <Link to="/calendar" className="text-gray-700 hover:text-therapy-600 transition-colors flex items-center gap-1">
@@ -124,7 +124,7 @@ const Navbar = () => {
               </Link>
               
               <Link to="/supervisions" className="py-2 px-4 hover:bg-gray-100 rounded-md flex items-center gap-2" onClick={() => setMobileMenuOpen(false)}>
-                <UserCheck className="h-5 w-5" /> Superwizje
+                <UserCheck className="h-5 w-5" /> Superwizje/Praktyki/Staże
               </Link>
               
               <Link to="/calendar" className="py-2 px-4 hover:bg-gray-100 rounded-md flex items-center gap-2" onClick={() => setMobileMenuOpen(false)}>
