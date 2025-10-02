@@ -1,7 +1,10 @@
 
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Footer = () => {
+  const { t } = useTranslation();
+  
   return (
     <footer className="bg-gray-50 border-t py-8">
       <div className="container mx-auto px-4">
@@ -71,7 +74,7 @@ const Footer = () => {
           </div>
           
           <div>
-            <h4 className="font-semibold mb-4 text-therapy-800">Właściciel</h4>
+            <h4 className="font-semibold mb-4 text-therapy-800">{t('footer.owner')}</h4>
             <ul className="space-y-2 text-gray-600">
               <li>Jadwiga Fijałkowska</li>
               <li>Działalność nierejestrowana</li>
@@ -83,7 +86,7 @@ const Footer = () => {
         </div>
         
         <div className="border-t mt-8 pt-6 text-center text-gray-500 text-sm">
-          <p>&copy; {new Date().getFullYear()} GabinetShare. Wszystkie prawa zastrzeżone.</p>
+          <p>&copy; {new Date().getFullYear()} GabinetShare. {t('footer.allRights')}.</p>
         </div>
       </div>
     </footer>

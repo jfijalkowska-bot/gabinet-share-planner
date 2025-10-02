@@ -1,0 +1,39 @@
+{
+  "nav": {
+    "home": "Strona główna",
+    "search": "Terapeuci/Gabinety",
+    "supervisions": "Superwizje/Praktyki/Staże",
+    "trainings": "Szkolenia",
+    "community": "Społeczność",
+    "about": "O nas",
+    "contact": "Kontakt",
+    "login": "Zaloguj się",
+    "register": "Zarejestruj się",
+    "logout": "Wyloguj się"
+  },
+  "search": {
+    "title": "Wyszukaj terapeutę lub gabinet",
+    "description": "Znajdź idealnego specjalistę lub przestrzeń terapeutyczną",
+    "therapist": "Terapeuta",
+    "office": "Gabinet",
+    "searchButton": "Szukaj"
+  },
+  "footer": {
+    "owner": "Właścicielka",
+    "contact": "Kontakt",
+    "links": "Przydatne linki",
+    "gdpr": "RODO",
+    "terms": "Regulamin",
+    "about": "O platformie",
+    "allRights": "Wszelkie prawa zastrzeżone"
+  },
+  "common": {
+    "loading": "Ładowanie...",
+    "error": "Wystąpił błąd",
+    "save": "Zapisz",
+    "cancel": "Anuluj",
+    "delete": "Usuń",
+    "edit": "Edytuj",
+    "close": "Zamknij"
+  }
+}

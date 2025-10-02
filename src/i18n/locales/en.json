@@ -1,0 +1,39 @@
+{
+  "nav": {
+    "home": "Home",
+    "search": "Therapists/Offices",
+    "supervisions": "Supervisions/Internships",
+    "trainings": "Trainings",
+    "community": "Community",
+    "about": "About",
+    "contact": "Contact",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout"
+  },
+  "search": {
+    "title": "Find a therapist or office",
+    "description": "Find the perfect specialist or therapeutic space",
+    "therapist": "Therapist",
+    "office": "Office",
+    "searchButton": "Search"
+  },
+  "footer": {
+    "owner": "Owner",
+    "contact": "Contact",
+    "links": "Useful links",
+    "gdpr": "GDPR",
+    "terms": "Terms",
+    "about": "About platform",
+    "allRights": "All rights reserved"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close"
+  }
+}

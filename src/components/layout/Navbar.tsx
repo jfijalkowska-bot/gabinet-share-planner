@@ -11,11 +11,14 @@ import { Calendar, User, Search, LogOut, LayoutDashboard, Menu, UserCheck, Messa
 import { useAuth, signOut } from "@/components/auth/AuthProvider";
 import { useState } from "react";
 import GlobalSearch from "@/components/common/GlobalSearch";
+import LanguageSwitcher from "@/components/common/LanguageSwitcher";
+import { useTranslation } from "react-i18next";
 
 const Navbar = () => {
   const { user } = useAuth();
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { t } = useTranslation();
 
   return (
     <nav className="border-b shadow-sm py-3 px-4 bg-white">
@@ -45,12 +48,12 @@ const Navbar = () => {
         <div className="hidden md:flex items-center space-x-6">
           <Link to="/search" className="text-gray-700 hover:text-therapy-600 transition-colors flex items-center gap-1">
             <Search className="h-4 w-4" /> 
-            Terapeuci/Gabinety
+            {t('nav.search')}
           </Link>
           
           <Link to="/supervisions" className="text-gray-700 hover:text-therapy-600 transition-colors flex items-center gap-1">
             <UserCheck className="h-4 w-4" /> 
-            Superwizje/Praktyki/Staże
+            {t('nav.supervisions')}
           </Link>
           
           <Link to="/calendar" className="text-gray-700 hover:text-therapy-600 transition-colors flex items-center gap-1">
@@ -82,7 +85,7 @@ const Navbar = () => {
           
           <Link to="/trainings" className="text-gray-700 hover:text-therapy-600 transition-colors flex items-center gap-1">
             <GraduationCap className="h-4 w-4" /> 
-            Szkolenia
+            {t('nav.trainings')}
           </Link>
           
           <Link to="/affiliate" className="text-gray-700 hover:text-therapy-600 transition-colors">
@@ -120,11 +123,11 @@ const Navbar = () => {
               </div>
               
               <Link to="/search" className="py-2 px-4 hover:bg-gray-100 rounded-md flex items-center gap-2" onClick={() => setMobileMenuOpen(false)}>
-                <Search className="h-5 w-5" /> Terapeuci/Gabinety
+                <Search className="h-5 w-5" /> {t('nav.search')}
               </Link>
               
               <Link to="/supervisions" className="py-2 px-4 hover:bg-gray-100 rounded-md flex items-center gap-2" onClick={() => setMobileMenuOpen(false)}>
-                <UserCheck className="h-5 w-5" /> Superwizje/Praktyki/Staże
+                <UserCheck className="h-5 w-5" /> {t('nav.supervisions')}
               </Link>
               
               <Link to="/calendar" className="py-2 px-4 hover:bg-gray-100 rounded-md flex items-center gap-2" onClick={() => setMobileMenuOpen(false)}>
@@ -152,7 +155,7 @@ const Navbar = () => {
               </Link>
               
               <Link to="/trainings" className="py-2 px-4 hover:bg-gray-100 rounded-md flex items-center gap-2" onClick={() => setMobileMenuOpen(false)}>
-                <GraduationCap className="h-5 w-5" /> Szkolenia
+                <GraduationCap className="h-5 w-5" /> {t('nav.trainings')}
               </Link>
               
               <Link to="/affiliate" className="py-2 px-4 hover:bg-gray-100 rounded-md" onClick={() => setMobileMenuOpen(false)}>
@@ -166,10 +169,10 @@ const Navbar = () => {
               {!user ? (
                 <div className="pt-4 border-t flex flex-col gap-2">
                   <Link to="/login" className="w-full" onClick={() => setMobileMenuOpen(false)}>
-                    <Button variant="outline" className="w-full">Logowanie</Button>
+                    <Button variant="outline" className="w-full">{t('nav.login')}</Button>
                   </Link>
                   <Link to="/register" className="w-full" onClick={() => setMobileMenuOpen(false)}>
-                    <Button className="w-full bg-therapy-600 hover:bg-therapy-700">Rejestracja</Button>
+                    <Button className="w-full bg-therapy-600 hover:bg-therapy-700">{t('nav.register')}</Button>
                   </Link>
                 </div>
               ) : (
@@ -184,7 +187,7 @@ const Navbar = () => {
                     className="py-2 px-4 hover:bg-gray-100 rounded-md w-full text-left text-red-600 flex items-center gap-2" 
                     onClick={() => { signOut(); setMobileMenuOpen(false); }}
                   >
-                    <LogOut className="h-5 w-5" /> Wyloguj
+                    <LogOut className="h-5 w-5" /> {t('nav.logout')}
                   </button>
                 </div>
               )}
@@ -193,13 +196,14 @@ const Navbar = () => {
         </div>
         
         <div className="flex items-center gap-2">
+          <LanguageSwitcher />
           {!user ? (
             <>
               <Button variant="outline" asChild>
-                <Link to="/login">Logowanie</Link>
+                <Link to="/login">{t('nav.login')}</Link>
               </Button>
               <Button className="bg-therapy-600 hover:bg-therapy-700" asChild>
-                <Link to="/register">Rejestracja</Link>
+                <Link to="/register">{t('nav.register')}</Link>
               </Button>
             </>
           ) : (
@@ -217,7 +221,7 @@ const Navbar = () => {
                   <Link to="/settings">Ustawienia</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={signOut} className="text-red-600">
-                  <LogOut className="h-4 w-4 mr-2" /> Wyloguj
+                  <LogOut className="h-4 w-4 mr-2" /> {t('nav.logout')}
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
