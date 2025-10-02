@@ -10,8 +10,7 @@ import { format } from "date-fns";
 import { pl } from "date-fns/locale";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/components/auth/AuthProvider";
-import { toast } from "@/components/ui/use-toast";
-import { Database } from "@/integrations/supabase/types";
+import { toast } from "sonner";
 
 interface BookingDialogProps {
   isOpen: boolean;
@@ -19,6 +18,7 @@ interface BookingDialogProps {
   selectedSlot?: {
     date: Date;
     hour: number;
+    providerId?: string;
   };
 }
 
@@ -34,46 +34,85 @@ const BookingDialog = ({ isOpen, onClose, selectedSlot }: BookingDialogProps) =>
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!selectedSlot || !user) return;
-    
+    if (!title.trim()) {
+      toast.error("Proszę wypełnić tytuł rezerwacji");
+      return;
+    }
+
+    if (!selectedSlot?.providerId) {
+      toast.error("Brak informacji o właścicielu terminu");
+      return;
+    }
+
     setLoading(true);
 
     try {
+      if (!user) {
+        toast.error("Musisz być zalogowany");
+        return;
+      }
+
       const bookingDate = new Date(selectedSlot.date);
       bookingDate.setHours(selectedSlot.hour, 0, 0, 0);
-      
-      const { error } = await supabase
+      const endTime = new Date(bookingDate.getTime() + 60 * 60 * 1000);
+
+      // Najpierw tworzymy konwersację
+      const { data: conversation, error: convError } = await supabase
+        .from('conversations')
+        .insert([{}])
+        .select()
+        .single();
+
+      if (convError) throw convError;
+
+      // Dodajemy uczestników do konwersacji
+      const { error: participantsError } = await supabase
+        .from('conversation_participants')
+        .insert([
+          { conversation_id: conversation.id, user_id: user.id },
+          { conversation_id: conversation.id, user_id: selectedSlot.providerId }
+        ]);
+
+      if (participantsError) throw participantsError;
+
+      // Tworzymy rezerwację z linkiem do konwersacji
+      const { error: bookingError } = await supabase
         .from('bookings')
-        .insert({
+        .insert([{
           user_id: user.id,
+          provider_id: selectedSlot.providerId,
+          conversation_id: conversation.id,
           title,
           description,
           booking_type: bookingType,
           start_time: bookingDate.toISOString(),
-          end_time: new Date(bookingDate.getTime() + 60 * 60 * 1000).toISOString(),
-        } as Database['public']['Tables']['bookings']['Insert']);
+          end_time: endTime.toISOString(),
+          status: 'pending',
+        } as any]);
 
-      if (error) {
-        console.error("Błąd zapisu rezerwacji:", error);
-        toast({
-          title: "Błąd rezerwacji",
-          description: "Nie udało się zapisać rezerwacji. Spróbuj ponownie.",
-          variant: "destructive"
-        });
-      } else {
-        toast({
-          title: "Rezerwacja utworzona",
-          description: "Rezerwacja została pomyślnie zapisana."
-        });
-        onClose();
-      }
+      if (bookingError) throw bookingError;
+
+      // Wysyłamy automatyczną wiadomość z detalami rezerwacji
+      const messageContent = `📅 **Prośba o rezerwację**\n\n**${title}**\n${description ? description + '\n\n' : ''}**Typ:** ${bookingType === 'appointment' ? 'Wizyta' : 'Wynajem'}\n**Termin:** ${format(bookingDate, "d MMMM yyyy, HH:mm", { locale: pl })} - ${format(endTime, "HH:mm", { locale: pl })}\n\nProszę o potwierdzenie dostępności i ustalenie szczegółów płatności.`;
+
+      const { error: messageError } = await supabase
+        .from('messages')
+        .insert([{
+          conversation_id: conversation.id,
+          sender_id: user.id,
+          content: messageContent
+        }]);
+
+      if (messageError) throw messageError;
+
+      toast.success("Rezerwacja utworzona! Rozpoczęto rozmowę z właścicielem.");
+      onClose();
+      
+      // Opcjonalnie przekieruj do czatu
+      window.location.href = `/messages?conversation=${conversation.id}`;
     } catch (error) {
-      console.error("Wystąpił błąd:", error);
-      toast({
-        title: "Wystąpił błąd",
-        description: "Nie udało się zapisać rezerwacji. Spróbuj ponownie później.",
-        variant: "destructive"
-      });
+      console.error('Error creating booking:', error);
+      toast.error("Nie udało się utworzyć rezerwacji");
     } finally {
       setLoading(false);
     }

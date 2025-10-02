@@ -185,38 +185,55 @@ export type Database = {
       bookings: {
         Row: {
           booking_type: string
+          conversation_id: string | null
           created_at: string | null
           description: string | null
           end_time: string
           id: string
+          provider_id: string | null
           start_time: string
+          status: string | null
           title: string
           updated_at: string | null
           user_id: string
         }
         Insert: {
           booking_type: string
+          conversation_id?: string | null
           created_at?: string | null
           description?: string | null
           end_time: string
           id?: string
+          provider_id?: string | null
           start_time: string
+          status?: string | null
           title: string
           updated_at?: string | null
           user_id: string
         }
         Update: {
           booking_type?: string
+          conversation_id?: string | null
           created_at?: string | null
           description?: string | null
           end_time?: string
           id?: string
+          provider_id?: string | null
           start_time?: string
+          status?: string | null
           title?: string
           updated_at?: string | null
           user_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "bookings_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "conversations"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       client_profiles: {
         Row: {

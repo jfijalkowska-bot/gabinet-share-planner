@@ -69,10 +69,14 @@ export default function AvailabilityManager() {
 
       const { error } = await supabase
         .from('availability_slots')
-        .insert({
+        .insert([{
           provider_id: user.id,
-          ...slot
-        });
+          day_of_week: slot.day_of_week!,
+          start_time: slot.start_time!,
+          end_time: slot.end_time!,
+          is_active: slot.is_active ?? true,
+          provider_type: slot.provider_type!
+        }] as any);
 
       if (error) throw error;
     },

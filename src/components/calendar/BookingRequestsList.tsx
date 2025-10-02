@@ -4,9 +4,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { Check, X, Clock } from "lucide-react";
+import { Check, X, Clock, MessageSquare } from "lucide-react";
 import { format } from "date-fns";
 import { pl } from "date-fns/locale";
+import { useNavigate } from "react-router-dom";
 
 interface Booking {
   id: string;
@@ -15,12 +16,15 @@ interface Booking {
   booking_type: string;
   start_time: string;
   end_time: string;
-  status?: string;
+  status: string;
   user_id: string;
+  provider_id: string;
+  conversation_id: string | null;
 }
 
 export default function BookingRequestsList() {
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   const { data: bookings, isLoading } = useQuery({
     queryKey: ['booking-requests'],
@@ -28,11 +32,11 @@ export default function BookingRequestsList() {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) throw new Error("Not authenticated");
 
-      // Get bookings that need confirmation
+      // Get bookings where user is the provider (receiving bookings)
       const { data, error } = await supabase
         .from('bookings')
         .select('*')
-        .eq('user_id', user.id)
+        .eq('provider_id', user.id)
         .order('start_time', { ascending: true });
 
       if (error) throw error;
@@ -62,11 +66,15 @@ export default function BookingRequestsList() {
     }
   });
 
+  const handleOpenChat = (conversationId: string) => {
+    navigate(`/messages?conversation=${conversationId}`);
+  };
+
   if (isLoading) {
     return <div>Ładowanie...</div>;
   }
 
-  const pendingBookings = bookings?.filter(b => !b.status || b.status === 'pending');
+  const pendingBookings = bookings?.filter(b => b.status === 'pending');
   const confirmedBookings = bookings?.filter(b => b.status === 'confirmed');
 
   return (
@@ -120,6 +128,19 @@ export default function BookingRequestsList() {
                   </div>
 
                   <div className="flex gap-2 pt-2">
+                    {booking.conversation_id ? (
+                      <Button
+                        size="sm"
+                        onClick={() => handleOpenChat(booking.conversation_id!)}
+                      >
+                        <MessageSquare className="w-4 h-4 mr-1" />
+                        Otwórz czat
+                      </Button>
+                    ) : (
+                      <p className="text-sm text-muted-foreground">
+                        Brak konwersacji
+                      </p>
+                    )}
                     <Button
                       size="sm"
                       onClick={() => updateBookingStatus.mutate({ 

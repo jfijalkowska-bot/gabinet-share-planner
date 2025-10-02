@@ -14,6 +14,15 @@ const MessagesPage = () => {
   const [selectedConversationId, setSelectedConversationId] = useState<string | null>(null);
   const [isNewMessageOpen, setIsNewMessageOpen] = useState(false);
 
+  // Check for conversation parameter in URL
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const conversationId = params.get('conversation');
+    if (conversationId) {
+      setSelectedConversationId(conversationId);
+    }
+  }, []);
+
   if (!user) {
     return (
       <div className="min-h-screen flex flex-col">

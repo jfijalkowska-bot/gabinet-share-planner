@@ -52,7 +52,7 @@ const generateTimeSlots = (startDate: Date): TimeSlot[] => {
 const CalendarView: React.FC = () => {
   const [currentWeekStart, setCurrentWeekStart] = useState(startOfWeek(new Date(), { weekStartsOn: 1 }));
   const [timeSlots, setTimeSlots] = useState<TimeSlot[]>(generateTimeSlots(currentWeekStart));
-  const [selectedSlot, setSelectedSlot] = useState<{ date: Date; hour: number } | undefined>();
+  const [selectedSlot, setSelectedSlot] = useState<{ date: Date; hour: number; providerId?: string } | undefined>();
   const [isBookingDialogOpen, setIsBookingDialogOpen] = useState(false);
 
   const handlePrevWeek = () => {
@@ -69,7 +69,8 @@ const CalendarView: React.FC = () => {
 
   const handleSlotClick = (slot: TimeSlot) => {
     if (slot.status === "available") {
-      setSelectedSlot({ date: slot.date, hour: slot.hour });
+      // TODO: Dodać rzeczywiste providerId z availability_slots
+      setSelectedSlot({ date: slot.date, hour: slot.hour, providerId: 'mock-provider-id' });
       setIsBookingDialogOpen(true);
     }
   };
