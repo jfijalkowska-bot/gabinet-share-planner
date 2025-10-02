@@ -3,6 +3,8 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import PageHeader from "@/components/common/PageHeader";
 import CalendarView from "@/components/calendar/CalendarView";
+import AvailabilityManager from "@/components/calendar/AvailabilityManager";
+import BookingRequestsList from "@/components/calendar/BookingRequestsList";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import StatsOverview from "@/components/stats/StatsOverview";
 
@@ -24,32 +26,20 @@ const CalendarPage = () => {
         <Tabs defaultValue="calendar">
           <TabsList className="mb-4">
             <TabsTrigger value="calendar">Widok kalendarza</TabsTrigger>
-            <TabsTrigger value="appointments">Wizyty klientów</TabsTrigger>
-            <TabsTrigger value="rentals">Wynajem gabinetu</TabsTrigger>
+            <TabsTrigger value="availability">Zarządzaj dostępnością</TabsTrigger>
+            <TabsTrigger value="requests">Prośby o rezerwację</TabsTrigger>
           </TabsList>
           
           <TabsContent value="calendar">
             <CalendarView />
           </TabsContent>
           
-          <TabsContent value="appointments">
-            <div className="bg-white p-6 rounded-lg shadow-sm border">
-              <h2 className="text-xl font-semibold mb-4">Nadchodzące wizyty</h2>
-              {/* Tu będzie lista wizyt, na razie placeholder */}
-              <p className="text-gray-600">
-                W tej sekcji będzie wyświetlana lista nadchodzących wizyt klientów.
-              </p>
-            </div>
+          <TabsContent value="availability">
+            <AvailabilityManager />
           </TabsContent>
           
-          <TabsContent value="rentals">
-            <div className="bg-white p-6 rounded-lg shadow-sm border">
-              <h2 className="text-xl font-semibold mb-4">Wynajem gabinetu</h2>
-              {/* Tu będzie lista wynajmów, na razie placeholder */}
-              <p className="text-gray-600">
-                W tej sekcji będzie wyświetlana lista aktualnych i nadchodzących wynajmów gabinetu.
-              </p>
-            </div>
+          <TabsContent value="requests">
+            <BookingRequestsList />
           </TabsContent>
         </Tabs>
       </main>
