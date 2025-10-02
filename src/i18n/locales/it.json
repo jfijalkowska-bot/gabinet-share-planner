@@ -1,0 +1,39 @@
+{
+  "nav": {
+    "home": "Home",
+    "search": "Terapeuti/Studi",
+    "supervisions": "Supervisioni/Tirocini/Stage",
+    "trainings": "Formazione",
+    "community": "Comunità",
+    "about": "Chi siamo",
+    "contact": "Contatto",
+    "login": "Accedi",
+    "register": "Registrati",
+    "logout": "Esci"
+  },
+  "search": {
+    "title": "Trova un terapeuta o uno studio",
+    "description": "Trova lo specialista o lo spazio terapeutico perfetto",
+    "therapist": "Terapeuta",
+    "office": "Studio",
+    "searchButton": "Cerca"
+  },
+  "footer": {
+    "owner": "Proprietaria",
+    "contact": "Contatto",
+    "links": "Link utili",
+    "gdpr": "GDPR",
+    "terms": "Termini",
+    "about": "Sulla piattaforma",
+    "allRights": "Tutti i diritti riservati"
+  },
+  "common": {
+    "loading": "Caricamento...",
+    "error": "Si è verificato un errore",
+    "save": "Salva",
+    "cancel": "Annulla",
+    "delete": "Elimina",
+    "edit": "Modifica",
+    "close": "Chiudi"
+  }
+}

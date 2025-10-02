@@ -1,0 +1,39 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "search": "Thérapeutes/Cabinets",
+    "supervisions": "Supervisions/Stages/Stages",
+    "trainings": "Formations",
+    "community": "Communauté",
+    "about": "À propos",
+    "contact": "Contact",
+    "login": "Connexion",
+    "register": "S'inscrire",
+    "logout": "Déconnexion"
+  },
+  "search": {
+    "title": "Trouver un thérapeute ou un cabinet",
+    "description": "Trouvez le spécialiste ou l'espace thérapeutique parfait",
+    "therapist": "Thérapeute",
+    "office": "Cabinet",
+    "searchButton": "Rechercher"
+  },
+  "footer": {
+    "owner": "Propriétaire",
+    "contact": "Contact",
+    "links": "Liens utiles",
+    "gdpr": "RGPD",
+    "terms": "Conditions",
+    "about": "À propos de la plateforme",
+    "allRights": "Tous droits réservés"
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Une erreur s'est produite",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "close": "Fermer"
+  }
+}

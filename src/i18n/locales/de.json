@@ -1,0 +1,39 @@
+{
+  "nav": {
+    "home": "Startseite",
+    "search": "Therapeuten/Praxen",
+    "supervisions": "Supervisionen/Praktika/Praktika",
+    "trainings": "Schulungen",
+    "community": "Gemeinschaft",
+    "about": "Über uns",
+    "contact": "Kontakt",
+    "login": "Anmelden",
+    "register": "Registrieren",
+    "logout": "Abmelden"
+  },
+  "search": {
+    "title": "Therapeut oder Praxis finden",
+    "description": "Finden Sie den perfekten Spezialisten oder therapeutischen Raum",
+    "therapist": "Therapeut",
+    "office": "Praxis",
+    "searchButton": "Suchen"
+  },
+  "footer": {
+    "owner": "Eigentümerin",
+    "contact": "Kontakt",
+    "links": "Nützliche Links",
+    "gdpr": "DSGVO",
+    "terms": "AGB",
+    "about": "Über die Plattform",
+    "allRights": "Alle Rechte vorbehalten"
+  },
+  "common": {
+    "loading": "Laden...",
+    "error": "Ein Fehler ist aufgetreten",
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "close": "Schließen"
+  }
+}
