@@ -64,13 +64,11 @@ const AccountTypeSelector = ({ accountType, serviceOfferings, onChange, onServic
       "Rozszerzone uczestnictwo w społeczności"
     ],
     free: [
+      "✓ Wszystko z planu Terapeuta poszukujący",
       "Podstawowa wizytówka terapeuty",
       "Profil w katalogu specjalistów",
-      "Możliwość kontaktu przez platformę",
       "Brak ograniczeń czasowych",
-      "Uczestnictwo w społeczności specjalistów",
-      "Opcja rozszerzenia w przyszłości",
-      "Zarabiaj na poleceniach (program partnerski)"
+      "Opcja rozszerzenia w przyszłości"
     ],
     client: [
       "Dostęp do wyszukiwarki terapeutów",
@@ -100,7 +98,10 @@ const AccountTypeSelector = ({ accountType, serviceOfferings, onChange, onServic
               <span className="text-sm text-gray-500">Zarządzaj gabinetem, wynajmuj powierzchnię i obsługuj rezerwacje swoich klientów</span>
               <span className="text-sm text-gray-500">Kalendarz wizyt i wizytówka w cenie</span>
             </Label>
-            <span className="font-medium text-therapy-600">59 zł/mies.</span>
+            <div className="flex flex-col items-end">
+              <span className="font-medium text-therapy-600">59 zł/mies.</span>
+              <span className="text-xs text-green-600">30 dni za darmo</span>
+            </div>
           </div>
           <Button 
             type="button" 
@@ -167,7 +168,10 @@ const AccountTypeSelector = ({ accountType, serviceOfferings, onChange, onServic
               <span className="font-medium">Terapeuta z kalendarzem</span>
               <span className="text-sm text-gray-500">Pełny dostęp do rezerwacji, kalendarza wizyt i wizytówki w cenie</span>
             </Label>
-            <span className="font-medium text-therapy-600">49 zł/mies.</span>
+            <div className="flex flex-col items-end">
+              <span className="font-medium text-therapy-600">49 zł/mies.</span>
+              <span className="text-xs text-green-600">30 dni za darmo</span>
+            </div>
           </div>
           <Button 
             type="button" 
