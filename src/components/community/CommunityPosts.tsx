@@ -4,7 +4,7 @@ import PostCard from "./PostCard";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Post } from "./PostCard";
 
-type PostCategory = "pytania" | "inspiracje" | "szkolenia" | "recenzje" | null;
+type PostCategory = "pytania" | "inspiracje" | "szkolenia" | "recenzje" | "dla-specjalistow" | null;
 
 interface CommunityPostsProps {
   category: PostCategory;
@@ -69,6 +69,36 @@ const dummyPosts: Post[] = [
     likes: 15,
     comments: 5,
     createdAt: "2025-05-07T14:20:00Z"
+  },
+  {
+    id: "5",
+    title: "Trudny przypadek w praktyce - potrzebuję porady",
+    content: "Pracuję z klientem, który ma bardzo złożony problem. Zastanawiam się nad zmianą strategii terapeutycznej. Czy ktoś ma doświadczenie z podobnymi przypadkami?",
+    author: {
+      id: "user5",
+      name: "Magdalena Zielińska",
+      avatar: "/placeholder.svg"
+    },
+    category: "dla-specjalistow",
+    specialistsOnly: true,
+    likes: 18,
+    comments: 12,
+    createdAt: "2025-05-06T11:45:00Z"
+  },
+  {
+    id: "6",
+    title: "Wymiana doświadczeń - superwizja grupowa online",
+    content: "Organizuję miesięczne spotkania superwizyjne online. Jeśli jesteś zainteresowany dołączeniem do grupy, napisz!",
+    author: {
+      id: "user6",
+      name: "Tomasz Lewandowski",
+      avatar: "/placeholder.svg"
+    },
+    category: "dla-specjalistow",
+    specialistsOnly: true,
+    likes: 25,
+    comments: 8,
+    createdAt: "2025-05-05T16:30:00Z"
   }
 ];
 

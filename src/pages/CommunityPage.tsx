@@ -11,7 +11,7 @@ import CreatePostDialog from "@/components/community/CreatePostDialog";
 import SearchBar from "@/components/community/SearchBar";
 import { toast } from "@/components/ui/use-toast";
 
-type CommunityTab = "wszystkie" | "pytania" | "inspiracje" | "szkolenia" | "recenzje" | "sekcje-jezykowe";
+type CommunityTab = "wszystkie" | "pytania" | "inspiracje" | "szkolenia" | "recenzje" | "dla-specjalistow" | "sekcje-jezykowe";
 
 const CommunityPage = () => {
   const [activeTab, setActiveTab] = useState<CommunityTab>("wszystkie");
@@ -19,6 +19,7 @@ const CommunityPage = () => {
   const [isCreatePostOpen, setIsCreatePostOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [languageFilter, setLanguageFilter] = useState<string | null>(null);
+  const accountType = user?.user_metadata?.account_type;
 
   const handleCreatePost = () => {
     if (user) {
@@ -63,12 +64,13 @@ const CommunityPage = () => {
           className="w-full mb-8"
           onValueChange={(value) => setActiveTab(value as CommunityTab)}
         >
-          <TabsList className="mb-6 grid grid-cols-6">
+          <TabsList className="mb-6 grid grid-cols-7">
             <TabsTrigger value="wszystkie">Wszystkie</TabsTrigger>
             <TabsTrigger value="pytania">Pytania</TabsTrigger>
             <TabsTrigger value="inspiracje">Inspiracje</TabsTrigger>
             <TabsTrigger value="szkolenia">Szkolenia</TabsTrigger>
             <TabsTrigger value="recenzje">Recenzje</TabsTrigger>
+            <TabsTrigger value="dla-specjalistow">Dla specjalistów</TabsTrigger>
             <TabsTrigger value="sekcje-jezykowe">Sekcje językowe</TabsTrigger>
           </TabsList>
           
@@ -90,6 +92,17 @@ const CommunityPage = () => {
           
           <TabsContent value="recenzje">
             <CommunityPosts category="recenzje" searchQuery={searchQuery} />
+          </TabsContent>
+          
+          <TabsContent value="dla-specjalistow">
+            {accountType && ['therapist', 'therapist-seeking', 'owner', 'free'].includes(accountType) ? (
+              <CommunityPosts category="dla-specjalistow" searchQuery={searchQuery} />
+            ) : (
+              <div className="text-center py-12 bg-gray-50 rounded-lg">
+                <p className="text-xl text-gray-600 font-medium mb-2">Dostęp ograniczony</p>
+                <p className="text-gray-500">Ta sekcja jest dostępna tylko dla terapeutów i właścicieli gabinetów.</p>
+              </div>
+            )}
           </TabsContent>
           
           <TabsContent value="sekcje-jezykowe">

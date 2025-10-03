@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useAuth } from "@/components/auth/AuthProvider";
 import { 
   Dialog, 
@@ -19,6 +19,7 @@ import {
   SelectTrigger, 
   SelectValue 
 } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "@/components/ui/use-toast";
 import { Post } from "./PostCard";
 
@@ -32,7 +33,14 @@ const CreatePostDialog = ({ open, onOpenChange }: CreatePostDialogProps) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [category, setCategory] = useState<Post["category"] | "">("");
+  const [specialistsOnly, setSpecialistsOnly] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  const accountType = user?.user_metadata?.account_type;
+  const isSpecialist = useMemo(() => 
+    accountType && ['therapist', 'therapist-seeking', 'owner', 'free'].includes(accountType),
+    [accountType]
+  );
 
   const handleSubmit = () => {
     if (!title.trim()) {
@@ -76,6 +84,7 @@ const CreatePostDialog = ({ open, onOpenChange }: CreatePostDialogProps) => {
       setTitle("");
       setContent("");
       setCategory("");
+      setSpecialistsOnly(false);
       setIsSubmitting(false);
       onOpenChange(false);
     }, 1000);
@@ -100,6 +109,9 @@ const CreatePostDialog = ({ open, onOpenChange }: CreatePostDialogProps) => {
                 <SelectItem value="inspiracje">Inspiracja</SelectItem>
                 <SelectItem value="szkolenia">Szkolenie</SelectItem>
                 <SelectItem value="recenzje">Recenzja</SelectItem>
+                {isSpecialist && (
+                  <SelectItem value="dla-specjalistow">Dla specjalistów</SelectItem>
+                )}
               </SelectContent>
             </Select>
           </div>
@@ -126,6 +138,22 @@ const CreatePostDialog = ({ open, onOpenChange }: CreatePostDialogProps) => {
               className="resize-none w-full"
             />
           </div>
+
+          {isSpecialist && category !== "dla-specjalistow" && (
+            <div className="flex items-center space-x-2">
+              <Checkbox 
+                id="specialists-only" 
+                checked={specialistsOnly}
+                onCheckedChange={(checked) => setSpecialistsOnly(checked as boolean)}
+              />
+              <Label 
+                htmlFor="specialists-only"
+                className="text-sm font-normal cursor-pointer"
+              >
+                Tylko dla specjalistów (ukryj przed klientami)
+              </Label>
+            </div>
+          )}
         </div>
         
         <DialogFooter>

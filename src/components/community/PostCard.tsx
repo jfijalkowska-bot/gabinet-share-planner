@@ -16,7 +16,8 @@ export type Post = {
     name: string;
     avatar: string;
   };
-  category: "pytania" | "inspiracje" | "szkolenia" | "recenzje";
+  category: "pytania" | "inspiracje" | "szkolenia" | "recenzje" | "dla-specjalistow";
+  specialistsOnly?: boolean;
   likes: number;
   comments: number;
   createdAt: string;
@@ -30,14 +31,16 @@ const categoryColors = {
   pytania: "bg-blue-100 text-blue-800",
   inspiracje: "bg-green-100 text-green-800",
   szkolenia: "bg-amber-100 text-amber-800",
-  recenzje: "bg-purple-100 text-purple-800"
+  recenzje: "bg-purple-100 text-purple-800",
+  "dla-specjalistow": "bg-red-100 text-red-800"
 };
 
 const categoryLabels = {
   pytania: "Pytanie",
   inspiracje: "Inspiracja",
   szkolenia: "Szkolenie",
-  recenzje: "Recenzja"
+  recenzje: "Recenzja",
+  "dla-specjalistow": "Dla specjalistów"
 };
 
 const PostCard = ({ post }: PostCardProps) => {
@@ -71,9 +74,16 @@ const PostCard = ({ post }: PostCardProps) => {
             <p className="text-sm text-gray-500">{timeAgo}</p>
           </div>
         </div>
-        <Badge className={categoryColors[post.category]}>
-          {categoryLabels[post.category]}
-        </Badge>
+        <div className="flex gap-2">
+          <Badge className={categoryColors[post.category]}>
+            {categoryLabels[post.category]}
+          </Badge>
+          {post.specialistsOnly && (
+            <Badge variant="outline" className="border-red-300 text-red-700">
+              Tylko dla specjalistów
+            </Badge>
+          )}
+        </div>
       </div>
       
       <h3 className="text-xl font-semibold mb-2">{post.title}</h3>
