@@ -8,6 +8,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/components/auth/AuthProvider";
 import Index from "./pages/Index";
 
+import ProtectedRoute from "@/components/auth/ProtectedRoute";
+
 const SupervisionsPage = lazy(() => import("./pages/SupervisionsPage"));
 const SearchPage = lazy(() => import("./pages/SearchPage"));
 const CalendarPage = lazy(() => import("./pages/CalendarPage"));
@@ -44,7 +46,14 @@ const App = () => (
           <Suspense fallback={<div>Loading...</div>}>
             <Routes>
               <Route path="/" element={<Index />} />
-              <Route path="/supervisions" element={<SupervisionsPage />} />
+              <Route 
+                path="/supervisions" 
+                element={
+                  <ProtectedRoute excludeRoles={['client']}>
+                    <SupervisionsPage />
+                  </ProtectedRoute>
+                } 
+              />
               <Route path="/search" element={<SearchPage />} />
               <Route path="/calendar" element={<CalendarPage />} />
               <Route path="/rental" element={<RentalPage />} />
@@ -54,7 +63,14 @@ const App = () => (
               <Route path="/register" element={<RegisterPage />} />
               <Route path="/community" element={<CommunityPage />} />
               <Route path="/messages" element={<MessagesPage />} />
-              <Route path="/trainings" element={<TrainingsPage />} />
+              <Route 
+                path="/trainings" 
+                element={
+                  <ProtectedRoute excludeRoles={['client']}>
+                    <TrainingsPage />
+                  </ProtectedRoute>
+                } 
+              />
               <Route path="/how-it-works" element={<HowItWorksPage />} />
               <Route path="/payments-info" element={<PaymentsInfoPage />} />
               <Route path="/affiliate" element={<AffiliatePage />} />

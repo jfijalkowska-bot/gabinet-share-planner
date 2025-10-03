@@ -5,12 +5,14 @@ import { useAuth } from './AuthProvider';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
-  requireAuth?: boolean; // Opcjonalny parametr - domyślnie false
+  requireAuth?: boolean;
+  excludeRoles?: string[]; // Role, które NIE mają dostępu
 }
 
-const ProtectedRoute = ({ children, requireAuth = false }: ProtectedRouteProps) => {
+const ProtectedRoute = ({ children, requireAuth = false, excludeRoles = [] }: ProtectedRouteProps) => {
   const { user, loading } = useAuth();
   const location = useLocation();
+  const accountType = user?.user_metadata?.account_type;
 
   // Jeśli trwa ładowanie, wyświetlamy ekran ładowania
   if (loading) {
@@ -24,6 +26,11 @@ const ProtectedRoute = ({ children, requireAuth = false }: ProtectedRouteProps) 
   // Jeśli strona wymaga uwierzytelnienia i nie ma zalogowanego użytkownika, przekieruj do strony logowania
   if (requireAuth && !user) {
     return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+
+  // Sprawdź czy rola użytkownika jest wykluczona
+  if (user && excludeRoles.length > 0 && accountType && excludeRoles.includes(accountType)) {
+    return <Navigate to="/" replace />;
   }
 
   // W przeciwnym razie wyświetlamy zawartość

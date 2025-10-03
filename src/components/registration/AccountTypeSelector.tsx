@@ -34,36 +34,34 @@ const AccountTypeSelector = ({ accountType, serviceOfferings, onChange, onServic
 
   const planDetails = {
     owner: [
-      "Zarządzanie gabinetem",
-      "Wynajmowanie powierzchni",
-      "Obsługa rezerwacji klientów",
-      "Kalendarz wizyt",
-      "Wizytówka w cenie",
-      "Panel administracyjny",
-      "Raportowanie i statystyki",
-      "Możliwość oferowania superwizji, praktyk i szkoleń",
-      "Uczestnictwo w społeczności specjalistów",
-      "Zarabiaj na poleceniach (program partnerski)"
+      "✓ Wszystko z planu Terapeuta z Kalendarzem",
+      "Dodawanie i zarządzanie gabinetami",
+      "System wynajmu gabinetów",
+      "Kalendarz dostępności gabinetów",
+      "Panel zarządzania rezerwacjami wynajmu",
+      "Statystyki wynajmu",
+      "Możliwość oferowania superwizji w gabinecie",
+      "Możliwość oferowania praktyk w gabinecie",
+      "Możliwość organizowania szkoleń w gabinecie"
     ],
     therapist: [
-      "Pełny dostęp do kalendarza wizyt",
-      "Zarządzanie rezerwacjami",
-      "Wizytówka terapeuty", 
-      "Powiadomienia o wizytach",
-      "Historia spotkań z klientami",
-      "Możliwość oferowania superwizji, praktyk i szkoleń",
-      "Uczestnictwo w społeczności specjalistów",
-      "Zarabiaj na poleceniach (program partnerski)"
+      "✓ Wszystko z planu Terapeuta poszukujący",
+      "Tworzenie profilu terapeuty",
+      "Kalendarz i zarządzanie dostępnością",
+      "System rezerwacji wizyt online",
+      "Panel zarządzania pacjentami",
+      "Statystyki i raporty",
+      "Możliwość oferowania superwizji",
+      "Możliwość oferowania praktyk",
+      "Możliwość organizowania szkoleń"
     ],
     "therapist-seeking": [
-      "Przeglądanie dostępnych gabinetów i kontakt z właścicielami",
-      "Wyszukiwanie szkoleń i superwizji",
-      "Przeglądanie profili terapeutów (dla terapii własnej lub poleceń klientom)",
-      "Rezerwacja wizyt jako klient",
-      "Możliwość wystawiania opinii",
-      "Uczestnictwo w społeczności specjalistów",
-      "Zarabiaj na poleceniach (program partnerski)",
-      "Możliwość rozszerzenia do pełnego planu"
+      "✓ Wszystko z planu Klient",
+      "Dostęp do ofert wynajmu gabinetów",
+      "Przeglądanie szkoleń dla terapeutów",
+      "Dostęp do ofert superwizji",
+      "Możliwość polecania innych terapeutów",
+      "Rozszerzone uczestnictwo w społeczności"
     ],
     free: [
       "Podstawowa wizytówka terapeuty",
@@ -75,10 +73,10 @@ const AccountTypeSelector = ({ accountType, serviceOfferings, onChange, onServic
       "Zarabiaj na poleceniach (program partnerski)"
     ],
     client: [
-      "Rezerwacja wizyt u specjalistów",
+      "Dostęp do wyszukiwarki terapeutów",
+      "Możliwość rezerwacji wizyt",
+      "Przeglądanie gabinetów terapeutycznych",
       "Wystawianie ocen i opinii",
-      "Przeglądanie profili terapeutów",
-      "Przeglądanie szkoleń i superwizji",
       "Powiadomienia o terminach",
       "Historia wizyt",
       "Uczestnictwo w społeczności",
@@ -290,7 +288,7 @@ const AccountTypeSelector = ({ accountType, serviceOfferings, onChange, onServic
             <RadioGroupItem value="client" id="client" />
             <Label htmlFor="client" className="flex flex-col cursor-pointer w-full">
               <span className="font-medium">Klient</span>
-              <span className="text-sm text-gray-500">Rezerwuj wizyty, przeglądaj szkolenia i dołącz do społeczności</span>
+              <span className="text-sm text-gray-500">Rezerwuj wizyty, przeglądaj terapeutów i dołącz do społeczności</span>
             </Label>
             <span className="font-medium text-green-600">Za darmo</span>
           </div>
