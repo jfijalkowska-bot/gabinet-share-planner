@@ -59,7 +59,7 @@ const ContactPage = () => {
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
                     <div className="flex items-center justify-center gap-2">
                       <Mail className="h-4 w-4 text-therapy-600" />
-                      <span><strong>Email:</strong> kontakt@gabinetshare.pl</span>
+                      <span><strong>Email:</strong> kontakt@gabinet-psychologa.com.pl</span>
                     </div>
                     <div className="flex items-center justify-center gap-2">
                       <MessageCircle className="h-4 w-4 text-therapy-600" />
@@ -149,7 +149,7 @@ const ContactPage = () => {
                     <Mail className="h-5 w-5 text-therapy-600" />
                     <div>
                       <p className="font-medium">Email</p>
-                      <p className="text-gray-600">kontakt@gabinetshare.pl</p>
+                      <p className="text-gray-600">kontakt@gabinet-psychologa.com.pl</p>
                     </div>
                   </div>
                   
@@ -165,7 +165,7 @@ const ContactPage = () => {
                     <MapPin className="h-5 w-5 text-therapy-600" />
                     <div>
                       <p className="font-medium">Adres</p>
-                      <p className="text-gray-600">ul. Przykładowa 123<br />00-001 Warszawa</p>
+                      <p className="text-gray-600">Osiedle Piastowskie 100/6<br />61-163 Poznań</p>
                     </div>
                   </div>
                   

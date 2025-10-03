@@ -42,6 +42,7 @@ const AccountTypeSelector = ({ accountType, serviceOfferings, onChange, onServic
       "Panel administracyjny",
       "Raportowanie i statystyki",
       "Możliwość oferowania superwizji, praktyk i szkoleń",
+      "Uczestnictwo w społeczności specjalistów",
       "Zarabiaj na poleceniach (program partnerski)"
     ],
     therapist: [
@@ -51,13 +52,16 @@ const AccountTypeSelector = ({ accountType, serviceOfferings, onChange, onServic
       "Powiadomienia o wizytach",
       "Historia spotkań z klientami",
       "Możliwość oferowania superwizji, praktyk i szkoleń",
+      "Uczestnictwo w społeczności specjalistów",
       "Zarabiaj na poleceniach (program partnerski)"
     ],
     "therapist-seeking": [
-      "Przeglądanie dostępnych gabinetów",
-      "Kontakt z właścicielami gabinetów",
-      "Filtrowanie według lokalizacji i wyposażenia",
-      "Dostęp do szczegółów ofert wynajmu",
+      "Przeglądanie dostępnych gabinetów i kontakt z właścicielami",
+      "Wyszukiwanie szkoleń i superwizji",
+      "Przeglądanie profili terapeutów (dla terapii własnej lub poleceń klientom)",
+      "Rezerwacja wizyt jako klient",
+      "Możliwość wystawiania opinii",
+      "Uczestnictwo w społeczności specjalistów",
       "Zarabiaj na poleceniach (program partnerski)",
       "Możliwość rozszerzenia do pełnego planu"
     ],
@@ -66,6 +70,7 @@ const AccountTypeSelector = ({ accountType, serviceOfferings, onChange, onServic
       "Profil w katalogu specjalistów",
       "Możliwość kontaktu przez platformę",
       "Brak ograniczeń czasowych",
+      "Uczestnictwo w społeczności specjalistów",
       "Opcja rozszerzenia w przyszłości",
       "Zarabiaj na poleceniach (program partnerski)"
     ],
@@ -73,9 +78,10 @@ const AccountTypeSelector = ({ accountType, serviceOfferings, onChange, onServic
       "Rezerwacja wizyt u specjalistów",
       "Wystawianie ocen i opinii",
       "Przeglądanie profili terapeutów",
-      "Płatności online za wizyty",
+      "Przeglądanie szkoleń i superwizji",
       "Powiadomienia o terminach",
       "Historia wizyt",
+      "Uczestnictwo w społeczności",
       "Zarabiaj na poleceniach (program partnerski)"
     ]
   };
@@ -227,8 +233,8 @@ const AccountTypeSelector = ({ accountType, serviceOfferings, onChange, onServic
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="therapist-seeking" id="therapist-seeking" />
             <Label htmlFor="therapist-seeking" className="flex flex-col cursor-pointer w-full">
-              <span className="font-medium">Terapeuta poszukujący gabinetu</span>
-              <span className="text-sm text-gray-500">Przeglądaj dostępne gabinety i kontaktuj się z właścicielami</span>
+              <span className="font-medium">Terapeuta poszukujący</span>
+              <span className="text-sm text-gray-500">Przeglądaj gabinety, szkolenia, superwizje i terapeutów</span>
             </Label>
             <span className="font-medium text-green-600">Za darmo</span>
           </div>
@@ -283,8 +289,8 @@ const AccountTypeSelector = ({ accountType, serviceOfferings, onChange, onServic
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="client" id="client" />
             <Label htmlFor="client" className="flex flex-col cursor-pointer w-full">
-              <span className="font-medium">Klient (przeglądaj za darmo)</span>
-              <span className="text-sm text-gray-500">Rezerwuj wizyty, wystawiaj opinie i zarabiaj na poleceniach</span>
+              <span className="font-medium">Klient</span>
+              <span className="text-sm text-gray-500">Rezerwuj wizyty, przeglądaj szkolenia i dołącz do społeczności</span>
             </Label>
             <span className="font-medium text-green-600">Za darmo</span>
           </div>

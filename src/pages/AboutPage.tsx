@@ -123,17 +123,16 @@ const AboutPage = () => {
                 <div>
                   <h3 className="font-semibold mb-4 text-therapy-600">Dane rejestrowe</h3>
                   <div className="space-y-2 text-gray-700">
-                    <p><strong>Nazwa:</strong> Jadwiga Fijałkowska</p>
+                    <p><strong>Właściciel:</strong> Jadwiga Fijałkowska</p>
                     <p><strong>Nazwa handlowa:</strong> GabinetShare</p>
-                    <p><strong>NIP:</strong> 1234567890</p>
-                    <p><strong>REGON:</strong> 123456789</p>
+                    <p><strong>Forma działalności:</strong> Działalność nierejestrowana</p>
                   </div>
                 </div>
                 <div>
                   <h3 className="font-semibold mb-4 text-therapy-600">Adres</h3>
                   <div className="space-y-2 text-gray-700">
-                    <p>ul. Przykładowa 123</p>
-                    <p>00-001 Warszawa</p>
+                    <p>Osiedle Piastowskie 100/6</p>
+                    <p>61-163 Poznań</p>
                     <p>Polska</p>
                   </div>
                 </div>
@@ -142,7 +141,7 @@ const AboutPage = () => {
               <div className="border-t pt-6">
                 <h3 className="font-semibold mb-4 text-therapy-600">Kontakt</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700">
-                  <p><strong>Email:</strong> kontakt@gabinetshare.pl</p>
+                  <p><strong>Email:</strong> kontakt@gabinet-psychologa.com.pl</p>
                   <p><strong>Telefon:</strong> +48 123 456 789</p>
                 </div>
               </div>

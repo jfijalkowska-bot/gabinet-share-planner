@@ -80,7 +80,7 @@ const Footer = () => {
               <li>Działalność nierejestrowana</li>
               <li>Osiedle Piastowskie 100/6</li>
               <li>61-163 Poznań</li>
-              <li className="pt-2">Email: kontakt@gabinetshare.pl</li>
+              <li className="pt-2">Email: kontakt@gabinet-psychologa.com.pl</li>
             </ul>
           </div>
         </div>
