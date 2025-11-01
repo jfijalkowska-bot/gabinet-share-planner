@@ -7,6 +7,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/components/auth/AuthProvider";
 import Index from "./pages/Index";
+import CookieConsent from "@/components/common/CookieConsent";
+import "./i18n/config";
 
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
 
@@ -42,6 +44,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
+      <CookieConsent />
       <BrowserRouter>
         <AuthProvider>
           <Suspense fallback={<div>Loading...</div>}>
