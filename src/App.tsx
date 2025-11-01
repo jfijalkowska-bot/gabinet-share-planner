@@ -32,6 +32,7 @@ const GDPRPage = lazy(() => import("./pages/GDPRPage"));
 const KnowledgeBasePage = lazy(() => import("./pages/KnowledgeBasePage"));
 const TherapistProfileDemo = lazy(() => import("./pages/TherapistProfileDemo"));
 const PaymentSuccessPage = lazy(() => import("./pages/PaymentSuccessPage"));
+const PatientsPage = lazy(() => import("./pages/PatientsPage"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
@@ -82,6 +83,14 @@ const App = () => (
               <Route path="/knowledge-base" element={<KnowledgeBasePage />} />
               <Route path="/therapist-demo" element={<TherapistProfileDemo />} />
               <Route path="/payment-success" element={<PaymentSuccessPage />} />
+              <Route 
+                path="/patients" 
+                element={
+                  <ProtectedRoute excludeRoles={['client']}>
+                    <PatientsPage />
+                  </ProtectedRoute>
+                } 
+              />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>

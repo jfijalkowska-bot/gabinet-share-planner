@@ -101,6 +101,17 @@ const Navbar = () => {
                           </p>
                         </Link>
                       </li>
+                      <li>
+                        <Link to="/patients" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                          <div className="text-sm font-medium leading-none flex items-center gap-2">
+                            <User className="h-4 w-4" />
+                            Pacjenci
+                          </div>
+                          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                            Akta pacjentów i asystent AI
+                          </p>
+                        </Link>
+                      </li>
                     </ul>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
@@ -263,6 +274,10 @@ const Navbar = () => {
                     <Link to="/supervisions" className="flex items-center gap-3 rounded-md px-3 py-2 text-sm hover:bg-accent" onClick={() => setMobileMenuOpen(false)}>
                       <UserCheck className="h-5 w-5" />
                       {t('nav.supervisions')}
+                    </Link>
+                    <Link to="/patients" className="flex items-center gap-3 rounded-md px-3 py-2 text-sm hover:bg-accent" onClick={() => setMobileMenuOpen(false)}>
+                      <User className="h-5 w-5" />
+                      Pacjenci
                     </Link>
                   </div>
 

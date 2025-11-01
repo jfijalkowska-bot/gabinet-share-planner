@@ -562,6 +562,63 @@ export type Database = {
         }
         Relationships: []
       }
+      patients: {
+        Row: {
+          address: string | null
+          created_at: string
+          date_of_birth: string | null
+          diagnosis: string | null
+          email: string | null
+          emergency_contact_name: string | null
+          emergency_contact_phone: string | null
+          first_name: string
+          id: string
+          is_active: boolean | null
+          last_name: string
+          notes: string | null
+          phone: string | null
+          therapist_id: string
+          treatment_goals: string | null
+          updated_at: string
+        }
+        Insert: {
+          address?: string | null
+          created_at?: string
+          date_of_birth?: string | null
+          diagnosis?: string | null
+          email?: string | null
+          emergency_contact_name?: string | null
+          emergency_contact_phone?: string | null
+          first_name: string
+          id?: string
+          is_active?: boolean | null
+          last_name: string
+          notes?: string | null
+          phone?: string | null
+          therapist_id: string
+          treatment_goals?: string | null
+          updated_at?: string
+        }
+        Update: {
+          address?: string | null
+          created_at?: string
+          date_of_birth?: string | null
+          diagnosis?: string | null
+          email?: string | null
+          emergency_contact_name?: string | null
+          emergency_contact_phone?: string | null
+          first_name?: string
+          id?: string
+          is_active?: boolean | null
+          last_name?: string
+          notes?: string | null
+          phone?: string | null
+          therapist_id?: string
+          treatment_goals?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       payments: {
         Row: {
           amount: number
@@ -733,6 +790,44 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      session_documents: {
+        Row: {
+          file_name: string
+          file_size: number | null
+          file_type: string | null
+          file_url: string
+          id: string
+          session_id: string
+          uploaded_at: string
+        }
+        Insert: {
+          file_name: string
+          file_size?: number | null
+          file_type?: string | null
+          file_url: string
+          id?: string
+          session_id: string
+          uploaded_at?: string
+        }
+        Update: {
+          file_name?: string
+          file_size?: number | null
+          file_type?: string | null
+          file_url?: string
+          id?: string
+          session_id?: string
+          uploaded_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "session_documents_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "therapy_sessions"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       supervision_applications: {
         Row: {
@@ -1043,6 +1138,74 @@ export type Database = {
           value?: string
         }
         Relationships: []
+      }
+      therapy_sessions: {
+        Row: {
+          ai_insights: Json | null
+          ai_summary: string | null
+          audio_transcription: string | null
+          created_at: string
+          duration_minutes: number | null
+          homework_assigned: string | null
+          id: string
+          interventions_used: string[] | null
+          mood_after: string | null
+          mood_before: string | null
+          notes: string | null
+          patient_id: string
+          session_date: string
+          session_type: string | null
+          therapist_id: string
+          topics_discussed: string[] | null
+          updated_at: string
+        }
+        Insert: {
+          ai_insights?: Json | null
+          ai_summary?: string | null
+          audio_transcription?: string | null
+          created_at?: string
+          duration_minutes?: number | null
+          homework_assigned?: string | null
+          id?: string
+          interventions_used?: string[] | null
+          mood_after?: string | null
+          mood_before?: string | null
+          notes?: string | null
+          patient_id: string
+          session_date: string
+          session_type?: string | null
+          therapist_id: string
+          topics_discussed?: string[] | null
+          updated_at?: string
+        }
+        Update: {
+          ai_insights?: Json | null
+          ai_summary?: string | null
+          audio_transcription?: string | null
+          created_at?: string
+          duration_minutes?: number | null
+          homework_assigned?: string | null
+          id?: string
+          interventions_used?: string[] | null
+          mood_after?: string | null
+          mood_before?: string | null
+          notes?: string | null
+          patient_id?: string
+          session_date?: string
+          session_type?: string | null
+          therapist_id?: string
+          topics_discussed?: string[] | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "therapy_sessions_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "patients"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       training_registrations: {
         Row: {
