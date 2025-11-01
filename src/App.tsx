@@ -44,8 +44,8 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <CookieConsent />
       <BrowserRouter>
+        <CookieConsent />
         <AuthProvider>
           <Suspense fallback={<div>Loading...</div>}>
             <Routes>
