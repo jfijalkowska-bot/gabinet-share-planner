@@ -51,7 +51,7 @@ const HowItWorksPage = () => {
             <div className="bg-white rounded-lg p-6 shadow-md border border-gray-100">
               <h2 className="text-2xl font-semibold mb-4 text-therapy-600">Wizytówka terapeuty</h2>
               <p className="text-gray-600 mb-6">
-                Jednorazowa opłata 49 zł pozwala na stworzenie profesjonalnej wizytówki online na rok.
+                Stwórz bezpłatną profesjonalną wizytówkę online i bądź widoczny dla klientów.
               </p>
               <ul className="space-y-3 mb-6">
                 <li className="flex items-start">
@@ -69,7 +69,7 @@ const HowItWorksPage = () => {
               </ul>
               <Link to="/register?plan=free">
                 <Button variant="outline" className="w-full">
-                  Stwórz wizytówkę terapeuty
+                  Stwórz bezpłatną wizytówkę
                 </Button>
               </Link>
             </div>
@@ -94,6 +94,14 @@ const HowItWorksPage = () => {
                 <li className="flex items-start">
                   <Check className="h-5 w-5 text-green-500 mr-2 mt-0.5" />
                   <span>Rezerwacja godzin w gabinetach</span>
+                </li>
+                <li className="flex items-start">
+                  <Check className="h-5 w-5 text-green-500 mr-2 mt-0.5" />
+                  <span>Transkrypcja głosowa notatek z sesji (Whisper AI)</span>
+                </li>
+                <li className="flex items-start">
+                  <Check className="h-5 w-5 text-green-500 mr-2 mt-0.5" />
+                  <span>Asystent AI do analizy sesji terapeutycznych</span>
                 </li>
                 <li className="flex items-start">
                   <Check className="h-5 w-5 text-green-500 mr-2 mt-0.5" />
