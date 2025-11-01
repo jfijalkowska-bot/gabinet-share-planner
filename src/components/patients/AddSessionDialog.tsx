@@ -59,17 +59,45 @@ export function AddSessionDialog({ open, onOpenChange, patientId, onSuccess }: A
   };
 
   const transcribeAudio = async (audioBlob: Blob) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(audioBlob);
-    reader.onloadend = async () => {
-      const base64Audio = reader.result?.toString().split(",")[1];
-      
-      // TODO: Implement transcription API call
+    try {
       toast({
-        title: "Info",
-        description: "Funkcja transkrypcji zostanie wkrótce dodana",
+        title: "Przetwarzanie...",
+        description: "Transkrybuję nagranie głosowe",
       });
-    };
+
+      // Convert blob to base64
+      const reader = new FileReader();
+      const base64Audio = await new Promise<string>((resolve, reject) => {
+        reader.onloadend = () => {
+          const base64 = (reader.result as string).split(',')[1];
+          resolve(base64);
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(audioBlob);
+      });
+
+      // Call the transcription edge function
+      const { data, error } = await supabase.functions.invoke('transcribe-audio', {
+        body: { audio: base64Audio }
+      });
+
+      if (error) throw error;
+      
+      const transcribedText = data.text || "";
+      setNotes((prev) => prev + (prev ? "\n\n" : "") + transcribedText);
+      
+      toast({
+        title: "Gotowe!",
+        description: "Transkrypcja została dodana do notatek",
+      });
+    } catch (error) {
+      console.error('Transcription error:', error);
+      toast({
+        title: "Błąd transkrypcji",
+        description: "Nie udało się przetworzyć nagrania głosowego",
+        variant: "destructive",
+      });
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
