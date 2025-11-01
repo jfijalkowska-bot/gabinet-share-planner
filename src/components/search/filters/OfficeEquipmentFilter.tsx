@@ -25,6 +25,7 @@ const officeEquipment = [
   { id: "headphones", label: "Słuchawki", icon: <Headphones className="h-4 w-4" /> },
   { id: "groundOrElevator", label: "Parter lub winda", icon: <Building className="h-4 w-4" /> },
   { id: "flipchart", label: "Flipchart", icon: <Check className="h-4 w-4" /> },
+  { id: "cleaningIncluded", label: "Sprzątanie w cenie", icon: null },
 ];
 
 interface OfficeEquipmentFilterProps {

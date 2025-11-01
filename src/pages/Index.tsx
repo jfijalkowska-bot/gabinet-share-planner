@@ -56,6 +56,21 @@ const Index = () => {
                 description="Udostępniaj swój gabinet innym terapeutom, gdy z niego nie korzystasz. Zarabiaj więcej."
               />
             </div>
+            
+            <div className="mt-12">
+              <h3 className="text-2xl font-semibold text-center mb-8">Funkcje AI dla terapeutów</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <Card className="p-6 hover:shadow-lg transition-shadow">
+                  <h4 className="text-xl font-semibold mb-3 text-therapy-700">Zarządzaj dokumentacją pacjenta</h4>
+                  <p className="text-gray-600">Kompleksowy system akt pacjentów z historią sesji, notatkami i dokumentami w jednym miejscu.</p>
+                </Card>
+                
+                <Card className="p-6 hover:shadow-lg transition-shadow">
+                  <h4 className="text-xl font-semibold mb-3 text-therapy-700">Notatki głosowe z sesji</h4>
+                  <p className="text-gray-600">Nagrywaj sesje głosowo i automatycznie transkrybuj je do tekstu dzięki AI (Whisper). Oszczędź czas na dokumentacji.</p>
+                </Card>
+              </div>
+            </div>
           </div>
         </section>
 

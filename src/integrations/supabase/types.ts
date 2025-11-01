@@ -390,6 +390,7 @@ export type Database = {
           address: string
           capacity: number | null
           city: string
+          cleaning_included: boolean | null
           color_scheme: string | null
           created_at: string | null
           description: string | null
@@ -410,6 +411,7 @@ export type Database = {
           address: string
           capacity?: number | null
           city: string
+          cleaning_included?: boolean | null
           color_scheme?: string | null
           created_at?: string | null
           description?: string | null
@@ -430,6 +432,7 @@ export type Database = {
           address?: string
           capacity?: number | null
           city?: string
+          cleaning_included?: boolean | null
           color_scheme?: string | null
           created_at?: string | null
           description?: string | null

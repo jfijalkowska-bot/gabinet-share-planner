@@ -24,7 +24,8 @@ const OfficeProfileForm = () => {
     equipment: [] as string[],
     style: "",
     color_scheme: "",
-    images: [] as string[]
+    images: [] as string[],
+    cleaning_included: false
   });
 
   useEffect(() => {
@@ -196,6 +197,17 @@ const OfficeProfileForm = () => {
               onChange={(e) => setOffice({ ...office, price_per_hour: parseFloat(e.target.value) || 0 })}
             />
           </div>
+        </div>
+
+        <div className="flex items-center space-x-2 mb-6">
+          <Checkbox
+            id="cleaning_included"
+            checked={office.cleaning_included}
+            onCheckedChange={(checked) => setOffice({ ...office, cleaning_included: checked as boolean })}
+          />
+          <Label htmlFor="cleaning_included" className="cursor-pointer">
+            Cena zawiera sprzątanie
+          </Label>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
