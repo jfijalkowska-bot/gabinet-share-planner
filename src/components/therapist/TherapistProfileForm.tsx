@@ -22,8 +22,6 @@ const TherapistProfileForm = () => {
     experience_years: 0,
     bio: "",
     phone: "",
-    address: "",
-    city: "",
     price_per_hour: 0,
     avatar_url: "",
   });
@@ -211,32 +209,17 @@ const TherapistProfileForm = () => {
           />
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <Label htmlFor="phone">Telefon</Label>
-            <Input
-              id="phone"
-              value={profile.phone}
-              onChange={(e) => setProfile(prev => ({ ...prev, phone: e.target.value }))}
-            />
-          </div>
-          <div>
-            <Label htmlFor="city">Miasto</Label>
-            <Input
-              id="city"
-              value={profile.city}
-              onChange={(e) => setProfile(prev => ({ ...prev, city: e.target.value }))}
-            />
-          </div>
-        </div>
-
-        <div>
-          <Label htmlFor="address">Adres</Label>
+        <div className="space-y-2">
+          <Label htmlFor="phone">Numer telefonu kontaktowego</Label>
           <Input
-            id="address"
-            value={profile.address}
-            onChange={(e) => setProfile(prev => ({ ...prev, address: e.target.value }))}
+            id="phone"
+            value={profile.phone}
+            onChange={(e) => setProfile(prev => ({ ...prev, phone: e.target.value }))}
+            placeholder="Tylko Ty widzisz ten numer"
           />
+          <p className="text-xs text-muted-foreground">
+            Numer telefonu jest widoczny tylko dla Ciebie. Adres Twojego gabinetu jest widoczny w profilu gabinetu.
+          </p>
         </div>
 
         <Button 

@@ -42,8 +42,8 @@ const GlobalSearch = () => {
       // Search therapists
       const { data: therapists } = await supabase
         .from('therapist_profiles')
-        .select('id, first_name, last_name, specialization, city')
-        .or(`first_name.ilike.%${searchQuery}%,last_name.ilike.%${searchQuery}%,specialization.ilike.%${searchQuery}%,city.ilike.%${searchQuery}%`)
+        .select('id, first_name, last_name, specialization')
+        .or(`first_name.ilike.%${searchQuery}%,last_name.ilike.%${searchQuery}%,specialization.ilike.%${searchQuery}%`)
         .limit(5);
 
       therapists?.forEach(therapist => {
@@ -51,8 +51,7 @@ const GlobalSearch = () => {
           id: therapist.id,
           type: 'therapist',
           title: `${therapist.first_name} ${therapist.last_name}`,
-          subtitle: therapist.specialization || 'Terapeuta',
-          location: therapist.city
+          subtitle: therapist.specialization || 'Terapeuta'
         });
       });
 

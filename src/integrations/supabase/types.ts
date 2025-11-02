@@ -574,10 +574,10 @@ export type Database = {
           email: string | null
           emergency_contact_name: string | null
           emergency_contact_phone: string | null
-          first_name: string
+          first_name: string | null
           id: string
           is_active: boolean | null
-          last_name: string
+          last_name: string | null
           notes: string | null
           phone: string | null
           therapist_id: string
@@ -592,10 +592,10 @@ export type Database = {
           email?: string | null
           emergency_contact_name?: string | null
           emergency_contact_phone?: string | null
-          first_name: string
+          first_name?: string | null
           id?: string
           is_active?: boolean | null
-          last_name: string
+          last_name?: string | null
           notes?: string | null
           phone?: string | null
           therapist_id: string
@@ -610,10 +610,10 @@ export type Database = {
           email?: string | null
           emergency_contact_name?: string | null
           emergency_contact_phone?: string | null
-          first_name?: string
+          first_name?: string | null
           id?: string
           is_active?: boolean | null
-          last_name?: string
+          last_name?: string | null
           notes?: string | null
           phone?: string | null
           therapist_id?: string
@@ -971,10 +971,8 @@ export type Database = {
       }
       therapist_profiles: {
         Row: {
-          address: string | null
           avatar_url: string | null
           bio: string | null
-          city: string | null
           created_at: string | null
           experience_years: number | null
           first_name: string
@@ -991,10 +989,8 @@ export type Database = {
           user_id: string
         }
         Insert: {
-          address?: string | null
           avatar_url?: string | null
           bio?: string | null
-          city?: string | null
           created_at?: string | null
           experience_years?: number | null
           first_name: string
@@ -1011,10 +1007,8 @@ export type Database = {
           user_id: string
         }
         Update: {
-          address?: string | null
           avatar_url?: string | null
           bio?: string | null
-          city?: string | null
           created_at?: string | null
           experience_years?: number | null
           first_name?: string
@@ -1367,7 +1361,123 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      office_profiles_public: {
+        Row: {
+          address: string | null
+          capacity: number | null
+          city: string | null
+          cleaning_included: boolean | null
+          color_scheme: string | null
+          created_at: string | null
+          description: string | null
+          equipment: string[] | null
+          id: string | null
+          images: string[] | null
+          is_active: boolean | null
+          name: string | null
+          offers_practicums: boolean | null
+          offers_supervisions: boolean | null
+          offers_trainings: boolean | null
+          price_per_hour: number | null
+          style: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          address?: string | null
+          capacity?: number | null
+          city?: string | null
+          cleaning_included?: boolean | null
+          color_scheme?: string | null
+          created_at?: string | null
+          description?: string | null
+          equipment?: string[] | null
+          id?: string | null
+          images?: string[] | null
+          is_active?: boolean | null
+          name?: string | null
+          offers_practicums?: boolean | null
+          offers_supervisions?: boolean | null
+          offers_trainings?: boolean | null
+          price_per_hour?: number | null
+          style?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          address?: string | null
+          capacity?: number | null
+          city?: string | null
+          cleaning_included?: boolean | null
+          color_scheme?: string | null
+          created_at?: string | null
+          description?: string | null
+          equipment?: string[] | null
+          id?: string | null
+          images?: string[] | null
+          is_active?: boolean | null
+          name?: string | null
+          offers_practicums?: boolean | null
+          offers_supervisions?: boolean | null
+          offers_trainings?: boolean | null
+          price_per_hour?: number | null
+          style?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      therapist_profiles_public: {
+        Row: {
+          avatar_url: string | null
+          bio: string | null
+          created_at: string | null
+          experience_years: number | null
+          first_name: string | null
+          id: string | null
+          is_verified: boolean | null
+          last_name: string | null
+          offers_practicums: boolean | null
+          offers_supervisions: boolean | null
+          offers_trainings: boolean | null
+          price_per_hour: number | null
+          specialization: string | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string | null
+          experience_years?: number | null
+          first_name?: string | null
+          id?: string | null
+          is_verified?: boolean | null
+          last_name?: string | null
+          offers_practicums?: boolean | null
+          offers_supervisions?: boolean | null
+          offers_trainings?: boolean | null
+          price_per_hour?: number | null
+          specialization?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string | null
+          experience_years?: number | null
+          first_name?: string | null
+          id?: string | null
+          is_verified?: boolean | null
+          last_name?: string | null
+          offers_practicums?: boolean | null
+          offers_supervisions?: boolean | null
+          offers_trainings?: boolean | null
+          price_per_hour?: number | null
+          specialization?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       get_affiliate_earnings: {

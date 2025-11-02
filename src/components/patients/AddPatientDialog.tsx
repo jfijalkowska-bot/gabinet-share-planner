@@ -34,10 +34,24 @@ export function AddPatientDialog({ open, onOpenChange, onSuccess }: AddPatientDi
       return;
     }
 
+    const firstName = formData.get("first_name") as string;
+    const lastName = formData.get("last_name") as string;
+
+    // Allow anonymous patients - at least one name field must be provided
+    if (!firstName && !lastName) {
+      toast({
+        variant: "destructive",
+        title: "Błąd",
+        description: "Podaj przynajmniej imię lub nazwisko (możesz użyć inicjałów)",
+      });
+      setLoading(false);
+      return;
+    }
+
     const { error } = await supabase.from("patients").insert({
       therapist_id: user.id,
-      first_name: formData.get("first_name") as string,
-      last_name: formData.get("last_name") as string,
+      first_name: firstName || null,
+      last_name: lastName || null,
       phone: formData.get("phone") as string || null,
       email: formData.get("email") as string || null,
       date_of_birth: formData.get("date_of_birth") as string || null,
@@ -66,14 +80,19 @@ export function AddPatientDialog({ open, onOpenChange, onSuccess }: AddPatientDi
           <DialogTitle>Dodaj nowego pacjenta</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="space-y-2">
+            <p className="text-sm text-muted-foreground">
+              * Dla anonimizacji możesz użyć inicjałów lub pseudonimu
+            </p>
+          </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="first_name">Imię *</Label>
-              <Input id="first_name" name="first_name" required />
+              <Label htmlFor="first_name">Imię</Label>
+              <Input id="first_name" name="first_name" placeholder="np. A. lub Jan" />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="last_name">Nazwisko *</Label>
-              <Input id="last_name" name="last_name" required />
+              <Label htmlFor="last_name">Nazwisko</Label>
+              <Input id="last_name" name="last_name" placeholder="np. K. lub Kowalski" />
             </div>
           </div>
 
