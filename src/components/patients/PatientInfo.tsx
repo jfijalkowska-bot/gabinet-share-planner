@@ -3,8 +3,8 @@ import { format } from "date-fns";
 import { pl } from "date-fns/locale";
 
 interface Patient {
-  first_name: string;
-  last_name: string;
+  first_name?: string | null;
+  last_name?: string | null;
   date_of_birth?: string;
   phone?: string;
   email?: string;
@@ -26,7 +26,10 @@ export function PatientInfo({ patient }: PatientInfoProps) {
     <div className="space-y-4 mt-4">
       <Card>
         <CardContent className="pt-6 space-y-3">
-          <InfoRow label="Imię i nazwisko" value={`${patient.first_name} ${patient.last_name}`} />
+          <InfoRow 
+            label="Imię i nazwisko" 
+            value={[patient.first_name, patient.last_name].filter(Boolean).join(' ') || 'Pacjent anonimowy'} 
+          />
           {patient.date_of_birth && (
             <InfoRow
               label="Data urodzenia"

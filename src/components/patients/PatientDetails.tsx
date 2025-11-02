@@ -52,7 +52,7 @@ export function PatientDetails({ patientId, onUpdate }: PatientDetailsProps) {
       <Card>
         <CardHeader>
           <CardTitle>
-            {patient.first_name} {patient.last_name}
+            {[patient.first_name, patient.last_name].filter(Boolean).join(' ') || 'Pacjent anonimowy'}
           </CardTitle>
         </CardHeader>
         <CardContent>

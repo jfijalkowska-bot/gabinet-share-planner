@@ -5,8 +5,8 @@ import { cn } from "@/lib/utils";
 
 interface Patient {
   id: string;
-  first_name: string;
-  last_name: string;
+  first_name?: string | null;
+  last_name?: string | null;
   phone?: string;
   email?: string;
 }
@@ -54,7 +54,8 @@ export function PatientsList({
     <Card className="p-4">
       <div className="space-y-2">
         {patients.map((patient) => {
-          const initials = `${patient.first_name[0]}${patient.last_name[0]}`;
+          const fullName = [patient.first_name, patient.last_name].filter(Boolean).join(' ') || 'Pacjent anonimowy';
+          const initials = (patient.first_name?.[0] || '?') + (patient.last_name?.[0] || '?');
           return (
             <button
               key={patient.id}
@@ -70,7 +71,7 @@ export function PatientsList({
               </Avatar>
               <div className="flex-1 min-w-0">
                 <p className="font-medium truncate">
-                  {patient.first_name} {patient.last_name}
+                  {fullName}
                 </p>
                 <p className="text-sm text-muted-foreground truncate">
                   {patient.phone || patient.email || "Brak kontaktu"}
