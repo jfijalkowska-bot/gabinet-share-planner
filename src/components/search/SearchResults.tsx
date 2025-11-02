@@ -80,14 +80,13 @@ const SearchResults = ({ results, isLoading, type }: SearchResultsProps) => {
           </div>
           <CardHeader className="p-4 pb-2">
             <div className="flex justify-between items-start">
-              <h3 className="text-lg font-semibold">{item.name}</h3>
-              <div className="flex items-center gap-1 bg-yellow-100 px-2 py-1 rounded text-sm">
-                <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
-                <span className="font-medium">{item.rating}</span>
-              </div>
+              <h3 className="text-lg font-semibold">
+                {type === "office" ? item.name : `${item.first_name || ''} ${item.last_name || ''}`}
+              </h3>
             </div>
             <p className="text-gray-500 text-sm flex items-center gap-1">
-              <MapPin className="h-3 w-3" /> {item.address}
+              <MapPin className="h-3 w-3" /> 
+              {type === "office" ? `${item.address}, ${item.city}` : item.city || "Lokalizacja do ustalenia"}
             </p>
           </CardHeader>
           <CardContent className="p-4 pt-0 flex-grow">
@@ -97,6 +96,9 @@ const SearchResults = ({ results, isLoading, type }: SearchResultsProps) => {
                   <p className="text-sm flex items-center gap-1 text-gray-600 mb-1">
                     <Users className="h-3 w-3" /> Do {item.capacity} {item.capacity === 1 ? "osoby" : "osób"}
                   </p>
+                )}
+                {item.description && (
+                  <p className="text-sm text-gray-600 mb-2 line-clamp-2">{item.description}</p>
                 )}
                 {item.equipment && item.equipment.length > 0 && (
                   <div className="mt-2 flex flex-wrap gap-1">
@@ -117,96 +119,31 @@ const SearchResults = ({ results, isLoading, type }: SearchResultsProps) => {
                 {item.specialization && (
                   <Badge variant="secondary" className="mt-1 mb-2">{item.specialization}</Badge>
                 )}
-                {item.modality && (
-                  <p className="text-sm text-gray-600 mb-1">{item.modality}</p>
+                {item.bio && (
+                  <p className="text-sm text-gray-600 mb-2 line-clamp-2">{item.bio}</p>
                 )}
-                {item.experience && (
+                {item.experience_years !== null && item.experience_years !== undefined && (
                   <p className="text-sm flex items-center gap-1 text-gray-600 mb-1">
-                    <Clock className="h-3 w-3" /> Doświadczenie: {item.experience}
+                    <Clock className="h-3 w-3" /> Doświadczenie: {item.experience_years} {item.experience_years === 1 ? 'rok' : 'lata'}
                   </p>
                 )}
 
                 {/* Languages section */}
-                {item.languages && item.languages.length > 0 && (
+                {item.therapist_languages && item.therapist_languages.length > 0 && (
                   <div className="mt-2 mb-1">
                     <p className="text-xs text-gray-500 mb-1 flex items-center gap-1">
                       🌍 Języki:
                     </p>
                     <div className="flex flex-wrap gap-1">
-                      {item.languages.slice(0, 3).map((lang: string, i: number) => (
+                      {item.therapist_languages.slice(0, 3).map((lang: any, i: number) => (
                         <Badge variant="outline" key={`lang-${item.id}-${i}`} className="text-xs">
-                          {lang}
+                          {lang.language_name}
                         </Badge>
                       ))}
-                      {item.languages.length > 3 && (
-                        <Badge variant="outline" className="text-xs">+{item.languages.length - 3}</Badge>
+                      {item.therapist_languages.length > 3 && (
+                        <Badge variant="outline" className="text-xs">+{item.therapist_languages.length - 3}</Badge>
                       )}
                     </div>
-                  </div>
-                )}
-                
-                {/* Time availability section */}
-                {item.earliestAvailable && (
-                  <div className="mt-2 mb-1 space-y-1">
-                    <p className="text-xs text-gray-500 flex items-center gap-1">
-                      <Calendar className="h-3 w-3" /> Terminy:
-                    </p>
-                    <div className="grid grid-cols-2 gap-1">
-                      <Badge variant="outline" className="text-xs flex items-center gap-1">
-                        <Clock className="h-3 w-3" /> {item.availableHours}
-                      </Badge>
-                      <Badge variant="outline" className="text-xs">
-                        {item.availableDays}
-                      </Badge>
-                    </div>
-                    <p className="text-xs flex items-center gap-1 text-green-600 font-medium">
-                      <Calendar className="h-3 w-3" /> Najbliższy termin: {item.earliestAvailable}
-                    </p>
-                  </div>
-                )}
-                
-                {item.successAreas && item.successAreas.length > 0 && (
-                  <div className="mt-2 mb-1">
-                    <p className="text-xs text-gray-500 mb-1 flex items-center gap-1">
-                      <Star className="h-3 w-3" /> Obszary sukcesów:
-                    </p>
-                    <div className="flex flex-wrap gap-1">
-                      {item.successAreas.slice(0, 2).map((area: string, i: number) => (
-                        <Badge variant="outline" key={`area-${item.id}-${i}`} className="text-xs">
-                          {area}
-                        </Badge>
-                      ))}
-                      {item.successAreas.length > 2 && (
-                        <Badge variant="outline" className="text-xs">+{item.successAreas.length - 2}</Badge>
-                      )}
-                    </div>
-                  </div>
-                )}
-                {item.services && item.services.length > 0 && (
-                  <div className="mt-2 mb-1">
-                    <p className="text-xs text-gray-500 mb-1 flex items-center gap-1">
-                      <User className="h-3 w-3" /> Usługi:
-                    </p>
-                    <div className="flex flex-wrap gap-1">
-                      {item.services.slice(0, 2).map((service: string, i: number) => (
-                        <Badge variant="outline" key={`service-${item.id}-${i}`} className="text-xs">
-                          {service}
-                        </Badge>
-                      ))}
-                      {item.services.length > 2 && (
-                        <Badge variant="outline" className="text-xs">+{item.services.length - 2}</Badge>
-                      )}
-                    </div>
-                  </div>
-                )}
-
-                {/* Reviews count */}
-                {item.reviewsCount !== undefined && (
-                  <div className="mt-2">
-                    <p className="text-xs text-gray-500 flex items-center gap-1">
-                      <MessageCircle className="h-3 w-3" /> 
-                      {item.reviewsCount} {item.reviewsCount === 1 ? 'opinia' : 'opinii'}
-                    </p>
                   </div>
                 )}
               </>
@@ -238,8 +175,8 @@ const SearchResults = ({ results, isLoading, type }: SearchResultsProps) => {
           <CardFooter className="p-4 flex justify-between items-center border-t">
             {type !== "practicum" && (
               <p className="font-medium">
-                {item.price} zł
-                {type === "office" ? "/h" : ""}
+                {type === "office" ? item.price_per_hour : item.price_per_hour} zł
+                {type === "office" ? "/h" : "/sesja"}
               </p>
             )}
             {type === "practicum" && (

@@ -7,6 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import SearchFilters from "@/components/search/SearchFilters";
 import SearchResults from "@/components/search/SearchResults";
 import { toast } from "@/components/ui/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 type SearchType = "office" | "specialist";
 
@@ -15,86 +16,104 @@ const SearchPage = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSearch = (filters: any) => {
+  const handleSearch = async (filters: any) => {
     setIsLoading(true);
     console.log("Search with filters:", filters);
     
-    // This would be replaced with actual API call
-    setTimeout(() => {
-      // Mock results
-      const mockResults = Array(6).fill(null).map((_, i) => ({
-        id: i,
-        name: searchType === "office" 
-          ? `Gabinet ${i + 1}` 
-          : `Specjalista ${i + 1}`,
-        address: "ul. Przykładowa 123, Warszawa",
-        distance: Math.floor(Math.random() * 10) + 1,
-        equipment: searchType === "office" ? ["Kanapa", "Biurko", "Internet"] : [],
-        capacity: searchType === "office" ? Math.floor(Math.random() * 5) + 1 : null,
-        specialization: searchType === "specialist" ? ["Psychoterapia", "Terapia par"][i % 2] : null,
-        price: (Math.floor(Math.random() * 10) + 15) * 10,
-        rating: (Math.random() * 2 + 3).toFixed(1),
-        image: `/placeholder.svg`,
-        // New fields for specialists
-        modality: searchType === "specialist" ? 
-          ["Poznawczo-behawioralna (CBT)", "Psychodynamiczna", "Humanistyczna", "Systemowa"][i % 4] : null,
-        experience: searchType === "specialist" ? 
-          ["0-2 lata", "3-5 lat", "6-10 lat", "Powyżej 10 lat"][i % 4] : null,
-        successAreas: searchType === "specialist" ? 
-          [["Depresja", "Lęki"], ["Trauma", "Uzależnienia"], ["Problemy w związkach", "Samoocena"]][i % 3] : [],
-        services: searchType === "specialist" ? 
-          [["Terapia indywidualna", "Sesje online"], ["Terapia par", "Warsztaty"], ["Terapia grupowa", "Interwencja kryzysowa"]][i % 3] : [],
-        // Languages for specialists
-        languages: searchType === "specialist" ? 
-          [["Polski", "Angielski"], ["Polski", "Niemiecki"], ["Polski", "Francuski", "Angielski"], ["Polski"], ["Polski", "Hiszpański"]][i % 5] : [],
-        // Reviews count
-        reviewsCount: searchType === "specialist" ? Math.floor(Math.random() * 20) : undefined,
-        // For time availability
-        earliestAvailable: searchType === "specialist" ? 
-          [`${i + 1} dni`, "Jutro", "Dziś", "Za 3 dni", "Za tydzień"][i % 5] : null,
-        availableDays: searchType === "specialist" ? 
-          ["Pon, Śr, Pt", "Wt, Czw", "Pon, Wt, Ft", "Śr, Czw, Pt", "Pon-Pt"][i % 5] : null,
-        availableHours: searchType === "specialist" ? 
-          ["8:00-12:00", "12:00-16:00", "16:00-20:00", "10:00-18:00", "8:00-16:00"][i % 5] : null,
-      }));
-      
-      // Handle language filter
-      if (searchType === "specialist" && filters.languages?.length > 0) {
-        toast({
-          title: "Filtrowanie językowe",
-          description: `Zastosowano filtr językowy: ${filters.languages.join(", ")}`,
-        });
-      }
-      
-      // Handle time availability filter if it exists
-      if (searchType === "specialist" && filters.timeSlots?.length > 0) {
-        toast({
-          title: "Filtrowanie czasowe",
-          description: `Zastosowano filtr dostępności czasowej: ${filters.timeSlots.join(", ")}`,
-        });
-      }
-      
-      if (searchType === "specialist" && filters.prioritizeEarliestSlot) {
-        // Sort by earliest available
-        mockResults.sort((a, b) => {
-          const aValue = a.earliestAvailable === "Dziś" ? 0 : 
-                         a.earliestAvailable === "Jutro" ? 1 : 
-                         parseInt(a.earliestAvailable) || 100;
-          const bValue = b.earliestAvailable === "Dziś" ? 0 : 
-                         b.earliestAvailable === "Jutro" ? 1 :
-                         parseInt(b.earliestAvailable) || 100;
-          return aValue - bValue;
-        });
+    try {
+      if (searchType === "office") {
+        let query = supabase
+          .from('office_profiles_public')
+          .select('*');
+
+        // Apply filters
+        if (filters.city) {
+          query = query.ilike('city', `%${filters.city}%`);
+        }
         
-        toast({
-          title: "Sortowanie wyników",
-          description: "Wyniki posortowane według najwcześniejszych dostępnych terminów",
-        });
+        if (filters.minPrice || filters.maxPrice) {
+          if (filters.minPrice) query = query.gte('price_per_hour', filters.minPrice);
+          if (filters.maxPrice) query = query.lte('price_per_hour', filters.maxPrice);
+        }
+
+        if (filters.capacity) {
+          query = query.gte('capacity', filters.capacity);
+        }
+
+        if (filters.style) {
+          query = query.eq('style', filters.style);
+        }
+
+        if (filters.equipment && filters.equipment.length > 0) {
+          query = query.contains('equipment', filters.equipment);
+        }
+
+        const { data, error } = await query;
+        
+        if (error) throw error;
+
+        setSearchResults(data || []);
+      } else {
+        // Therapist search
+        let query = supabase
+          .from('therapist_profiles_public')
+          .select(`
+            *,
+            therapist_languages(language_name, language_code)
+          `);
+
+        // Apply filters
+        if (filters.specialization) {
+          query = query.eq('specialization', filters.specialization);
+        }
+
+        if (filters.minPrice || filters.maxPrice) {
+          if (filters.minPrice) query = query.gte('price_per_hour', filters.minPrice);
+          if (filters.maxPrice) query = query.lte('price_per_hour', filters.maxPrice);
+        }
+
+        if (filters.experience) {
+          const expMap: Record<string, [number, number]> = {
+            '0-2': [0, 2],
+            '3-5': [3, 5],
+            '6-10': [6, 10],
+            '10+': [10, 100],
+          };
+          const [min, max] = expMap[filters.experience] || [0, 100];
+          query = query.gte('experience_years', min).lte('experience_years', max);
+        }
+
+        const { data, error } = await query;
+        
+        if (error) throw error;
+
+        // Filter by languages if specified
+        let results = data || [];
+        if (filters.languages && filters.languages.length > 0) {
+          results = results.filter((therapist: any) => {
+            const therapistLangs = therapist.therapist_languages?.map((l: any) => l.language_code) || [];
+            return filters.languages.some((lang: string) => therapistLangs.includes(lang));
+          });
+          
+          toast({
+            title: "Filtrowanie językowe",
+            description: `Zastosowano filtr językowy: ${filters.languages.join(", ")}`,
+          });
+        }
+
+        setSearchResults(results);
       }
-      
-      setSearchResults(mockResults);
+    } catch (error: any) {
+      console.error('Search error:', error);
+      toast({
+        title: "Błąd wyszukiwania",
+        description: error.message || "Nie udało się wykonać wyszukiwania",
+        variant: "destructive",
+      });
+      setSearchResults([]);
+    } finally {
       setIsLoading(false);
-    }, 1000);
+    }
   };
 
   return (
