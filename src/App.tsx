@@ -1,4 +1,3 @@
-
 import { Suspense, lazy } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -8,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/components/auth/AuthProvider";
 import Index from "./pages/Index";
 import CookieConsent from "@/components/common/CookieConsent";
+import { useAnalytics } from "@/hooks/useAnalytics";
 import "./i18n/config";
 
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
@@ -39,6 +39,12 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
 
+// Wrapper komponent do automatycznego śledzenia analytics
+const AnalyticsWrapper = ({ children }: { children: React.ReactNode }) => {
+  useAnalytics(); // Automatycznie śledzi page views
+  return <>{children}</>;
+};
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
@@ -47,56 +53,58 @@ const App = () => (
       <BrowserRouter>
         <CookieConsent />
         <AuthProvider>
-          <Suspense fallback={<div>Loading...</div>}>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route 
-                path="/supervisions" 
-                element={
-                  <ProtectedRoute excludeRoles={['client']}>
-                    <SupervisionsPage />
-                  </ProtectedRoute>
-                } 
-              />
-              <Route path="/search" element={<SearchPage />} />
-              <Route path="/calendar" element={<CalendarPage />} />
-              <Route path="/rental" element={<RentalPage />} />
-              <Route path="/appointments" element={<AppointmentsPage />} />
-              <Route path="/management" element={<ManagementPage />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/register" element={<RegisterPage />} />
-              <Route path="/community" element={<CommunityPage />} />
-              <Route path="/messages" element={<MessagesPage />} />
-              <Route 
-                path="/trainings" 
-                element={
-                  <ProtectedRoute excludeRoles={['client']}>
-                    <TrainingsPage />
-                  </ProtectedRoute>
-                } 
-              />
-              <Route path="/how-it-works" element={<HowItWorksPage />} />
-              <Route path="/payments-info" element={<PaymentsInfoPage />} />
-              <Route path="/affiliate" element={<AffiliatePage />} />
-              <Route path="/embed" element={<EmbedPage />} />
-              <Route path="/terms" element={<TermsPage />} />
-              <Route path="/contact" element={<ContactPage />} />
-              <Route path="/about" element={<AboutPage />} />
-              <Route path="/gdpr" element={<GDPRPage />} />
-              <Route path="/knowledge-base" element={<KnowledgeBasePage />} />
-              <Route path="/therapist-demo" element={<TherapistProfileDemo />} />
-              <Route path="/payment-success" element={<PaymentSuccessPage />} />
-              <Route 
-                path="/patients" 
-                element={
-                  <ProtectedRoute excludeRoles={['client']}>
-                    <PatientsPage />
-                  </ProtectedRoute>
-                } 
-              />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Suspense>
+          <AnalyticsWrapper>
+            <Suspense fallback={<div>Loading...</div>}>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route 
+                  path="/supervisions" 
+                  element={
+                    <ProtectedRoute excludeRoles={['client']}>
+                      <SupervisionsPage />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route path="/search" element={<SearchPage />} />
+                <Route path="/calendar" element={<CalendarPage />} />
+                <Route path="/rental" element={<RentalPage />} />
+                <Route path="/appointments" element={<AppointmentsPage />} />
+                <Route path="/management" element={<ManagementPage />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/register" element={<RegisterPage />} />
+                <Route path="/community" element={<CommunityPage />} />
+                <Route path="/messages" element={<MessagesPage />} />
+                <Route 
+                  path="/trainings" 
+                  element={
+                    <ProtectedRoute excludeRoles={['client']}>
+                      <TrainingsPage />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route path="/how-it-works" element={<HowItWorksPage />} />
+                <Route path="/payments-info" element={<PaymentsInfoPage />} />
+                <Route path="/affiliate" element={<AffiliatePage />} />
+                <Route path="/embed" element={<EmbedPage />} />
+                <Route path="/terms" element={<TermsPage />} />
+                <Route path="/contact" element={<ContactPage />} />
+                <Route path="/about" element={<AboutPage />} />
+                <Route path="/gdpr" element={<GDPRPage />} />
+                <Route path="/knowledge-base" element={<KnowledgeBasePage />} />
+                <Route path="/therapist-demo" element={<TherapistProfileDemo />} />
+                <Route path="/payment-success" element={<PaymentSuccessPage />} />
+                <Route 
+                  path="/patients" 
+                  element={
+                    <ProtectedRoute excludeRoles={['client']}>
+                      <PatientsPage />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Suspense>
+          </AnalyticsWrapper>
         </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>
