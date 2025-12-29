@@ -16,7 +16,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import { Calendar, User, Search, LogOut, LayoutDashboard, Menu, UserCheck, MessageCircle, GraduationCap, Building2, Users, Info, Gift, X } from "lucide-react";
+import { Calendar, User, Search, LogOut, LayoutDashboard, Menu, UserCheck, MessageCircle, GraduationCap, Building2, Users, Info, Gift, X, CreditCard } from "lucide-react";
 import { useAuth, signOut } from "@/components/auth/AuthProvider";
 import { useState } from "react";
 import GlobalSearch from "@/components/common/GlobalSearch";
@@ -152,6 +152,15 @@ const Navbar = () => {
                     <NavigationMenuLink className={cn("group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50")}>
                       <MessageCircle className="h-4 w-4 mr-2" />
                       Wiadomości
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem>
+                  <Link to="/pricing">
+                    <NavigationMenuLink className={cn("group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50")}>
+                      <CreditCard className="h-4 w-4 mr-2" />
+                      Cennik
                     </NavigationMenuLink>
                   </Link>
                 </NavigationMenuItem>
