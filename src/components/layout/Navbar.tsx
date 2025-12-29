@@ -23,6 +23,7 @@ import GlobalSearch from "@/components/common/GlobalSearch";
 import LanguageSwitcher from "@/components/common/LanguageSwitcher";
 import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/utils";
+import logo from "@/assets/logo.png";
 
 const Navbar = () => {
   const { user } = useAuth();
@@ -36,7 +37,7 @@ const Navbar = () => {
         <div className="flex h-16 items-center justify-between gap-4">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 shrink-0">
-            <Calendar className="h-6 w-6 text-primary" />
+            <img src={logo} alt="GabinetShare" className="h-8 w-8" />
             <span className="font-semibold text-lg">GabinetShare</span>
           </Link>
           
