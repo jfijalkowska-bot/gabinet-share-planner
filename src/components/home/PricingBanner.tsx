@@ -17,6 +17,11 @@ const PricingBanner = () => {
                 Wybierz plan dopasowany do swoich potrzeb - od darmowej wizytówki po pełny abonament z kalendarzem, transkrypcją głosu, asystentem AI i wszystkimi funkcjami.
               </p>
               <div className="flex flex-wrap gap-4">
+                <Link to="/pricing">
+                  <Button variant="outline">
+                    Zobacz cennik
+                  </Button>
+                </Link>
                 <Link to="/how-it-works">
                   <Button variant="outline">
                     Jak działa GabinetShare?

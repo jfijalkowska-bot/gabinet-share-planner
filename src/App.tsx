@@ -35,6 +35,7 @@ const KnowledgeBasePage = lazy(() => import("./pages/KnowledgeBasePage"));
 const TherapistProfileDemo = lazy(() => import("./pages/TherapistProfileDemo"));
 const PaymentSuccessPage = lazy(() => import("./pages/PaymentSuccessPage"));
 const PatientsPage = lazy(() => import("./pages/PatientsPage"));
+const PricingPage = lazy(() => import("./pages/PricingPage"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
@@ -101,6 +102,7 @@ const App = () => (
                     </ProtectedRoute>
                   } 
                 />
+                <Route path="/pricing" element={<PricingPage />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </Suspense>
