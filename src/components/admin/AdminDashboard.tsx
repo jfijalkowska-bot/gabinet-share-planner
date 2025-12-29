@@ -3,10 +3,11 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Users, Building, Calendar, CreditCard, TrendingUp, AlertTriangle } from "lucide-react";
+import { Users, Building, Calendar, CreditCard, TrendingUp, BarChart3 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/components/auth/AuthProvider";
+import UserManagement from "./UserManagement";
+import AnalyticsDashboard from "./AnalyticsDashboard";
 
 interface Stats {
   totalUsers: number;
@@ -176,6 +177,7 @@ const AdminDashboard = () => {
           <TabsTrigger value="appointments">Wizyty</TabsTrigger>
           <TabsTrigger value="users">Użytkownicy</TabsTrigger>
           <TabsTrigger value="payments">Płatności</TabsTrigger>
+          <TabsTrigger value="analytics">Analityka</TabsTrigger>
         </TabsList>
 
         <TabsContent value="appointments" className="space-y-4">
@@ -209,14 +211,7 @@ const AdminDashboard = () => {
         </TabsContent>
 
         <TabsContent value="users" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Zarządzanie użytkownikami</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-gray-600">Panel zarządzania użytkownikami będzie dostępny wkrótce.</p>
-            </CardContent>
-          </Card>
+          <UserManagement />
         </TabsContent>
 
         <TabsContent value="payments" className="space-y-4">
@@ -225,9 +220,13 @@ const AdminDashboard = () => {
               <CardTitle>Zarządzanie płatnościami</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-gray-600">Panel zarządzania płatnościami będzie dostępny wkrótce.</p>
+              <p className="text-muted-foreground">Panel zarządzania płatnościami będzie dostępny wkrótce.</p>
             </CardContent>
           </Card>
+        </TabsContent>
+
+        <TabsContent value="analytics" className="space-y-4">
+          <AnalyticsDashboard />
         </TabsContent>
       </Tabs>
     </div>
