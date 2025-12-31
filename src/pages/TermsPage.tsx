@@ -143,16 +143,25 @@ const TermsPage = () => {
                   <div>
                     <h2 className="text-xl font-semibold mb-3">7. Program partnerski</h2>
                     <p className="text-gray-700 mb-2">
-                      7.1. Użytkownicy z kontami bezpłatnymi (klienci i terapeuci poszukujący gabinetu) mogą uczestniczyć w programie partnerskim.
+                      7.1. Wszyscy zalogowani Użytkownicy mogą uczestniczyć w programie partnerskim.
                     </p>
                     <p className="text-gray-700 mb-2">
-                      7.2. Program partnerski polega na otrzymywaniu prowizji za polecanie nowych użytkowników Serwisu.
+                      7.2. Program partnerski polega na otrzymywaniu prowizji (7% od każdej płatności) za polecanie nowych użytkowników Serwisu.
                     </p>
                     <p className="text-gray-700 mb-2">
-                      7.3. Wysokość prowizji oraz szczegółowe warunki programu partnerskiego są dostępne w panelu użytkownika.
+                      7.3. Prowizja jest naliczana dożywotnio od każdej płatności poleconego użytkownika, nie tylko od pierwszej.
+                    </p>
+                    <p className="text-gray-700 mb-2">
+                      7.4. Aby otrzymywać prowizje, Użytkownik musi połączyć swoje konto Stripe poprzez usługę Stripe Connect.
+                    </p>
+                    <p className="text-gray-700 mb-2">
+                      7.5. Prowizje są automatycznie przelewane na konto Stripe Użytkownika przy każdej płatności poleconego użytkownika.
+                    </p>
+                    <p className="text-gray-700 mb-2">
+                      7.6. Użytkownik jest odpowiedzialny za prawidłowe rozliczenie podatkowe otrzymanych prowizji.
                     </p>
                     <p className="text-gray-700">
-                      7.4. Serwis zastrzega sobie prawo do modyfikacji warunków programu partnerskiego z 30-dniowym wypowiedzeniem.
+                      7.7. Serwis zastrzega sobie prawo do modyfikacji warunków programu partnerskiego z 30-dniowym wypowiedzeniem.
                     </p>
                   </div>
                   

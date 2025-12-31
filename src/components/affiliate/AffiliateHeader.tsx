@@ -12,7 +12,7 @@ const AffiliateHeader: React.FC<AffiliateHeaderProps> = ({ isClientAccount = fal
         Program Partnerski GabinetShare
       </h1>
       <p className="text-xl text-gray-600">
-        Zarabiaj 10% prowizji polecając naszą platformę innym
+        Zarabiaj 7% prowizji od każdej płatności poleconego użytkownika - dożywotnio!
       </p>
       {isClientAccount && (
         <p className="text-md text-therapy-600 mt-2 font-medium">
