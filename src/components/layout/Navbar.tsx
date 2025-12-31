@@ -143,6 +143,25 @@ const Navbar = () => {
                           </p>
                         </Link>
                       </li>
+                      <li>
+                        <Link to="/search?type=practicum" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                          <div className="text-sm font-medium leading-none">Praktyki i staże</div>
+                          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                            Znajdź praktyki dla początkujących terapeutów
+                          </p>
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="/affiliate" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                          <div className="text-sm font-medium leading-none flex items-center gap-2">
+                            <Gift className="h-4 w-4" />
+                            Program partnerski
+                          </div>
+                          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                            Zarabiaj 7% polecając platformę
+                          </p>
+                        </Link>
+                      </li>
                     </ul>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
@@ -301,16 +320,34 @@ const Navbar = () => {
                       <GraduationCap className="h-5 w-5" />
                       {t('nav.trainings')}
                     </Link>
+                    <Link to="/search?type=practicum" className="flex items-center gap-3 rounded-md px-3 py-2 text-sm hover:bg-accent" onClick={() => setMobileMenuOpen(false)}>
+                      <UserCheck className="h-5 w-5" />
+                      Praktyki i staże
+                    </Link>
+                    <Link to="/affiliate" className="flex items-center gap-3 rounded-md px-3 py-2 text-sm hover:bg-accent" onClick={() => setMobileMenuOpen(false)}>
+                      <Gift className="h-5 w-5" />
+                      Program partnerski
+                    </Link>
                   </div>
 
-                  <Link 
-                    to="/messages" 
-                    className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium hover:bg-accent mt-4"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    <MessageCircle className="h-5 w-5" />
-                    Wiadomości
-                  </Link>
+                  <div className="pt-4">
+                    <Link 
+                      to="/messages" 
+                      className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium hover:bg-accent"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <MessageCircle className="h-5 w-5" />
+                      Wiadomości
+                    </Link>
+                    <Link 
+                      to="/pricing" 
+                      className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium hover:bg-accent"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <CreditCard className="h-5 w-5" />
+                      Cennik
+                    </Link>
+                  </div>
                 </div>
               </div>
 

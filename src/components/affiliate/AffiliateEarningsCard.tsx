@@ -96,7 +96,7 @@ const AffiliateEarningsCard: React.FC = () => {
           </div>
         </div>
         <p className="text-sm text-gray-500 mt-4 text-center">
-          Prowizja 10% od każdej płatności poleconego użytkownika. Wypłata co miesiąc.
+          Prowizja 7% od każdej płatności poleconego użytkownika. Automatyczne wypłaty przez Stripe.
         </p>
       </CardContent>
     </Card>

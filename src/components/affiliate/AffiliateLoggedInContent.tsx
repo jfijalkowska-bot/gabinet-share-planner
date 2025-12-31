@@ -3,6 +3,7 @@ import AffiliateLinkCard from "./AffiliateLinkCard";
 import AffiliateEarningsCard from "./AffiliateEarningsCard";
 import ProgramInfoCard from "./ProgramInfoCard";
 import StripeConnectCard from "./StripeConnectCard";
+import ReferredUsersList from "./ReferredUsersList";
 
 interface AffiliateLoggedInContentProps {
   affiliateLink: string;
@@ -14,6 +15,7 @@ const AffiliateLoggedInContent: React.FC<AffiliateLoggedInContentProps> = ({ aff
       <StripeConnectCard />
       <AffiliateLinkCard affiliateLink={affiliateLink} />
       <AffiliateEarningsCard />
+      <ReferredUsersList />
       <ProgramInfoCard />
     </div>
   );
