@@ -1,13 +1,13 @@
-
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { Users, Building, Calendar, CreditCard, TrendingUp, BarChart3 } from "lucide-react";
+import { Users, Building, Calendar, CreditCard, TrendingUp, BarChart3, Gift } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/components/auth/AuthProvider";
 import UserManagement from "./UserManagement";
 import AnalyticsDashboard from "./AnalyticsDashboard";
+import AffiliateManagement from "./AffiliateManagement";
 
 interface Stats {
   totalUsers: number;
@@ -177,6 +177,7 @@ const AdminDashboard = () => {
           <TabsTrigger value="appointments">Wizyty</TabsTrigger>
           <TabsTrigger value="users">Użytkownicy</TabsTrigger>
           <TabsTrigger value="payments">Płatności</TabsTrigger>
+          <TabsTrigger value="affiliate">Program partnerski</TabsTrigger>
           <TabsTrigger value="analytics">Analityka</TabsTrigger>
         </TabsList>
 
@@ -223,6 +224,10 @@ const AdminDashboard = () => {
               <p className="text-muted-foreground">Panel zarządzania płatnościami będzie dostępny wkrótce.</p>
             </CardContent>
           </Card>
+        </TabsContent>
+
+        <TabsContent value="affiliate" className="space-y-4">
+          <AffiliateManagement />
         </TabsContent>
 
         <TabsContent value="analytics" className="space-y-4">
