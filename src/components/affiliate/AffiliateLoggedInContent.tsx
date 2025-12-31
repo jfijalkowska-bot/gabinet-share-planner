@@ -1,8 +1,8 @@
-
 import React from "react";
 import AffiliateLinkCard from "./AffiliateLinkCard";
 import AffiliateEarningsCard from "./AffiliateEarningsCard";
 import ProgramInfoCard from "./ProgramInfoCard";
+import StripeConnectCard from "./StripeConnectCard";
 
 interface AffiliateLoggedInContentProps {
   affiliateLink: string;
@@ -11,6 +11,7 @@ interface AffiliateLoggedInContentProps {
 const AffiliateLoggedInContent: React.FC<AffiliateLoggedInContentProps> = ({ affiliateLink }) => {
   return (
     <div className="space-y-8">
+      <StripeConnectCard />
       <AffiliateLinkCard affiliateLink={affiliateLink} />
       <AffiliateEarningsCard />
       <ProgramInfoCard />

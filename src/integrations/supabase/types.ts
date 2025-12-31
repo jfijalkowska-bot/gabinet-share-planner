@@ -14,6 +14,33 @@ export type Database = {
   }
   public: {
     Tables: {
+      affiliate_accounts: {
+        Row: {
+          created_at: string
+          id: string
+          onboarding_complete: boolean | null
+          stripe_connect_account_id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          onboarding_complete?: boolean | null
+          stripe_connect_account_id: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          onboarding_complete?: boolean | null
+          stripe_connect_account_id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       affiliate_clicks: {
         Row: {
           created_at: string
@@ -44,30 +71,36 @@ export type Database = {
           commission: number
           created_at: string
           id: string
+          paid_at: string | null
           plan_type: string
           referred_user_id: string
           referrer_id: string
           status: string
+          stripe_transfer_id: string | null
         }
         Insert: {
           amount: number
           commission: number
           created_at?: string
           id?: string
+          paid_at?: string | null
           plan_type: string
           referred_user_id: string
           referrer_id: string
           status?: string
+          stripe_transfer_id?: string | null
         }
         Update: {
           amount?: number
           commission?: number
           created_at?: string
           id?: string
+          paid_at?: string | null
           plan_type?: string
           referred_user_id?: string
           referrer_id?: string
           status?: string
+          stripe_transfer_id?: string | null
         }
         Relationships: []
       }

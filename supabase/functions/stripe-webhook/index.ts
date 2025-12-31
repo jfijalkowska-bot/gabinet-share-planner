@@ -1,10 +1,130 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
-import Stripe from 'https://esm.sh/stripe@14.21.0';
+import Stripe from 'https://esm.sh/stripe@18.5.0';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, stripe-signature',
 };
+
+const AFFILIATE_COMMISSION_RATE = 0.07; // 7% prowizji
+
+const logStep = (step: string, details?: any) => {
+  const detailsStr = details ? ` - ${JSON.stringify(details)}` : '';
+  console.log(`[STRIPE-WEBHOOK] ${step}${detailsStr}`);
+};
+
+// Funkcja do przetwarzania prowizji partnerskiej
+async function processAffiliateCommission(
+  stripe: Stripe,
+  supabase: any,
+  customerId: string,
+  amountPaid: number,
+  currency: string,
+  paymentIntentId: string
+) {
+  try {
+    logStep("Processing affiliate commission", { customerId, amountPaid, currency });
+
+    // Pobierz email klienta ze Stripe
+    const customer = await stripe.customers.retrieve(customerId);
+    if (!customer || customer.deleted) {
+      logStep("Customer not found or deleted");
+      return;
+    }
+
+    const customerEmail = (customer as Stripe.Customer).email;
+    if (!customerEmail) {
+      logStep("Customer has no email");
+      return;
+    }
+
+    // Znajdź użytkownika w Supabase po emailu
+    const { data: users } = await supabase.auth.admin.listUsers();
+    const payingUser = users?.users?.find((u: any) => u.email === customerEmail);
+    
+    if (!payingUser) {
+      logStep("No user found for email", { email: customerEmail });
+      return;
+    }
+
+    logStep("Found paying user", { userId: payingUser.id });
+
+    // Sprawdź czy ten użytkownik był polecony
+    const { data: conversion } = await supabase
+      .from('affiliate_conversions')
+      .select('id, referrer_id')
+      .eq('referred_user_id', payingUser.id)
+      .single();
+
+    if (!conversion) {
+      logStep("User was not referred by anyone");
+      return;
+    }
+
+    logStep("Found referrer", { referrerId: conversion.referrer_id });
+
+    // Sprawdź czy polecający ma połączone konto Stripe Connect
+    const { data: affiliateAccount } = await supabase
+      .from('affiliate_accounts')
+      .select('stripe_connect_account_id, onboarding_complete')
+      .eq('user_id', conversion.referrer_id)
+      .single();
+
+    if (!affiliateAccount || !affiliateAccount.onboarding_complete) {
+      logStep("Referrer doesn't have completed Stripe Connect account - saving pending commission");
+      
+      // Zapisz prowizję jako pending (bez transferu)
+      const commission = Math.round(amountPaid * AFFILIATE_COMMISSION_RATE);
+      await supabase.from('affiliate_conversions').update({
+        amount: amountPaid,
+        commission: commission,
+        status: 'pending_payout',
+        plan_type: 'subscription',
+      }).eq('id', conversion.id);
+      
+      return;
+    }
+
+    // Oblicz prowizję (7%)
+    const commissionAmount = Math.round(amountPaid * AFFILIATE_COMMISSION_RATE);
+    logStep("Calculated commission", { 
+      amountPaid, 
+      commissionRate: AFFILIATE_COMMISSION_RATE, 
+      commissionAmount 
+    });
+
+    // Wykonaj transfer na konto Connect polecającego
+    const transfer = await stripe.transfers.create({
+      amount: commissionAmount,
+      currency: currency.toLowerCase(),
+      destination: affiliateAccount.stripe_connect_account_id,
+      description: `Prowizja partnerska za polecenie użytkownika`,
+      metadata: {
+        referrer_id: conversion.referrer_id,
+        referred_user_id: payingUser.id,
+        payment_intent_id: paymentIntentId,
+      },
+    });
+
+    logStep("Transfer created", { transferId: transfer.id, amount: commissionAmount });
+
+    // Zaktualizuj rekord konwersji
+    await supabase.from('affiliate_conversions').update({
+      amount: amountPaid,
+      commission: commissionAmount,
+      status: 'paid',
+      stripe_transfer_id: transfer.id,
+      paid_at: new Date().toISOString(),
+      plan_type: 'subscription',
+    }).eq('id', conversion.id);
+
+    logStep("Affiliate conversion updated");
+
+  } catch (error) {
+    logStep("Error processing affiliate commission", { error: String(error) });
+    // Nie rzucamy błędu - nie chcemy aby błąd w prowizji zablokował główną płatność
+  }
+}
 
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') {
@@ -13,12 +133,12 @@ Deno.serve(async (req) => {
 
   try {
     const stripe = new Stripe(Deno.env.get('STRIPE_SECRET_KEY') || '', {
-      apiVersion: '2023-10-16',
+      apiVersion: '2025-08-27.basil',
     });
 
     const signature = req.headers.get('stripe-signature');
     if (!signature) {
-      console.error('No stripe signature found');
+      logStep('No stripe signature found');
       return new Response(JSON.stringify({ error: 'No signature' }), {
         status: 400,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
@@ -29,7 +149,6 @@ Deno.serve(async (req) => {
     let event: Stripe.Event;
 
     try {
-      // In production, set your webhook secret in Stripe dashboard
       const webhookSecret = Deno.env.get('STRIPE_WEBHOOK_SECRET');
       if (webhookSecret) {
         event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
@@ -38,7 +157,7 @@ Deno.serve(async (req) => {
         event = JSON.parse(body);
       }
     } catch (err) {
-      console.error('Webhook signature verification failed:', err);
+      logStep('Webhook signature verification failed', { error: String(err) });
       return new Response(JSON.stringify({ error: 'Invalid signature' }), {
         status: 400,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
@@ -50,13 +169,12 @@ Deno.serve(async (req) => {
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
     );
 
-    console.log('Processing webhook event:', event.type);
+    logStep('Processing webhook event', { type: event.type });
 
-    // Handle different event types
     switch (event.type) {
       case 'checkout.session.completed': {
         const session = event.data.object as Stripe.Checkout.Session;
-        console.log('Checkout session completed:', session.id);
+        logStep('Checkout session completed', { sessionId: session.id, mode: session.mode });
 
         // Update payment status for one-time payments
         if (session.mode === 'payment') {
@@ -69,7 +187,19 @@ Deno.serve(async (req) => {
             .eq('stripe_payment_intent_id', session.id);
 
           if (paymentError) {
-            console.error('Error updating payment:', paymentError);
+            logStep('Error updating payment', { error: paymentError });
+          }
+
+          // Przetwórz prowizję partnerską dla płatności jednorazowych
+          if (session.customer && session.amount_total) {
+            await processAffiliateCommission(
+              stripe,
+              supabase,
+              session.customer as string,
+              session.amount_total,
+              session.currency || 'pln',
+              session.payment_intent as string
+            );
           }
 
           // Update appointment payment status
@@ -96,15 +226,38 @@ Deno.serve(async (req) => {
             });
 
           if (subError) {
-            console.error('Error creating subscription:', subError);
+            logStep('Error creating subscription', { error: subError });
           }
+        }
+        break;
+      }
+
+      // KLUCZOWE: Prowizja przy każdej udanej płatności subskrypcji (miesięcznej)
+      case 'invoice.payment_succeeded': {
+        const invoice = event.data.object as Stripe.Invoice;
+        logStep('Invoice payment succeeded', { 
+          invoiceId: invoice.id, 
+          customerId: invoice.customer,
+          amountPaid: invoice.amount_paid 
+        });
+
+        // Przetwórz prowizję partnerską
+        if (invoice.customer && invoice.amount_paid > 0) {
+          await processAffiliateCommission(
+            stripe,
+            supabase,
+            invoice.customer as string,
+            invoice.amount_paid,
+            invoice.currency || 'pln',
+            invoice.payment_intent as string || invoice.id
+          );
         }
         break;
       }
 
       case 'payment_intent.succeeded': {
         const paymentIntent = event.data.object as Stripe.PaymentIntent;
-        console.log('Payment intent succeeded:', paymentIntent.id);
+        logStep('Payment intent succeeded', { paymentIntentId: paymentIntent.id });
 
         await supabase
           .from('payments')
@@ -115,7 +268,7 @@ Deno.serve(async (req) => {
 
       case 'payment_intent.payment_failed': {
         const paymentIntent = event.data.object as Stripe.PaymentIntent;
-        console.log('Payment intent failed:', paymentIntent.id);
+        logStep('Payment intent failed', { paymentIntentId: paymentIntent.id });
 
         await supabase
           .from('payments')
@@ -126,7 +279,7 @@ Deno.serve(async (req) => {
 
       case 'customer.subscription.updated': {
         const subscription = event.data.object as Stripe.Subscription;
-        console.log('Subscription updated:', subscription.id);
+        logStep('Subscription updated', { subscriptionId: subscription.id });
 
         await supabase
           .from('subscriptions')
@@ -142,7 +295,7 @@ Deno.serve(async (req) => {
 
       case 'customer.subscription.deleted': {
         const subscription = event.data.object as Stripe.Subscription;
-        console.log('Subscription deleted:', subscription.id);
+        logStep('Subscription deleted', { subscriptionId: subscription.id });
 
         await supabase
           .from('subscriptions')
@@ -152,14 +305,14 @@ Deno.serve(async (req) => {
       }
 
       default:
-        console.log('Unhandled event type:', event.type);
+        logStep('Unhandled event type', { type: event.type });
     }
 
     return new Response(JSON.stringify({ received: true }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   } catch (error) {
-    console.error('Webhook error:', error);
+    logStep('Webhook error', { error: String(error) });
     return new Response(
       JSON.stringify({ error: error.message }),
       { 
