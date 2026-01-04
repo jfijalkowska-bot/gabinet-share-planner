@@ -92,13 +92,13 @@ const Navbar = () => {
                         </Link>
                       </li>
                       <li>
-                        <Link to="/supervisions" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                        <Link to="/search?tab=supervision" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
                           <div className="text-sm font-medium leading-none flex items-center gap-2">
                             <UserCheck className="h-4 w-4" />
                             {t('nav.supervisions')}
                           </div>
                           <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                            Oferuj i rezerwuj superwizje
+                            Znajdź lub oferuj superwizje
                           </p>
                         </Link>
                       </li>
@@ -133,7 +133,7 @@ const Navbar = () => {
                         </Link>
                       </li>
                       <li>
-                        <Link to="/trainings" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                        <Link to="/search?tab=training" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
                           <div className="text-sm font-medium leading-none flex items-center gap-2">
                             <GraduationCap className="h-4 w-4" />
                             {t('nav.trainings')}
@@ -144,7 +144,7 @@ const Navbar = () => {
                         </Link>
                       </li>
                       <li>
-                        <Link to="/search?type=practicum" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                        <Link to="/search?tab=practicum" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
                           <div className="text-sm font-medium leading-none">Praktyki i staże</div>
                           <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                             Znajdź praktyki dla początkujących terapeutów
@@ -300,7 +300,7 @@ const Navbar = () => {
                       <LayoutDashboard className="h-5 w-5" />
                       Moje oferty
                     </Link>
-                    <Link to="/supervisions" className="flex items-center gap-3 rounded-md px-3 py-2 text-sm hover:bg-accent" onClick={() => setMobileMenuOpen(false)}>
+                    <Link to="/search?tab=supervision" className="flex items-center gap-3 rounded-md px-3 py-2 text-sm hover:bg-accent" onClick={() => setMobileMenuOpen(false)}>
                       <UserCheck className="h-5 w-5" />
                       {t('nav.supervisions')}
                     </Link>
@@ -316,11 +316,11 @@ const Navbar = () => {
                       <Users className="h-5 w-5" />
                       Forum
                     </Link>
-                    <Link to="/trainings" className="flex items-center gap-3 rounded-md px-3 py-2 text-sm hover:bg-accent" onClick={() => setMobileMenuOpen(false)}>
+                    <Link to="/search?tab=training" className="flex items-center gap-3 rounded-md px-3 py-2 text-sm hover:bg-accent" onClick={() => setMobileMenuOpen(false)}>
                       <GraduationCap className="h-5 w-5" />
                       {t('nav.trainings')}
                     </Link>
-                    <Link to="/search?type=practicum" className="flex items-center gap-3 rounded-md px-3 py-2 text-sm hover:bg-accent" onClick={() => setMobileMenuOpen(false)}>
+                    <Link to="/search?tab=practicum" className="flex items-center gap-3 rounded-md px-3 py-2 text-sm hover:bg-accent" onClick={() => setMobileMenuOpen(false)}>
                       <UserCheck className="h-5 w-5" />
                       Praktyki i staże
                     </Link>

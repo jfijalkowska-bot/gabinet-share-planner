@@ -58,14 +58,7 @@ const App = () => (
             <Suspense fallback={<div>Loading...</div>}>
               <Routes>
                 <Route path="/" element={<Index />} />
-                <Route 
-                  path="/supervisions" 
-                  element={
-                    <ProtectedRoute excludeRoles={['client']}>
-                      <SupervisionsPage />
-                    </ProtectedRoute>
-                  } 
-                />
+                <Route path="/supervisions" element={<SupervisionsPage />} />
                 <Route path="/search" element={<SearchPage />} />
                 <Route path="/calendar" element={<CalendarPage />} />
                 <Route path="/rental" element={<RentalPage />} />
@@ -75,14 +68,7 @@ const App = () => (
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/community" element={<CommunityPage />} />
                 <Route path="/messages" element={<MessagesPage />} />
-                <Route 
-                  path="/trainings" 
-                  element={
-                    <ProtectedRoute excludeRoles={['client']}>
-                      <TrainingsPage />
-                    </ProtectedRoute>
-                  } 
-                />
+                <Route path="/trainings" element={<TrainingsPage />} />
                 <Route path="/how-it-works" element={<HowItWorksPage />} />
                 <Route path="/payments-info" element={<PaymentsInfoPage />} />
                 <Route path="/affiliate" element={<AffiliatePage />} />
