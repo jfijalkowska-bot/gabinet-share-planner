@@ -16,6 +16,7 @@ import sv from './locales/sv.json';
 import ja from './locales/ja.json';
 import ko from './locales/ko.json';
 import zh from './locales/zh.json';
+import uk from './locales/uk.json';
 
 i18n
   .use(LanguageDetector)
@@ -36,7 +37,8 @@ i18n
       sv: { translation: sv },
       ja: { translation: ja },
       ko: { translation: ko },
-      zh: { translation: zh }
+      zh: { translation: zh },
+      uk: { translation: uk }
     },
     fallbackLng: 'pl',
     lng: 'pl',
