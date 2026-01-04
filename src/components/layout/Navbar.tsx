@@ -84,10 +84,10 @@ const Navbar = () => {
                         <Link to="/management" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
                           <div className="text-sm font-medium leading-none flex items-center gap-2">
                             <LayoutDashboard className="h-4 w-4" />
-                            Zarządzanie
+                            Moje oferty
                           </div>
                           <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                            Panel zarządzania Twoją działalnością
+                            Wystaw gabinet, superwizję, szkolenie lub praktyki
                           </p>
                         </Link>
                       </li>
@@ -298,7 +298,7 @@ const Navbar = () => {
                     </Link>
                     <Link to="/management" className="flex items-center gap-3 rounded-md px-3 py-2 text-sm hover:bg-accent" onClick={() => setMobileMenuOpen(false)}>
                       <LayoutDashboard className="h-5 w-5" />
-                      Zarządzanie
+                      Moje oferty
                     </Link>
                     <Link to="/supervisions" className="flex items-center gap-3 rounded-md px-3 py-2 text-sm hover:bg-accent" onClick={() => setMobileMenuOpen(false)}>
                       <UserCheck className="h-5 w-5" />
