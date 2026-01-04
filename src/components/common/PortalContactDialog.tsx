@@ -14,29 +14,56 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { toast } from "@/components/ui/use-toast";
-import { MessageCircle, Mail, Phone } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 
-interface RentalContactDialogProps {
+export type ContactType = 
+  | "office_rental" 
+  | "therapist" 
+  | "supervision" 
+  | "training" 
+  | "practicum";
+
+interface PortalContactDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  officeOwnerId: string;
-  officeName: string;
-  ownerEmail?: string;
-  ownerPhone?: string;
+  recipientId: string;
+  recipientName: string;
+  contactType: ContactType;
+  itemName: string;
+  customPlaceholder?: string;
 }
 
-const RentalContactDialog = ({
+const contactTypeLabels: Record<ContactType, { title: string; prefix: string }> = {
+  office_rental: { title: "Wynajem gabinetu", prefix: "Zapytanie o gabinet" },
+  therapist: { title: "Terapeuta", prefix: "Wiadomość do terapeuty" },
+  supervision: { title: "Superwizja", prefix: "Zapytanie o superwizję" },
+  training: { title: "Szkolenie", prefix: "Zapytanie o szkolenie" },
+  practicum: { title: "Praktyki", prefix: "Zapytanie o praktyki" },
+};
+
+const PortalContactDialog = ({
   open,
   onOpenChange,
-  officeOwnerId,
-  officeName,
-  ownerEmail,
-  ownerPhone,
-}: RentalContactDialogProps) => {
+  recipientId,
+  recipientName,
+  contactType,
+  itemName,
+  customPlaceholder,
+}: PortalContactDialogProps) => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
   const [sending, setSending] = useState(false);
+
+  const { title, prefix } = contactTypeLabels[contactType];
+
+  const defaultPlaceholders: Record<ContactType, string> = {
+    office_rental: `Cześć! Chciałbym zapytać o możliwość wynajmu gabinetu ${itemName}...`,
+    therapist: `Dzień dobry! Chciałbym umówić się na wizytę...`,
+    supervision: `Dzień dobry! Jestem zainteresowany/a superwizją "${itemName}"...`,
+    training: `Dzień dobry! Chciałbym zapytać o szkolenie "${itemName}"...`,
+    practicum: `Dzień dobry! Jestem zainteresowany/a praktykami "${itemName}"...`,
+  };
 
   const handleSendMessage = async () => {
     if (!user) {
@@ -58,6 +85,15 @@ const RentalContactDialog = ({
       return;
     }
 
+    if (user.id === recipientId) {
+      toast({
+        title: "Błąd",
+        description: "Nie możesz wysłać wiadomości do siebie.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setSending(true);
     try {
       // Check if conversation already exists between these users
@@ -69,13 +105,13 @@ const RentalContactDialog = ({
       let conversationId: string | null = null;
 
       if (existingParticipation && existingParticipation.length > 0) {
-        // Check if any of these conversations include the office owner
+        // Check if any of these conversations include the recipient
         for (const p of existingParticipation) {
           const { data: otherParticipant } = await supabase
             .from('conversation_participants')
             .select('user_id')
             .eq('conversation_id', p.conversation_id)
-            .eq('user_id', officeOwnerId)
+            .eq('user_id', recipientId)
             .single();
           
           if (otherParticipant) {
@@ -101,7 +137,7 @@ const RentalContactDialog = ({
           .from('conversation_participants')
           .insert([
             { conversation_id: conversationId, user_id: user.id },
-            { conversation_id: conversationId, user_id: officeOwnerId },
+            { conversation_id: conversationId, user_id: recipientId },
           ]);
 
         if (partError) throw partError;
@@ -113,7 +149,7 @@ const RentalContactDialog = ({
         .insert({
           conversation_id: conversationId,
           sender_id: user.id,
-          content: `[Zapytanie o gabinet: ${officeName}]\n\n${message}`,
+          content: `[${prefix}: ${itemName}]\n\n${message}`,
         });
 
       if (msgError) throw msgError;
@@ -126,13 +162,13 @@ const RentalContactDialog = ({
 
       toast({
         title: "Wiadomość wysłana!",
-        description: "Właściciel gabinetu otrzyma Twoje zapytanie.",
+        description: `${recipientName} otrzyma Twoje zapytanie.`,
       });
 
       onOpenChange(false);
       setMessage("");
       
-      // Optionally navigate to messages
+      // Navigate to messages
       navigate("/messages");
     } catch (error) {
       console.error('Error sending message:', error);
@@ -150,19 +186,20 @@ const RentalContactDialog = ({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Skontaktuj się z właścicielem</DialogTitle>
+          <DialogTitle>Skontaktuj się przez portal</DialogTitle>
           <DialogDescription>
-            Wyślij wiadomość przez portal lub skorzystaj z danych kontaktowych.
+            Wyślij wiadomość do: {recipientName}
           </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4">
-          {/* Portal messaging - preferred */}
           <div className="p-4 border rounded-lg bg-primary/5">
             <div className="flex items-center gap-2 mb-3">
               <MessageCircle className="h-5 w-5 text-primary" />
-              <span className="font-medium">Wyślij wiadomość przez portal</span>
-              <span className="text-xs bg-primary/20 text-primary px-2 py-0.5 rounded">Zalecane</span>
+              <span className="font-medium">{title}</span>
+              <span className="text-xs bg-primary/20 text-primary px-2 py-0.5 rounded">
+                {itemName}
+              </span>
             </div>
             <div className="space-y-2">
               <Label htmlFor="message">Twoja wiadomość</Label>
@@ -170,38 +207,11 @@ const RentalContactDialog = ({
                 id="message"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                placeholder={`Cześć! Chciałbym zapytać o możliwość wynajmu gabinetu ${officeName}...`}
+                placeholder={customPlaceholder || defaultPlaceholders[contactType]}
                 rows={4}
               />
             </div>
           </div>
-
-          {/* Alternative contact methods */}
-          {(ownerEmail || ownerPhone) && (
-            <div className="space-y-2">
-              <p className="text-sm text-muted-foreground">Lub skontaktuj się bezpośrednio:</p>
-              <div className="flex flex-wrap gap-2">
-                {ownerEmail && (
-                  <a
-                    href={`mailto:${ownerEmail}?subject=Zapytanie o gabinet ${officeName}`}
-                    className="inline-flex items-center gap-2 px-3 py-2 text-sm border rounded-lg hover:bg-muted"
-                  >
-                    <Mail className="h-4 w-4" />
-                    {ownerEmail}
-                  </a>
-                )}
-                {ownerPhone && (
-                  <a
-                    href={`tel:${ownerPhone}`}
-                    className="inline-flex items-center gap-2 px-3 py-2 text-sm border rounded-lg hover:bg-muted"
-                  >
-                    <Phone className="h-4 w-4" />
-                    {ownerPhone}
-                  </a>
-                )}
-              </div>
-            </div>
-          )}
         </div>
 
         <DialogFooter>
@@ -217,4 +227,4 @@ const RentalContactDialog = ({
   );
 };
 
-export default RentalContactDialog;
+export default PortalContactDialog;

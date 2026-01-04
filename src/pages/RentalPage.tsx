@@ -3,7 +3,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import PageHeader from "@/components/common/PageHeader";
 import RentalForm from "@/components/rental/RentalForm";
-import RentalContactDialog from "@/components/rental/RentalContactDialog";
+import PortalContactDialog from "@/components/common/PortalContactDialog";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -16,8 +16,6 @@ const RentalPage = () => {
   const officeData = {
     ownerId: "placeholder-owner-id",
     name: "Gabinet przy ul. Przykładowej",
-    ownerEmail: "kontakt@gabinetshare.pl",
-    ownerPhone: "+48 123 456 789",
   };
 
   return (
@@ -122,13 +120,13 @@ const RentalPage = () => {
       
       <Footer />
 
-      <RentalContactDialog
+      <PortalContactDialog
         open={contactDialogOpen}
         onOpenChange={setContactDialogOpen}
-        officeOwnerId={officeData.ownerId}
-        officeName={officeData.name}
-        ownerEmail={officeData.ownerEmail}
-        ownerPhone={officeData.ownerPhone}
+        recipientId={officeData.ownerId}
+        recipientName="Właściciel gabinetu"
+        contactType="office_rental"
+        itemName={officeData.name}
       />
     </div>
   );

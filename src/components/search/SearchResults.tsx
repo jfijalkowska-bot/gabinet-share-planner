@@ -1,4 +1,3 @@
-
 import {
   Card,
   CardContent,
@@ -8,14 +7,16 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { MapPin, Star, Users, Building, Clock, User, Calendar, MessageCircle } from "lucide-react";
+import { type ContactType } from "@/components/common/PortalContactDialog";
 
 interface SearchResultsProps {
   results: any[];
   isLoading: boolean;
   type: "office" | "specialist" | "practicum";
+  onContact?: (recipientId: string, recipientName: string, contactType: ContactType, itemName: string) => void;
 }
 
-const SearchResults = ({ results, isLoading, type }: SearchResultsProps) => {
+const SearchResults = ({ results, isLoading, type, onContact }: SearchResultsProps) => {
   if (isLoading) {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -57,13 +58,28 @@ const SearchResults = ({ results, isLoading, type }: SearchResultsProps) => {
     );
   }
 
+  const handleContactClick = (item: any) => {
+    if (!onContact) return;
+    
+    if (type === "office") {
+      // office_profiles_public doesn't expose owner_id for security, but we need it for contact
+      // For now, we'll use the item.id as a placeholder - in real implementation you'd fetch owner_id
+      onContact(item.owner_id || item.id, item.name, 'office_rental', item.name);
+    } else if (type === "specialist") {
+      const name = `${item.first_name || ''} ${item.last_name || ''}`.trim();
+      onContact(item.user_id || item.id, name, 'therapist', name);
+    } else if (type === "practicum") {
+      onContact(item.organization_id || item.id, 'Organizator praktyk', 'practicum', item.title || item.name);
+    }
+  };
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {results.map((item) => (
         <Card key={item.id} className="overflow-hidden flex flex-col">
           <div className="h-48 bg-gray-200 relative">
             <img
-              src={item.image}
+              src={item.image || item.images?.[0] || '/placeholder.svg'}
               alt={item.name}
               className="w-full h-full object-cover"
             />
@@ -128,7 +144,6 @@ const SearchResults = ({ results, isLoading, type }: SearchResultsProps) => {
                   </p>
                 )}
 
-                {/* Languages section */}
                 {item.therapist_languages && item.therapist_languages.length > 0 && (
                   <div className="mt-2 mb-1">
                     <p className="text-xs text-gray-500 mb-1 flex items-center gap-1">
@@ -186,9 +201,14 @@ const SearchResults = ({ results, isLoading, type }: SearchResultsProps) => {
                 {item.compensationType === 'compensated' && 'Dofinansowany'}
               </div>
             )}
-            <Button size="sm" className="bg-therapy-600 hover:bg-therapy-700">
-              {type === "office" ? "Sprawdź dostępność" : 
-               type === "specialist" ? "Umów wizytę" : "Aplikuj"}
+            <Button 
+              size="sm" 
+              className="bg-therapy-600 hover:bg-therapy-700"
+              onClick={() => handleContactClick(item)}
+            >
+              <MessageCircle className="h-4 w-4 mr-1" />
+              {type === "office" ? "Kontakt" : 
+               type === "specialist" ? "Napisz" : "Aplikuj"}
             </Button>
           </CardFooter>
         </Card>
