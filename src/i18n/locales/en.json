@@ -9,7 +9,10 @@
     "contact": "Contact",
     "login": "Login",
     "register": "Register",
-    "logout": "Logout"
+    "logout": "Logout",
+    "pricing": "Pricing",
+    "affiliate": "Affiliate Program",
+    "practicums": "Practicums"
   },
   "search": {
     "title": "Find a therapist or office",
@@ -35,5 +38,50 @@
     "delete": "Delete",
     "edit": "Edit",
     "close": "Close"
+  },
+  "affiliate": {
+    "title": "Affiliate Program",
+    "subtitle": "Earn by recommending GabinetShare",
+    "earnings": "Your Earnings",
+    "earningsDesc": "Your affiliate program statistics",
+    "totalEarnings": "Total Earnings",
+    "pendingEarnings": "Pending",
+    "paidEarnings": "Paid",
+    "clicks": "Clicks",
+    "conversions": "Conversions",
+    "commissionInfo": "7% commission on every payment from referred users. Automatic payouts via Stripe.",
+    "yourLink": "Your Referral Link",
+    "linkDesc": "Share this link to receive 7% commission on every payment.",
+    "copied": "Copied!",
+    "copiedDesc": "Referral link copied to clipboard.",
+    "promoMaterials": "Promotional Materials",
+    "shareEmail": "Share via email",
+    "referredUsers": "Referred Users",
+    "referredUsersDesc": "List of people who registered through your referral link",
+    "noReferrals": "You don't have any referred users yet.",
+    "shareToEarn": "Share your referral link to start earning!",
+    "awaitingPayment": "Awaiting payment",
+    "commissionTip": "You receive 7% commission from every payment by referred users - for life!",
+    "stripeConnect": "Stripe Connect Account",
+    "connected": "Connected",
+    "requiresCompletion": "Requires completion",
+    "notConnected": "Not connected",
+    "accountReady": "Your account is ready!",
+    "accountReadyDesc": "Commissions will be automatically transferred to your Stripe account after each payment from referred users.",
+    "connectToReceive": "Connect Stripe account to receive commissions",
+    "connectToReceiveDesc": "To receive automatic commission payouts (7% from each payment by referred users), you need to connect your Stripe account. The process takes a few minutes.",
+    "connecting": "Connecting...",
+    "connectStripe": "Connect Stripe Account",
+    "completeSetup": "Complete Stripe Setup",
+    "refreshStatus": "Refresh Status",
+    "howItWorks": "How does it work?",
+    "programRules": "Learn the rules of GabinetShare affiliate program",
+    "status": {
+      "paid": "Paid",
+      "pendingPayout": "Pending Payout",
+      "registered": "Registered",
+      "subscription": "Subscription",
+      "noPayment": "No Payment"
+    }
   }
 }

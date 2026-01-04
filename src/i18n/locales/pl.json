@@ -9,7 +9,10 @@
     "contact": "Kontakt",
     "login": "Zaloguj się",
     "register": "Zarejestruj się",
-    "logout": "Wyloguj się"
+    "logout": "Wyloguj się",
+    "pricing": "Cennik",
+    "affiliate": "Program partnerski",
+    "practicums": "Praktyki i staże"
   },
   "search": {
     "title": "Wyszukaj terapeutę lub gabinet",
@@ -35,5 +38,50 @@
     "delete": "Usuń",
     "edit": "Edytuj",
     "close": "Zamknij"
+  },
+  "affiliate": {
+    "title": "Program partnerski",
+    "subtitle": "Zarabiaj polecając GabinetShare",
+    "earnings": "Twoje zarobki",
+    "earningsDesc": "Statystyki Twojego programu partnerskiego",
+    "totalEarnings": "Łączne zarobki",
+    "pendingEarnings": "Oczekujące",
+    "paidEarnings": "Wypłacone",
+    "clicks": "Kliknięcia",
+    "conversions": "Konwersje",
+    "commissionInfo": "Prowizja 7% od każdej płatności poleconego użytkownika. Automatyczne wypłaty przez Stripe.",
+    "yourLink": "Twój link polecający",
+    "linkDesc": "Udostępnij ten link, aby otrzymywać 7% prowizji od każdej płatności.",
+    "copied": "Skopiowano!",
+    "copiedDesc": "Link polecający został skopiowany do schowka.",
+    "promoMaterials": "Materiały promocyjne",
+    "shareEmail": "Udostępnij przez email",
+    "referredUsers": "Poleceni użytkownicy",
+    "referredUsersDesc": "Lista osób, które zarejestrowały się przez Twój link polecający",
+    "noReferrals": "Nie masz jeszcze poleconych użytkowników.",
+    "shareToEarn": "Udostępnij swój link polecający, aby zacząć zarabiać!",
+    "awaitingPayment": "Oczekuje na płatność",
+    "commissionTip": "Otrzymujesz 7% prowizji od każdej płatności poleconego użytkownika - dożywotnio!",
+    "stripeConnect": "Konto Stripe Connect",
+    "connected": "Połączone",
+    "requiresCompletion": "Wymaga dokończenia",
+    "notConnected": "Niepołączone",
+    "accountReady": "Twoje konto jest gotowe!",
+    "accountReadyDesc": "Prowizje będą automatycznie przelewane na Twoje konto Stripe po każdej płatności poleconego użytkownika.",
+    "connectToReceive": "Połącz konto Stripe aby otrzymywać prowizje",
+    "connectToReceiveDesc": "Aby otrzymywać automatyczne wypłaty prowizji (7% od każdej płatności poleconego użytkownika), musisz połączyć swoje konto Stripe. Proces zajmuje kilka minut.",
+    "connecting": "Łączenie...",
+    "connectStripe": "Połącz konto Stripe",
+    "completeSetup": "Dokończ konfigurację Stripe",
+    "refreshStatus": "Odśwież status",
+    "howItWorks": "Jak to działa?",
+    "programRules": "Poznaj zasady programu partnerskiego GabinetShare",
+    "status": {
+      "paid": "Wypłacono",
+      "pendingPayout": "Do wypłaty",
+      "registered": "Zarejestrowany",
+      "subscription": "Subskrypcja",
+      "noPayment": "Brak płatności"
+    }
   }
 }

@@ -34,7 +34,7 @@ const AffiliateLinkCard: React.FC<AffiliateLinkCardProps> = ({ affiliateLink }) 
       <CardHeader>
         <CardTitle>Twój link afiliacyjny</CardTitle>
         <CardDescription>
-          Udostępnij ten link, aby otrzymywać 10% prowizji od każdego zakupu.
+          Udostępnij ten link, aby otrzymywać 7% prowizji od każdej płatności.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
