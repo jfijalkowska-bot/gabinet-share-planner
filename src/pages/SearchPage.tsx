@@ -169,20 +169,20 @@ const SearchPage = () => {
   };
 
   const filteredSupervisions = supervisions.filter(s => {
-    const matchSearch = s.title.toLowerCase().includes(supervisionFilters.search.toLowerCase());
+    const matchSearch = (s.title || '').toLowerCase().includes(supervisionFilters.search.toLowerCase());
     const matchType = !supervisionFilters.type || supervisionFilters.type === 'all' || s.supervision_type === supervisionFilters.type;
     const matchFormat = !supervisionFilters.format || supervisionFilters.format === 'all' || s.format === supervisionFilters.format;
     return matchSearch && matchType && matchFormat;
   });
 
   const filteredTrainings = trainings.filter(t => {
-    const matchSearch = t.title.toLowerCase().includes(trainingFilters.search.toLowerCase());
+    const matchSearch = (t.title || '').toLowerCase().includes(trainingFilters.search.toLowerCase());
     const matchFormat = !trainingFilters.format || trainingFilters.format === 'all' || t.format === trainingFilters.format;
     return matchSearch && matchFormat;
   });
 
   const filteredPracticums = practicums.filter(p => {
-    const matchSearch = p.title.toLowerCase().includes(practicumFilters.search.toLowerCase());
+    const matchSearch = (p.title || '').toLowerCase().includes(practicumFilters.search.toLowerCase());
     const matchType = !practicumFilters.type || practicumFilters.type === 'all' || p.compensation_type === practicumFilters.type;
     return matchSearch && matchType;
   });
