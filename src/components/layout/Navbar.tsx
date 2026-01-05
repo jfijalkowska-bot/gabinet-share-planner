@@ -258,13 +258,13 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden">
-          <div className="fixed inset-0 bg-background/80 backdrop-blur-sm" onClick={() => setMobileMenuOpen(false)} />
-          <div className="fixed inset-y-0 right-0 w-full max-w-xs border-l bg-background shadow-lg animate-in slide-in-from-right">
+        <div className="fixed inset-0 z-[100] lg:hidden">
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setMobileMenuOpen(false)} />
+          <div className="fixed inset-y-0 right-0 w-full max-w-sm bg-background shadow-2xl animate-in slide-in-from-right z-[101]">
             <div className="flex flex-col h-full">
               {/* Mobile menu header */}
-              <div className="flex items-center justify-between p-4 border-b">
-                <span className="font-semibold">Menu</span>
+              <div className="flex items-center justify-between p-4 border-b shrink-0">
+                <span className="font-semibold text-lg">Menu</span>
                 <Button 
                   variant="ghost" 
                   size="icon"
@@ -274,63 +274,63 @@ const Navbar = () => {
                 </Button>
               </div>
 
-              {/* Mobile menu content */}
-              <div className="flex-1 overflow-y-auto p-4">
+              {/* Mobile menu content - proper scrolling */}
+              <nav className="flex-1 overflow-y-auto overscroll-contain py-4 px-2">
                 <div className="space-y-1">
                   <Link 
                     to="/search" 
-                    className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium hover:bg-accent"
+                    className="flex items-center gap-3 rounded-lg px-3 py-3 text-base font-medium hover:bg-accent transition-colors"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     <Search className="h-5 w-5" />
                     {t('nav.search')}
                   </Link>
 
-                  <div className="pt-4">
-                    <div className="px-3 py-2 text-xs font-semibold text-muted-foreground">Dla specjalistów</div>
-                    <Link to="/rental" className="flex items-center gap-3 rounded-md px-3 py-2 text-sm hover:bg-accent" onClick={() => setMobileMenuOpen(false)}>
+                  <div className="pt-4 border-t mt-2">
+                    <div className="px-3 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wide">Dla specjalistów</div>
+                    <Link to="/rental" className="flex items-center gap-3 rounded-lg px-3 py-3 text-base hover:bg-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
                       <Building2 className="h-5 w-5" />
                       Wynajem gabinetu
                     </Link>
-                    <Link to="/calendar" className="flex items-center gap-3 rounded-md px-3 py-2 text-sm hover:bg-accent" onClick={() => setMobileMenuOpen(false)}>
+                    <Link to="/calendar" className="flex items-center gap-3 rounded-lg px-3 py-3 text-base hover:bg-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
                       <Calendar className="h-5 w-5" />
                       Kalendarz
                     </Link>
-                    <Link to="/management" className="flex items-center gap-3 rounded-md px-3 py-2 text-sm hover:bg-accent" onClick={() => setMobileMenuOpen(false)}>
+                    <Link to="/management" className="flex items-center gap-3 rounded-lg px-3 py-3 text-base hover:bg-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
                       <LayoutDashboard className="h-5 w-5" />
                       Moje oferty
                     </Link>
-                    <Link to="/search?tab=supervision" className="flex items-center gap-3 rounded-md px-3 py-2 text-sm hover:bg-accent" onClick={() => setMobileMenuOpen(false)}>
+                    <Link to="/search?tab=supervision" className="flex items-center gap-3 rounded-lg px-3 py-3 text-base hover:bg-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
                       <UserCheck className="h-5 w-5" />
                       {t('nav.supervisions')}
                     </Link>
-                    <Link to="/patients" className="flex items-center gap-3 rounded-md px-3 py-2 text-sm hover:bg-accent" onClick={() => setMobileMenuOpen(false)}>
+                    <Link to="/patients" className="flex items-center gap-3 rounded-lg px-3 py-3 text-base hover:bg-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
                       <User className="h-5 w-5" />
                       Pacjenci
                     </Link>
                   </div>
 
-                  <div className="pt-4">
-                    <div className="px-3 py-2 text-xs font-semibold text-muted-foreground">Społeczność</div>
-                    <Link to="/community" className="flex items-center gap-3 rounded-md px-3 py-2 text-sm hover:bg-accent" onClick={() => setMobileMenuOpen(false)}>
+                  <div className="pt-4 border-t mt-2">
+                    <div className="px-3 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wide">Społeczność</div>
+                    <Link to="/community" className="flex items-center gap-3 rounded-lg px-3 py-3 text-base hover:bg-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
                       <Users className="h-5 w-5" />
                       Forum
                     </Link>
-                    <Link to="/search?tab=training" className="flex items-center gap-3 rounded-md px-3 py-2 text-sm hover:bg-accent" onClick={() => setMobileMenuOpen(false)}>
+                    <Link to="/search?tab=training" className="flex items-center gap-3 rounded-lg px-3 py-3 text-base hover:bg-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
                       <GraduationCap className="h-5 w-5" />
                       {t('nav.trainings')}
                     </Link>
-                    <Link to="/search?tab=practicum" className="flex items-center gap-3 rounded-md px-3 py-2 text-sm hover:bg-accent" onClick={() => setMobileMenuOpen(false)}>
+                    <Link to="/search?tab=practicum" className="flex items-center gap-3 rounded-lg px-3 py-3 text-base hover:bg-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
                       <UserCheck className="h-5 w-5" />
                       Praktyki i staże
                     </Link>
-                    <Link to="/affiliate" className="flex items-center gap-3 rounded-md px-3 py-2 text-sm hover:bg-accent" onClick={() => setMobileMenuOpen(false)}>
+                    <Link to="/affiliate" className="flex items-center gap-3 rounded-lg px-3 py-3 text-base hover:bg-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
                       <Gift className="h-5 w-5" />
                       Program partnerski
                     </Link>
                   </div>
 
-                  <div className="pt-4">
+                  <div className="pt-4 border-t mt-2">
                     <Link 
                       to="/messages" 
                       className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium hover:bg-accent"
@@ -349,10 +349,10 @@ const Navbar = () => {
                     </Link>
                   </div>
                 </div>
-              </div>
+              </nav>
 
               {/* Mobile menu footer */}
-              <div className="border-t p-4 space-y-2">
+              <div className="border-t p-4 space-y-2 shrink-0">
                 <LanguageSwitcher />
                 {!user ? (
                   <>
@@ -365,24 +365,24 @@ const Navbar = () => {
                   </>
                 ) : (
                   <div className="space-y-1">
-                    <Link to="/management?tab=profile" className="flex items-center gap-3 rounded-md px-3 py-2 text-sm hover:bg-accent" onClick={() => setMobileMenuOpen(false)}>
+                    <Link to="/management?tab=profile" className="flex items-center gap-3 rounded-lg px-3 py-3 text-base hover:bg-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
                       <User className="h-5 w-5" />
                       Profil
                     </Link>
-                    <Link to="/appointments" className="flex items-center gap-3 rounded-md px-3 py-2 text-sm hover:bg-accent" onClick={() => setMobileMenuOpen(false)}>
+                    <Link to="/appointments" className="flex items-center gap-3 rounded-lg px-3 py-3 text-base hover:bg-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
                       <Calendar className="h-5 w-5" />
                       Wizyty
                     </Link>
-                    <Link to="/affiliate" className="flex items-center gap-3 rounded-md px-3 py-2 text-sm hover:bg-accent" onClick={() => setMobileMenuOpen(false)}>
+                    <Link to="/affiliate" className="flex items-center gap-3 rounded-lg px-3 py-3 text-base hover:bg-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
                       <Gift className="h-5 w-5" />
                       Program partnerski
                     </Link>
-                    <Link to="/how-it-works" className="flex items-center gap-3 rounded-md px-3 py-2 text-sm hover:bg-accent" onClick={() => setMobileMenuOpen(false)}>
+                    <Link to="/how-it-works" className="flex items-center gap-3 rounded-lg px-3 py-3 text-base hover:bg-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
                       <Info className="h-5 w-5" />
                       Jak to działa
                     </Link>
                     <button 
-                      className="flex items-center gap-3 rounded-md px-3 py-2 text-sm hover:bg-accent w-full text-left text-destructive" 
+                      className="flex items-center gap-3 rounded-lg px-3 py-3 text-base hover:bg-accent transition-colors w-full text-left text-destructive" 
                       onClick={() => { signOut(); setMobileMenuOpen(false); }}
                     >
                       <LogOut className="h-5 w-5" />

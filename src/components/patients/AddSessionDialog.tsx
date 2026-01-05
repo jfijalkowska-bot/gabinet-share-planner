@@ -4,9 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { Card, CardContent } from "@/components/ui/card";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import { Mic, Square } from "lucide-react";
+import { Mic, Square, Sparkles, Loader2 } from "lucide-react";
 
 interface AddSessionDialogProps {
   open: boolean;
@@ -19,6 +20,9 @@ export function AddSessionDialog({ open, onOpenChange, patientId, onSuccess }: A
   const [loading, setLoading] = useState(false);
   const [recording, setRecording] = useState(false);
   const [notes, setNotes] = useState("");
+  const [aiSummary, setAiSummary] = useState("");
+  const [aiHypotheses, setAiHypotheses] = useState("");
+  const [generatingAI, setGeneratingAI] = useState(false);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
   const { toast } = useToast();
@@ -100,6 +104,86 @@ export function AddSessionDialog({ open, onOpenChange, patientId, onSuccess }: A
     }
   };
 
+  const generateAIAnalysis = async () => {
+    if (!notes.trim()) {
+      toast({
+        title: "Brak notatek",
+        description: "Dodaj notatki z sesji, aby wygenerować analizę AI",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setGeneratingAI(true);
+    try {
+      const { data, error } = await supabase.functions.invoke('chat', {
+        body: { 
+          messages: [
+            { 
+              role: "user", 
+              content: `Jesteś doświadczonym psychoterapeutą. Na podstawie poniższych notatek z sesji terapeutycznej:
+
+1. Napisz krótkie podsumowanie sesji (2-3 zdania)
+2. Zaproponuj 2-3 robocze hipotezy kliniczne
+3. Zasugeruj możliwe kierunki dalszej pracy terapeutycznej
+
+Notatki z sesji:
+${notes}
+
+Odpowiedz w formacie:
+PODSUMOWANIE:
+[podsumowanie]
+
+HIPOTEZY:
+[hipotezy]
+
+SUGESTIE:
+[sugestie]`
+            }
+          ]
+        }
+      });
+
+      if (error) throw error;
+
+      // Parse the response - handle streaming response
+      let responseText = "";
+      if (typeof data === "string") {
+        responseText = data;
+      } else if (data?.choices?.[0]?.message?.content) {
+        responseText = data.choices[0].message.content;
+      } else if (data?.text) {
+        responseText = data.text;
+      }
+
+      // Extract sections from response
+      const summaryMatch = responseText.match(/PODSUMOWANIE:\s*([\s\S]*?)(?=HIPOTEZY:|$)/i);
+      const hypothesesMatch = responseText.match(/HIPOTEZY:\s*([\s\S]*?)(?=SUGESTIE:|$)/i);
+      const suggestionsMatch = responseText.match(/SUGESTIE:\s*([\s\S]*?)$/i);
+
+      const summary = summaryMatch ? summaryMatch[1].trim() : "";
+      const hypotheses = hypothesesMatch ? hypothesesMatch[1].trim() : "";
+      const suggestions = suggestionsMatch ? suggestionsMatch[1].trim() : "";
+
+      setAiSummary(summary);
+      setAiHypotheses(`${hypotheses}\n\n${suggestions}`);
+
+      toast({
+        title: "Analiza gotowa",
+        description: "AI wygenerowało podsumowanie i hipotezy",
+      });
+    } catch (error) {
+      console.error('AI analysis error:', error);
+      toast({
+        title: "Błąd analizy AI",
+        description: "Nie udało się wygenerować analizy. Sprawdź czy masz kredyty AI.",
+        variant: "destructive",
+      });
+    } finally {
+      setGeneratingAI(false);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
@@ -126,6 +210,8 @@ export function AddSessionDialog({ open, onOpenChange, patientId, onSuccess }: A
       notes: notes,
       mood_before: formData.get("mood_before") as string || null,
       mood_after: formData.get("mood_after") as string || null,
+      ai_summary: aiSummary || null,
+      ai_insights: aiHypotheses ? { hypotheses: aiHypotheses } : null,
     });
 
     setLoading(false);
@@ -144,6 +230,8 @@ export function AddSessionDialog({ open, onOpenChange, patientId, onSuccess }: A
       description: "Sesja została zapisana",
     });
     setNotes("");
+    setAiSummary("");
+    setAiHypotheses("");
     onSuccess();
     onOpenChange(false);
   };
@@ -228,6 +316,57 @@ export function AddSessionDialog({ open, onOpenChange, patientId, onSuccess }: A
               onChange={(e) => setNotes(e.target.value)}
               placeholder="Opisz przebieg sesji, obserwacje, interwencje..."
             />
+          </div>
+
+          {/* AI Analysis Section */}
+          <div className="space-y-4">
+            <div className="flex justify-between items-center">
+              <Label className="text-base font-medium">Analiza AI</Label>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={generateAIAnalysis}
+                disabled={generatingAI || !notes.trim()}
+              >
+                {generatingAI ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Analizuję...
+                  </>
+                ) : (
+                  <>
+                    <Sparkles className="mr-2 h-4 w-4" />
+                    Generuj analizę AI
+                  </>
+                )}
+              </Button>
+            </div>
+
+            {(aiSummary || aiHypotheses) && (
+              <Card className="bg-muted/50">
+                <CardContent className="pt-4 space-y-4">
+                  {aiSummary && (
+                    <div>
+                      <h4 className="font-medium text-sm mb-1 flex items-center gap-2">
+                        <Sparkles className="h-4 w-4 text-primary" />
+                        Podsumowanie
+                      </h4>
+                      <p className="text-sm text-muted-foreground">{aiSummary}</p>
+                    </div>
+                  )}
+                  {aiHypotheses && (
+                    <div>
+                      <h4 className="font-medium text-sm mb-1 flex items-center gap-2">
+                        <Sparkles className="h-4 w-4 text-primary" />
+                        Hipotezy i sugestie
+                      </h4>
+                      <p className="text-sm text-muted-foreground whitespace-pre-wrap">{aiHypotheses}</p>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            )}
           </div>
 
           <div className="flex justify-end gap-2">
