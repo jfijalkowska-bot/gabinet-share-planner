@@ -14,7 +14,7 @@ const AffiliateSignupCard: React.FC = () => {
       </CardHeader>
       <CardContent className="space-y-4">
         <p>
-          Zarabiaj 10% prowizji od każdego zakupu dokonanego z Twojego polecenia.
+          Zarabiaj 7% prowizji od każdej płatności poleconego użytkownika - dożywotnio!
           To proste: polecaj i zarabiaj!
         </p>
         <div className="flex flex-col sm:flex-row gap-2">

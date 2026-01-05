@@ -160,6 +160,20 @@ const PortalContactDialog = ({
         .update({ last_message_at: new Date().toISOString() })
         .eq('id', conversationId);
 
+      // Send email notification
+      try {
+        await supabase.functions.invoke('send-notification', {
+          body: {
+            userId: recipientId,
+            title: `Nowa wiadomość: ${prefix}`,
+            message: `Otrzymałeś nową wiadomość dotyczącą "${itemName}" od użytkownika platformy. Zaloguj się, aby odpowiedzieć.`,
+            type: 'message',
+          }
+        });
+      } catch (notifError) {
+        console.error('Notification error:', notifError);
+      }
+
       toast({
         title: "Wiadomość wysłana!",
         description: `${recipientName} otrzyma Twoje zapytanie.`,
