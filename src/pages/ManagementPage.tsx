@@ -4,6 +4,7 @@ import PageHeader from "@/components/common/PageHeader";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { LayoutDashboard, Users, Briefcase, Cog, Calendar, Bell, Shield, Building, GraduationCap } from "lucide-react";
 import { useAuth } from "@/components/auth/AuthProvider";
+import { useIsAdmin } from "@/hooks/useIsAdmin";
 import TherapistProfileForm from "@/components/therapist/TherapistProfileForm";
 import OfficeProfileForm from "@/components/office/OfficeProfileForm";
 import NotificationCenter from "@/components/notifications/NotificationCenter";
@@ -14,6 +15,7 @@ import TrainingFormManagement from "@/components/trainings/TrainingFormManagemen
 
 const ManagementPage = () => {
   const { user } = useAuth();
+  const { isAdmin, loading: adminLoading } = useIsAdmin();
 
   if (!user) {
     return (
@@ -46,7 +48,7 @@ const ManagementPage = () => {
             <TabsTrigger value="trainings">Wystaw szkolenie</TabsTrigger>
             <TabsTrigger value="practicum">Wystaw praktyki</TabsTrigger>
             <TabsTrigger value="notifications">Powiadomienia</TabsTrigger>
-            <TabsTrigger value="admin">Administracja</TabsTrigger>
+            {isAdmin && <TabsTrigger value="admin">Administracja</TabsTrigger>}
             <TabsTrigger value="settings">Ustawienia</TabsTrigger>
           </TabsList>
           
@@ -115,9 +117,11 @@ const ManagementPage = () => {
             <NotificationCenter />
           </TabsContent>
           
-          <TabsContent value="admin">
-            <AdminDashboard />
-          </TabsContent>
+          {isAdmin && (
+            <TabsContent value="admin">
+              <AdminDashboard />
+            </TabsContent>
+          )}
           
           <TabsContent value="settings">
             <div className="bg-white p-6 rounded-lg border">
