@@ -3,6 +3,8 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { format } from "date-fns";
 import { pl } from "date-fns/locale";
+import { Sparkles } from "lucide-react";
+import { Json } from "@/integrations/supabase/types";
 
 interface Session {
   id: string;
@@ -16,6 +18,7 @@ interface Session {
   interventions_used?: string[];
   homework_assigned?: string;
   ai_summary?: string;
+  ai_insights?: Json;
 }
 
 interface SessionDetailsDialogProps {
@@ -65,10 +68,25 @@ export function SessionDetailsDialog({ session, open, onOpenChange }: SessionDet
           )}
 
           {session.ai_summary && (
-            <Card>
+            <Card className="bg-muted/50 border-primary/20">
               <CardContent className="pt-6">
-                <h3 className="font-medium mb-2">Podsumowanie AI</h3>
+                <h3 className="font-medium mb-2 flex items-center gap-2">
+                  <Sparkles className="h-4 w-4 text-primary" />
+                  Podsumowanie AI
+                </h3>
                 <p className="text-sm">{session.ai_summary}</p>
+              </CardContent>
+            </Card>
+          )}
+
+          {session.ai_insights && typeof session.ai_insights === 'object' && (session.ai_insights as any).hypotheses && (
+            <Card className="bg-muted/50 border-primary/20">
+              <CardContent className="pt-6">
+                <h3 className="font-medium mb-2 flex items-center gap-2">
+                  <Sparkles className="h-4 w-4 text-primary" />
+                  Hipotezy i sugestie AI
+                </h3>
+                <p className="text-sm whitespace-pre-wrap">{(session.ai_insights as any).hypotheses}</p>
               </CardContent>
             </Card>
           )}

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,10 +10,13 @@ import { useAuth } from "@/components/auth/AuthProvider";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/components/ui/use-toast";
 import { Badge } from "@/components/ui/badge";
+import { Upload, X, Loader2 } from "lucide-react";
 
 const OfficeProfileForm = () => {
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [office, setOffice] = useState({
     name: "",
     description: "",
@@ -118,6 +121,75 @@ const OfficeProfileForm = () => {
       equipment: prev.equipment.includes(equipment)
         ? prev.equipment.filter(e => e !== equipment)
         : [...prev.equipment, equipment]
+    }));
+  };
+
+  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (!files || files.length === 0 || !user) return;
+
+    if (office.images.length >= 3) {
+      toast({
+        title: "Limit zdjęć",
+        description: "Możesz dodać maksymalnie 3 zdjęcia",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    const file = files[0];
+    if (file.size > 5 * 1024 * 1024) {
+      toast({
+        title: "Plik za duży",
+        description: "Maksymalny rozmiar pliku to 5MB",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setUploadingImage(true);
+    try {
+      const fileExt = file.name.split('.').pop();
+      const fileName = `offices/${user.id}/${Date.now()}.${fileExt}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('office-images')
+        .upload(fileName, file, { upsert: true });
+
+      if (uploadError) throw uploadError;
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('office-images')
+        .getPublicUrl(fileName);
+
+      setOffice(prev => ({
+        ...prev,
+        images: [...prev.images, publicUrl]
+      }));
+
+      toast({
+        title: "Sukces",
+        description: "Zdjęcie zostało przesłane"
+      });
+    } catch (error: any) {
+      console.error('Upload error:', error);
+      toast({
+        title: "Błąd",
+        description: "Nie udało się przesłać zdjęcia. Upewnij się, że bucket 'office-images' istnieje.",
+        variant: "destructive"
+      });
+    } finally {
+      setUploadingImage(false);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    }
+  };
+
+  const removeImage = (index: number) => {
+    setOffice(prev => ({
+      ...prev,
+      images: prev.images.filter((_, i) => i !== index)
     }));
   };
 
@@ -272,6 +344,60 @@ const OfficeProfileForm = () => {
               </div>
             </div>
           )}
+        </div>
+
+        {/* Image Upload Section */}
+        <div>
+          <Label className="text-base font-medium mb-3 block">Zdjęcia gabinetu (max 3)</Label>
+          
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/jpeg,image/png,image/webp"
+            onChange={handleImageUpload}
+            className="hidden"
+            disabled={uploadingImage}
+          />
+          
+          <div className="grid grid-cols-3 gap-4">
+            {office.images.map((imageUrl, index) => (
+              <div key={index} className="relative aspect-video">
+                <img
+                  src={imageUrl}
+                  alt={`Zdjęcie gabinetu ${index + 1}`}
+                  className="w-full h-full object-cover rounded-lg border"
+                />
+                <Button
+                  type="button"
+                  variant="destructive"
+                  size="icon"
+                  className="absolute top-2 right-2 h-7 w-7"
+                  onClick={() => removeImage(index)}
+                >
+                  <X className="h-4 w-4" />
+                </Button>
+              </div>
+            ))}
+            
+            {office.images.length < 3 && (
+              <div
+                onClick={() => fileInputRef.current?.click()}
+                className="aspect-video border-2 border-dashed rounded-lg flex flex-col items-center justify-center cursor-pointer hover:border-primary transition-colors"
+              >
+                {uploadingImage ? (
+                  <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+                ) : (
+                  <>
+                    <Upload className="h-8 w-8 text-muted-foreground mb-2" />
+                    <span className="text-sm text-muted-foreground">Dodaj zdjęcie</span>
+                  </>
+                )}
+              </div>
+            )}
+          </div>
+          <p className="text-xs text-muted-foreground mt-2">
+            Dodaj 1-3 zdjęcia gabinetu. Maksymalny rozmiar pliku: 5MB.
+          </p>
         </div>
 
         <Button
