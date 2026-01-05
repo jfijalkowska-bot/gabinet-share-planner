@@ -52,7 +52,7 @@ const AffiliateLinkCard: React.FC<AffiliateLinkCardProps> = ({ affiliateLink }) 
           </Button>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+        <div className="mt-6">
           <Dialog>
             <DialogTrigger asChild>
               <Button variant="outline" className="w-full">
@@ -68,38 +68,67 @@ const AffiliateLinkCard: React.FC<AffiliateLinkCardProps> = ({ affiliateLink }) 
                 </DialogDescription>
               </DialogHeader>
               <div className="space-y-4 mt-4">
-                <Tabs defaultValue="banners">
+                <Tabs defaultValue="text">
                   <TabsList className="grid grid-cols-2">
-                    <TabsTrigger value="banners">Bannery</TabsTrigger>
                     <TabsTrigger value="text">Teksty</TabsTrigger>
+                    <TabsTrigger value="social">Social Media</TabsTrigger>
                   </TabsList>
-                  <TabsContent value="banners" className="space-y-4">
-                    <p className="text-sm text-gray-500">Bannery będą dostępne wkrótce.</p>
-                  </TabsContent>
                   <TabsContent value="text" className="space-y-4">
                     <div className="border rounded-md p-3">
                       <p className="text-sm font-medium mb-1">Krótki tekst:</p>
                       <p className="text-sm text-gray-600">
                         "Szukasz gabinetu do wynajęcia lub chcesz efektywnie zarządzać rezerwacjami? Sprawdź GabinetShare!"
                       </p>
+                      <Button size="sm" variant="ghost" className="mt-2" onClick={() => {
+                        navigator.clipboard.writeText("Szukasz gabinetu do wynajęcia lub chcesz efektywnie zarządzać rezerwacjami? Sprawdź GabinetShare! " + affiliateLink);
+                        toast({ title: "Skopiowano!", description: "Tekst został skopiowany do schowka." });
+                      }}>
+                        <Copy className="h-3 w-3 mr-1" /> Kopiuj z linkiem
+                      </Button>
                     </div>
                     <div className="border rounded-md p-3">
                       <p className="text-sm font-medium mb-1">Dłuższy tekst:</p>
                       <p className="text-sm text-gray-600">
                         "GabinetShare to platforma, która rewolucjonizuje sposób wynajmu gabinetów i zarządzania kalendarzem wizyt. Zarówno terapeuci, jak i właściciele gabinetów znajdą tu narzędzia dopasowane do swoich potrzeb. Sprawdź już teraz!"
                       </p>
+                      <Button size="sm" variant="ghost" className="mt-2" onClick={() => {
+                        navigator.clipboard.writeText("GabinetShare to platforma, która rewolucjonizuje sposób wynajmu gabinetów i zarządzania kalendarzem wizyt. Zarówno terapeuci, jak i właściciele gabinetów znajdą tu narzędzia dopasowane do swoich potrzeb. Sprawdź już teraz! " + affiliateLink);
+                        toast({ title: "Skopiowano!", description: "Tekst został skopiowany do schowka." });
+                      }}>
+                        <Copy className="h-3 w-3 mr-1" /> Kopiuj z linkiem
+                      </Button>
+                    </div>
+                  </TabsContent>
+                  <TabsContent value="social" className="space-y-4">
+                    <div className="border rounded-md p-3">
+                      <p className="text-sm font-medium mb-1">Post na Facebook/LinkedIn:</p>
+                      <p className="text-sm text-gray-600">
+                        🏥 Znalazłem świetne narzędzie dla specjalistów! GabinetShare to platforma do wynajmu gabinetów i zarządzania praktyką. Polecam sprawdzić! 👇
+                      </p>
+                      <Button size="sm" variant="ghost" className="mt-2" onClick={() => {
+                        navigator.clipboard.writeText("🏥 Znalazłem świetne narzędzie dla specjalistów! GabinetShare to platforma do wynajmu gabinetów i zarządzania praktyką. Polecam sprawdzić! 👇\n\n" + affiliateLink);
+                        toast({ title: "Skopiowano!", description: "Tekst został skopiowany do schowka." });
+                      }}>
+                        <Copy className="h-3 w-3 mr-1" /> Kopiuj z linkiem
+                      </Button>
+                    </div>
+                    <div className="border rounded-md p-3">
+                      <p className="text-sm font-medium mb-1">Krótki post:</p>
+                      <p className="text-sm text-gray-600">
+                        💡 Polecam terapeutom i właścicielom gabinetów → GabinetShare
+                      </p>
+                      <Button size="sm" variant="ghost" className="mt-2" onClick={() => {
+                        navigator.clipboard.writeText("💡 Polecam terapeutom i właścicielom gabinetów → GabinetShare " + affiliateLink);
+                        toast({ title: "Skopiowano!", description: "Tekst został skopiowany do schowka." });
+                      }}>
+                        <Copy className="h-3 w-3 mr-1" /> Kopiuj z linkiem
+                      </Button>
                     </div>
                   </TabsContent>
                 </Tabs>
               </div>
             </DialogContent>
           </Dialog>
-          
-          <Button variant="outline" className="w-full" asChild>
-            <a href={`mailto:?subject=Poznaj GabinetShare&body=Cześć! Znalazłem/am świetną platformę do wynajmu gabinetów i zarządzania kalendarzem wizyt. Sprawdź: ${affiliateLink}`}>
-              Udostępnij przez email
-            </a>
-          </Button>
         </div>
       </CardContent>
     </Card>

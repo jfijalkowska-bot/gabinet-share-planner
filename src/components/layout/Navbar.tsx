@@ -220,7 +220,7 @@ const Navbar = () => {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-56 bg-popover">
                   <DropdownMenuItem asChild>
-                    <Link to="/profile" className="cursor-pointer">
+                    <Link to="/management?tab=profile" className="cursor-pointer">
                       <User className="h-4 w-4 mr-2" />
                       Profil
                     </Link>
@@ -365,7 +365,7 @@ const Navbar = () => {
                   </>
                 ) : (
                   <div className="space-y-1">
-                    <Link to="/profile" className="flex items-center gap-3 rounded-md px-3 py-2 text-sm hover:bg-accent" onClick={() => setMobileMenuOpen(false)}>
+                    <Link to="/management?tab=profile" className="flex items-center gap-3 rounded-md px-3 py-2 text-sm hover:bg-accent" onClick={() => setMobileMenuOpen(false)}>
                       <User className="h-5 w-5" />
                       Profil
                     </Link>
