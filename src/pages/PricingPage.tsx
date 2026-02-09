@@ -10,80 +10,79 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { useState } from "react";
 
-type PlanType = 'client' | 'wizytowka' | 'therapist' | 'owner';
+type PlanType = 'client' | 'therapist-seeking' | 'therapist' | 'owner';
 
 const plans = [
   {
     id: 'client' as PlanType,
     name: "Klient",
-    description: "Dla osób szukających terapeuty lub gabinetu",
+    description: "Dla osób szukających terapeuty",
     price: "0",
     period: "za darmo",
     icon: Users,
     popular: false,
     features: [
       { name: "Wyszukiwarka terapeutów", included: true },
-      { name: "Wyszukiwarka gabinetów", included: true },
-      { name: "Dostęp do forum ogólnego", included: true },
+      { name: "Wyszukiwarka szkoleń ogólnych", included: true },
       { name: "Rezerwacja wizyt online", included: true },
       { name: "Program partnerski", included: true },
+      { name: "Społeczność – forum ogólne", included: true },
+      { name: "Szukanie praktyk i superwizji", included: false },
       { name: "Forum specjalistów", included: false },
-      { name: "Superwizje i szkolenia", included: false },
-      { name: "Profil terapeuty publiczny", included: false },
-      { name: "Kalendarz z widget do embed", included: false },
+      { name: "Profil publiczny w wyszukiwarce", included: false },
+      { name: "Kalendarz rezerwacji", included: false },
       { name: "Dokumentacja pacjentów + AI", included: false },
-      { name: "Zarządzanie gabinetem", included: false },
+      { name: "Ogłaszanie superwizji/szkoleń", included: false },
     ],
     cta: "Załóż darmowe konto",
     ctaVariant: "outline" as const,
     isPaid: false,
   },
   {
-    id: 'wizytowka' as PlanType,
-    name: "Wizytówka",
-    description: "Publiczny profil w wyszukiwarce",
-    price: "49",
-    period: "PLN jednorazowo",
-    icon: CreditCard,
+    id: 'therapist-seeking' as PlanType,
+    name: "Terapeuta",
+    description: "Darmowe konto dla psychoterapeutów – szukaj, ucz się, rozwijaj",
+    price: "0",
+    period: "za darmo",
+    icon: Briefcase,
     popular: false,
+    addon: {
+      name: "Wizytówka",
+      price: "49 PLN jednorazowo",
+      features: ["Profil publiczny w wyszukiwarce", "Kalendarz rezerwacji online"],
+    },
     features: [
-      { name: "Wyszukiwarka terapeutów", included: true },
-      { name: "Wyszukiwarka gabinetów", included: true },
-      { name: "Dostęp do forum ogólnego", included: true },
-      { name: "Rezerwacja wizyt online", included: true },
+      { name: "Wyszukiwarka terapeutów i gabinetów", included: true },
+      { name: "Szukanie praktyk, superwizji, szkoleń", included: true },
+      { name: "Społeczność – forum ogólne", included: true },
+      { name: "Wynajem gabinetu", included: true },
       { name: "Program partnerski", included: true },
-      { name: "Forum specjalistów", included: false },
-      { name: "Superwizje i szkolenia", included: false },
-      { name: "Profil terapeuty publiczny", included: true },
-      { name: "Kalendarz z widget do embed", included: false },
+      { name: "Profil publiczny w wyszukiwarce", included: false, addon: true },
+      { name: "Kalendarz rezerwacji online", included: false, addon: true },
       { name: "Dokumentacja pacjentów + AI", included: false },
-      { name: "Zarządzanie gabinetem", included: false },
+      { name: "Ogłaszanie superwizji/szkoleń/praktyk", included: false },
     ],
-    cta: "Kup wizytówkę",
+    cta: "Załóż darmowe konto",
     ctaVariant: "outline" as const,
-    isPaid: true,
+    isPaid: false,
   },
   {
     id: 'therapist' as PlanType,
-    name: "Terapeuta",
-    description: "Pełny pakiet dla psychologów i psychoterapeutów",
+    name: "Terapeuta Pro",
+    description: "Pełny pakiet narzędzi dla psychoterapeutów",
     price: "49",
     period: "PLN/miesiąc",
-    icon: Briefcase,
+    icon: Star,
     popular: true,
     trial: "30 dni za darmo",
     features: [
-      { name: "Wyszukiwarka terapeutów", included: true },
-      { name: "Wyszukiwarka gabinetów", included: true },
-      { name: "Dostęp do forum ogólnego", included: true },
-      { name: "Rezerwacja wizyt online", included: true },
-      { name: "Program partnerski", included: true },
-      { name: "Forum specjalistów", included: true },
-      { name: "Superwizje i szkolenia", included: true },
-      { name: "Profil terapeuty publiczny", included: true },
+      { name: "Wszystko z darmowego konta", included: true },
+      { name: "Profil publiczny w wyszukiwarce", included: true },
       { name: "Kalendarz z widget do embed", included: true },
       { name: "Dokumentacja pacjentów + AI", included: true },
-      { name: "Zarządzanie gabinetem", included: false },
+      { name: "Ogłaszanie superwizji/szkoleń/praktyk", included: true },
+      { name: "Forum specjalistów", included: true },
+      { name: "Program partnerski", included: true },
     ],
     cta: "Rozpocznij okres próbny",
     ctaVariant: "default" as const,
@@ -91,7 +90,7 @@ const plans = [
   },
   {
     id: 'owner' as PlanType,
-    name: "Właściciel",
+    name: "Właściciel gabinetu",
     description: "Dla właścicieli gabinetów i klinik",
     price: "59",
     period: "PLN/miesiąc",
@@ -99,17 +98,10 @@ const plans = [
     popular: false,
     trial: "30 dni za darmo",
     features: [
-      { name: "Wyszukiwarka terapeutów", included: true },
-      { name: "Wyszukiwarka gabinetów", included: true },
-      { name: "Dostęp do forum ogólnego", included: true },
-      { name: "Rezerwacja wizyt online", included: true },
-      { name: "Program partnerski", included: true },
-      { name: "Forum specjalistów", included: true },
-      { name: "Superwizje i szkolenia", included: true },
-      { name: "Profil terapeuty publiczny", included: true },
-      { name: "Kalendarz z widget do embed", included: true },
-      { name: "Dokumentacja pacjentów + AI", included: true },
+      { name: "Wszystko z Terapeuta Pro", included: true },
       { name: "Zarządzanie gabinetem", included: true },
+      { name: "Wynajem gabinetu – ogłoszenia", included: true },
+      { name: "Wielu terapeutów w jednym gabinecie", included: true },
     ],
     cta: "Rozpocznij okres próbny",
     ctaVariant: "default" as const,
@@ -123,8 +115,8 @@ const PricingPage = () => {
   const [loading, setLoading] = useState<PlanType | null>(null);
 
   const handlePlanClick = async (planId: PlanType) => {
-    if (planId === 'client') {
-      navigate('/register');
+    if (planId === 'client' || planId === 'therapist-seeking') {
+      navigate(`/register?plan=${planId}`);
       return;
     }
 
@@ -222,7 +214,9 @@ const PricingPage = () => {
                           className="flex items-center gap-2 text-sm"
                         >
                           {feature.included ? (
-                            <Check className="w-4 h-4 text-green-500 shrink-0" />
+                            <Check className="w-4 h-4 text-therapy-600 shrink-0" />
+                          ) : (feature as any).addon ? (
+                            <CreditCard className="w-4 h-4 text-amber-500 shrink-0" />
                           ) : (
                             <X className="w-4 h-4 text-muted-foreground/40 shrink-0" />
                           )}
@@ -230,6 +224,8 @@ const PricingPage = () => {
                             className={
                               feature.included
                                 ? "text-foreground"
+                                : (feature as any).addon
+                                ? "text-amber-700 dark:text-amber-400 font-medium"
                                 : "text-muted-foreground/60"
                             }
                           >
@@ -238,6 +234,22 @@ const PricingPage = () => {
                         </li>
                       ))}
                     </ul>
+
+                    {(plan as any).addon && (
+                      <div className="mt-4 p-3 rounded-lg bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800">
+                        <p className="text-xs font-semibold text-amber-700 dark:text-amber-400 mb-1">
+                          + {(plan as any).addon.name} ({(plan as any).addon.price})
+                        </p>
+                        <ul className="space-y-1">
+                          {(plan as any).addon.features.map((f: string) => (
+                            <li key={f} className="flex items-center gap-1.5 text-xs text-amber-600 dark:text-amber-400">
+                              <CreditCard className="w-3 h-3 shrink-0" />
+                              {f}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                   </CardContent>
 
                   <CardFooter>
@@ -333,11 +345,12 @@ const PricingPage = () => {
 
               <Card className="p-6">
                 <h3 className="font-semibold text-lg mb-2">
-                  Czym różni się Wizytówka od planu Terapeuta?
+                  Czym różni się darmowy Terapeuta od Terapeuta Pro?
                 </h3>
                 <p className="text-muted-foreground">
-                  Wizytówka to jednorazowa opłata za publiczny profil. Plan Terapeuta 
-                  dodatkowo daje dostęp do kalendarza, dokumentacji pacjentów z AI i forum specjalistów.
+                  Darmowe konto pozwala szukać praktyk, superwizji i szkoleń. Wizytówka (49 PLN jednorazowo) 
+                  dodaje profil publiczny i kalendarz. Terapeuta Pro dodatkowo daje notatki AI, ogłaszanie 
+                  superwizji/szkoleń/praktyk i forum specjalistów.
                 </p>
               </Card>
             </div>
