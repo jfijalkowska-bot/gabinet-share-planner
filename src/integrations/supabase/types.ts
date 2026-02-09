@@ -221,6 +221,39 @@ export type Database = {
         }
         Relationships: []
       }
+      availability_slot_services: {
+        Row: {
+          availability_slot_id: string
+          id: string
+          service_id: string
+        }
+        Insert: {
+          availability_slot_id: string
+          id?: string
+          service_id: string
+        }
+        Update: {
+          availability_slot_id?: string
+          id?: string
+          service_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "availability_slot_services_availability_slot_id_fkey"
+            columns: ["availability_slot_id"]
+            isOneToOne: false
+            referencedRelation: "availability_slots"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "availability_slot_services_service_id_fkey"
+            columns: ["service_id"]
+            isOneToOne: false
+            referencedRelation: "therapist_services"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       availability_slots: {
         Row: {
           created_at: string | null
@@ -263,6 +296,7 @@ export type Database = {
           end_time: string
           id: string
           provider_id: string | null
+          service_id: string | null
           start_time: string
           status: string | null
           title: string
@@ -277,6 +311,7 @@ export type Database = {
           end_time: string
           id?: string
           provider_id?: string | null
+          service_id?: string | null
           start_time: string
           status?: string | null
           title: string
@@ -291,6 +326,7 @@ export type Database = {
           end_time?: string
           id?: string
           provider_id?: string | null
+          service_id?: string | null
           start_time?: string
           status?: string | null
           title?: string
@@ -303,6 +339,13 @@ export type Database = {
             columns: ["conversation_id"]
             isOneToOne: false
             referencedRelation: "conversations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "bookings_service_id_fkey"
+            columns: ["service_id"]
+            isOneToOne: false
+            referencedRelation: "therapist_services"
             referencedColumns: ["id"]
           },
         ]
@@ -899,6 +942,30 @@ export type Database = {
         }
         Relationships: []
       }
+      service_templates: {
+        Row: {
+          category: string | null
+          created_at: string
+          default_duration_minutes: number
+          id: string
+          name: string
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string
+          default_duration_minutes?: number
+          id?: string
+          name: string
+        }
+        Update: {
+          category?: string | null
+          created_at?: string
+          default_duration_minutes?: number
+          id?: string
+          name?: string
+        }
+        Relationships: []
+      }
       session_documents: {
         Row: {
           file_name: string
@@ -1227,6 +1294,51 @@ export type Database = {
           created_at?: string
           id?: string
           is_anonymous?: boolean | null
+          therapist_id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      therapist_services: {
+        Row: {
+          created_at: string
+          description: string | null
+          duration_minutes: number
+          id: string
+          is_active: boolean
+          name: string
+          note_for_client: string | null
+          price: number | null
+          requires_equipment: string[] | null
+          service_type: string
+          therapist_id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          duration_minutes?: number
+          id?: string
+          is_active?: boolean
+          name: string
+          note_for_client?: string | null
+          price?: number | null
+          requires_equipment?: string[] | null
+          service_type?: string
+          therapist_id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          duration_minutes?: number
+          id?: string
+          is_active?: boolean
+          name?: string
+          note_for_client?: string | null
+          price?: number | null
+          requires_equipment?: string[] | null
+          service_type?: string
           therapist_id?: string
           updated_at?: string
         }
