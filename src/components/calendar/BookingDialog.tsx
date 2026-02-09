@@ -6,11 +6,14 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
 import { format } from "date-fns";
 import { pl } from "date-fns/locale";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/components/auth/AuthProvider";
 import { toast } from "sonner";
+import { useTherapistServices, type TherapistService } from "@/hooks/useTherapistServices";
+import { Clock, Monitor, MapPin, AlertCircle } from "lucide-react";
 
 interface BookingDialogProps {
   isOpen: boolean;
@@ -28,8 +31,14 @@ const BookingDialog = ({ isOpen, onClose, selectedSlot }: BookingDialogProps) =>
   const [bookingType, setBookingType] = useState<BookingType>("appointment");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [selectedServiceId, setSelectedServiceId] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const { user } = useAuth();
+
+  const { data: services } = useTherapistServices(selectedSlot?.providerId);
+  const activeServices = services?.filter((s) => s.is_active) || [];
+
+  const selectedService = activeServices.find((s) => s.id === selectedServiceId);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -44,6 +53,11 @@ const BookingDialog = ({ isOpen, onClose, selectedSlot }: BookingDialogProps) =>
       return;
     }
 
+    if (bookingType === "appointment" && !selectedServiceId) {
+      toast.error("Proszę wybrać usługę");
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -52,11 +66,11 @@ const BookingDialog = ({ isOpen, onClose, selectedSlot }: BookingDialogProps) =>
         return;
       }
 
+      const durationMinutes = selectedService?.duration_minutes || 60;
       const bookingDate = new Date(selectedSlot.date);
       bookingDate.setHours(selectedSlot.hour, 0, 0, 0);
-      const endTime = new Date(bookingDate.getTime() + 60 * 60 * 1000);
+      const endTime = new Date(bookingDate.getTime() + durationMinutes * 60 * 1000);
 
-      // Najpierw tworzymy konwersację
       const { data: conversation, error: convError } = await supabase
         .from('conversations')
         .insert([{}])
@@ -65,7 +79,6 @@ const BookingDialog = ({ isOpen, onClose, selectedSlot }: BookingDialogProps) =>
 
       if (convError) throw convError;
 
-      // Dodajemy uczestników do konwersacji
       const { error: participantsError } = await supabase
         .from('conversation_participants')
         .insert([
@@ -75,13 +88,13 @@ const BookingDialog = ({ isOpen, onClose, selectedSlot }: BookingDialogProps) =>
 
       if (participantsError) throw participantsError;
 
-      // Tworzymy rezerwację z linkiem do konwersacji
       const { error: bookingError } = await supabase
         .from('bookings')
         .insert([{
           user_id: user.id,
           provider_id: selectedSlot.providerId,
           conversation_id: conversation.id,
+          service_id: selectedServiceId || null,
           title,
           description,
           booking_type: bookingType,
@@ -92,8 +105,8 @@ const BookingDialog = ({ isOpen, onClose, selectedSlot }: BookingDialogProps) =>
 
       if (bookingError) throw bookingError;
 
-      // Wysyłamy automatyczną wiadomość z detalami rezerwacji
-      const messageContent = `📅 **Prośba o rezerwację**\n\n**${title}**\n${description ? description + '\n\n' : ''}**Typ:** ${bookingType === 'appointment' ? 'Wizyta' : 'Wynajem'}\n**Termin:** ${format(bookingDate, "d MMMM yyyy, HH:mm", { locale: pl })} - ${format(endTime, "HH:mm", { locale: pl })}\n\nProszę o potwierdzenie dostępności i ustalenie szczegółów płatności.`;
+      const serviceName = selectedService?.name || (bookingType === 'rental' ? 'Wynajem' : 'Wizyta');
+      const messageContent = `📅 **Prośba o rezerwację**\n\n**${title}**\n**Usługa:** ${serviceName} (${durationMinutes} min)\n${description ? description + '\n\n' : ''}**Typ:** ${bookingType === 'appointment' ? 'Wizyta' : 'Wynajem'}\n**Termin:** ${format(bookingDate, "d MMMM yyyy, HH:mm", { locale: pl })} - ${format(endTime, "HH:mm", { locale: pl })}\n${selectedService?.note_for_client ? `\n⚠️ **Uwaga:** ${selectedService.note_for_client}\n` : ''}\nProszę o potwierdzenie dostępności i ustalenie szczegółów płatności.`;
 
       const { error: messageError } = await supabase
         .from('messages')
@@ -107,8 +120,6 @@ const BookingDialog = ({ isOpen, onClose, selectedSlot }: BookingDialogProps) =>
 
       toast.success("Rezerwacja utworzona! Rozpoczęto rozmowę z właścicielem.");
       onClose();
-      
-      // Opcjonalnie przekieruj do czatu
       window.location.href = `/messages?conversation=${conversation.id}`;
     } catch (error) {
       console.error('Error creating booking:', error);
@@ -120,7 +131,7 @@ const BookingDialog = ({ isOpen, onClose, selectedSlot }: BookingDialogProps) =>
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
           <DialogTitle>
             Nowa rezerwacja - {selectedSlot && format(selectedSlot.date, "d MMMM yyyy", { locale: pl })} {selectedSlot?.hour}:00
@@ -129,7 +140,7 @@ const BookingDialog = ({ isOpen, onClose, selectedSlot }: BookingDialogProps) =>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="bookingType">Typ rezerwacji</Label>
+            <Label>Typ rezerwacji</Label>
             <Select value={bookingType} onValueChange={(value: "appointment" | "rental") => setBookingType(value)} disabled={loading}>
               <SelectTrigger>
                 <SelectValue placeholder="Wybierz typ rezerwacji" />
@@ -140,6 +151,52 @@ const BookingDialog = ({ isOpen, onClose, selectedSlot }: BookingDialogProps) =>
               </SelectContent>
             </Select>
           </div>
+
+          {bookingType === "appointment" && activeServices.length > 0 && (
+            <div className="space-y-2">
+              <Label>Wybierz usługę *</Label>
+              <Select value={selectedServiceId} onValueChange={setSelectedServiceId} disabled={loading}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Wybierz rodzaj sesji" />
+                </SelectTrigger>
+                <SelectContent>
+                  {activeServices.map((s) => (
+                    <SelectItem key={s.id} value={s.id}>
+                      <span className="flex items-center gap-2">
+                        {s.name} — {s.duration_minutes} min
+                        {s.price && <span className="text-muted-foreground">({s.price} PLN)</span>}
+                      </span>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+
+              {selectedService && (
+                <div className="rounded-md border p-3 space-y-1 bg-muted/30">
+                  <div className="flex items-center gap-2 text-sm">
+                    <Clock className="w-3.5 h-3.5" />
+                    <span>{selectedService.duration_minutes} min</span>
+                    {selectedService.service_type === "remote" ? (
+                      <Badge variant="secondary" className="text-xs gap-1"><Monitor className="w-3 h-3" />Zdalna</Badge>
+                    ) : selectedService.service_type === "in_person" ? (
+                      <Badge variant="secondary" className="text-xs gap-1"><MapPin className="w-3 h-3" />Stacjonarna</Badge>
+                    ) : (
+                      <Badge variant="secondary" className="text-xs">Stacjonarna/Zdalna</Badge>
+                    )}
+                  </div>
+                  {selectedService.description && (
+                    <p className="text-xs text-muted-foreground">{selectedService.description}</p>
+                  )}
+                  {selectedService.note_for_client && (
+                    <div className="flex items-start gap-1.5 text-xs text-destructive bg-destructive/10 p-2 rounded">
+                      <AlertCircle className="w-3.5 h-3.5 mt-0.5 shrink-0" />
+                      {selectedService.note_for_client}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          )}
 
           <div className="space-y-2">
             <Label htmlFor="title">Tytuł</Label>

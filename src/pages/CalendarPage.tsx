@@ -5,6 +5,7 @@ import PageHeader from "@/components/common/PageHeader";
 import CalendarView from "@/components/calendar/CalendarView";
 import AvailabilityManager from "@/components/calendar/AvailabilityManager";
 import BookingRequestsList from "@/components/calendar/BookingRequestsList";
+import ServiceCatalogManager from "@/components/calendar/ServiceCatalogManager";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import StatsOverview from "@/components/stats/StatsOverview";
 
@@ -26,12 +27,17 @@ const CalendarPage = () => {
         <Tabs defaultValue="calendar">
           <TabsList className="mb-4">
             <TabsTrigger value="calendar">Widok kalendarza</TabsTrigger>
+            <TabsTrigger value="services">Katalog usług</TabsTrigger>
             <TabsTrigger value="availability">Zarządzaj dostępnością</TabsTrigger>
             <TabsTrigger value="requests">Prośby o rezerwację</TabsTrigger>
           </TabsList>
           
           <TabsContent value="calendar">
             <CalendarView />
+          </TabsContent>
+
+          <TabsContent value="services">
+            <ServiceCatalogManager />
           </TabsContent>
           
           <TabsContent value="availability">

@@ -9,6 +9,9 @@ import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
 import { Plus, Trash2 } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Badge } from "@/components/ui/badge";
+import { Checkbox } from "@/components/ui/checkbox";
+import { useTherapistServices } from "@/hooks/useTherapistServices";
 
 interface AvailabilitySlot {
   id?: string;
@@ -36,6 +39,7 @@ const HOURS = Array.from({ length: 24 }, (_, i) =>
 export default function AvailabilityManager() {
   const queryClient = useQueryClient();
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedSlotServices, setSelectedSlotServices] = useState<Record<string, string[]>>({});
   const [newSlot, setNewSlot] = useState<Partial<AvailabilitySlot>>({
     day_of_week: 1,
     start_time: "09:00",
@@ -43,6 +47,10 @@ export default function AvailabilityManager() {
     is_active: true,
     provider_type: "therapist"
   });
+  const [newSlotServiceIds, setNewSlotServiceIds] = useState<string[]>([]);
+
+  const { data: services } = useTherapistServices();
+  const activeServices = services?.filter(s => s.is_active) || [];
 
   const { data: slots, isLoading } = useQuery({
     queryKey: ['availability-slots'],
@@ -62,12 +70,35 @@ export default function AvailabilityManager() {
     }
   });
 
+  // Fetch slot-service links
+  const { data: slotServicesData } = useQuery({
+    queryKey: ['availability-slot-services'],
+    queryFn: async () => {
+      if (!slots?.length) return [];
+      const slotIds = slots.map(s => s.id).filter(Boolean) as string[];
+      if (!slotIds.length) return [];
+      
+      const { data, error } = await supabase
+        .from('availability_slot_services')
+        .select('*')
+        .in('availability_slot_id', slotIds);
+      
+      if (error) throw error;
+      return data as { id: string; availability_slot_id: string; service_id: string }[];
+    },
+    enabled: !!slots?.length
+  });
+
+  const getServicesForSlot = (slotId: string) => {
+    return slotServicesData?.filter(ss => ss.availability_slot_id === slotId) || [];
+  };
+
   const createSlot = useMutation({
     mutationFn: async (slot: Partial<AvailabilitySlot>) => {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) throw new Error("Not authenticated");
 
-      const { error } = await supabase
+      const { data, error } = await supabase
         .from('availability_slots')
         .insert([{
           provider_id: user.id,
@@ -76,14 +107,30 @@ export default function AvailabilityManager() {
           end_time: slot.end_time!,
           is_active: slot.is_active ?? true,
           provider_type: slot.provider_type!
-        }] as any);
+        }] as any)
+        .select()
+        .single();
 
       if (error) throw error;
+
+      // Link services if selected
+      if (newSlotServiceIds.length > 0 && data) {
+        const links = newSlotServiceIds.map(serviceId => ({
+          availability_slot_id: data.id,
+          service_id: serviceId
+        }));
+        const { error: linkError } = await supabase
+          .from('availability_slot_services')
+          .insert(links);
+        if (linkError) throw linkError;
+      }
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['availability-slots'] });
+      queryClient.invalidateQueries({ queryKey: ['availability-slot-services'] });
       toast.success("Slot dostępności dodany");
       setIsOpen(false);
+      setNewSlotServiceIds([]);
       setNewSlot({
         day_of_week: 1,
         start_time: "09:00",
@@ -103,11 +150,11 @@ export default function AvailabilityManager() {
         .from('availability_slots')
         .delete()
         .eq('id', id);
-
       if (error) throw error;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['availability-slots'] });
+      queryClient.invalidateQueries({ queryKey: ['availability-slot-services'] });
       toast.success("Slot usunięty");
     },
     onError: () => {
@@ -121,13 +168,20 @@ export default function AvailabilityManager() {
         .from('availability_slots')
         .update({ is_active })
         .eq('id', id);
-
       if (error) throw error;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['availability-slots'] });
     }
   });
+
+  const toggleServiceForNewSlot = (serviceId: string) => {
+    setNewSlotServiceIds(prev =>
+      prev.includes(serviceId)
+        ? prev.filter(id => id !== serviceId)
+        : [...prev, serviceId]
+    );
+  };
 
   if (isLoading) {
     return <div>Ładowanie...</div>;
@@ -140,7 +194,7 @@ export default function AvailabilityManager() {
           <div>
             <CardTitle>Zarządzanie dostępnością</CardTitle>
             <CardDescription>
-              Zdefiniuj swoje godziny dostępności. Klienci będą mogli rezerwować tylko w tych terminach.
+              Zdefiniuj swoje godziny dostępności i przypisz dozwolone usługi do każdego slotu.
             </CardDescription>
           </div>
           <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -232,6 +286,29 @@ export default function AvailabilityManager() {
                   </Select>
                 </div>
 
+                {activeServices.length > 0 && newSlot.provider_type === 'therapist' && (
+                  <div className="space-y-2">
+                    <Label>Dozwolone usługi w tym slocie</Label>
+                    <p className="text-xs text-muted-foreground">
+                      Pozostaw puste, aby zezwolić na wszystkie usługi. Zaznacz konkretne, aby ograniczyć.
+                    </p>
+                    <div className="space-y-2 max-h-48 overflow-y-auto border rounded p-3">
+                      {activeServices.map(s => (
+                        <div key={s.id} className="flex items-center gap-2">
+                          <Checkbox
+                            id={`new-slot-service-${s.id}`}
+                            checked={newSlotServiceIds.includes(s.id)}
+                            onCheckedChange={() => toggleServiceForNewSlot(s.id)}
+                          />
+                          <label htmlFor={`new-slot-service-${s.id}`} className="text-sm cursor-pointer">
+                            {s.name} ({s.duration_minutes} min)
+                          </label>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
                 <Button 
                   onClick={() => createSlot.mutate(newSlot)}
                   disabled={createSlot.isPending}
@@ -260,36 +337,57 @@ export default function AvailabilityManager() {
                   <div key={day.value} className="border rounded-lg p-4">
                     <h4 className="font-medium mb-3">{day.label}</h4>
                     <div className="space-y-2">
-                      {daySlots.map(slot => (
-                        <div 
-                          key={slot.id} 
-                          className="flex items-center justify-between bg-muted/50 p-3 rounded"
-                        >
-                          <div className="flex items-center gap-4">
-                            <span className="font-medium">
-                              {slot.start_time} - {slot.end_time}
-                            </span>
-                            <span className="text-sm text-muted-foreground">
-                              {slot.provider_type === 'therapist' ? 'Wizyty' : 'Wynajem'}
-                            </span>
+                      {daySlots.map(slot => {
+                        const linkedServices = getServicesForSlot(slot.id!);
+                        const linkedServiceNames = linkedServices
+                          .map(ls => activeServices.find(s => s.id === ls.service_id)?.name)
+                          .filter(Boolean);
+
+                        return (
+                          <div 
+                            key={slot.id} 
+                            className="flex items-center justify-between bg-muted/50 p-3 rounded"
+                          >
+                            <div className="space-y-1">
+                              <div className="flex items-center gap-4">
+                                <span className="font-medium">
+                                  {slot.start_time} - {slot.end_time}
+                                </span>
+                                <span className="text-sm text-muted-foreground">
+                                  {slot.provider_type === 'therapist' ? 'Wizyty' : 'Wynajem'}
+                                </span>
+                              </div>
+                              {linkedServiceNames.length > 0 && (
+                                <div className="flex flex-wrap gap-1">
+                                  {linkedServiceNames.map((name, i) => (
+                                    <Badge key={i} variant="outline" className="text-xs">
+                                      {name}
+                                    </Badge>
+                                  ))}
+                                </div>
+                              )}
+                              {linkedServiceNames.length === 0 && slot.provider_type === 'therapist' && (
+                                <span className="text-xs text-muted-foreground">Wszystkie usługi dozwolone</span>
+                              )}
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <Switch
+                                checked={slot.is_active}
+                                onCheckedChange={(checked) => 
+                                  toggleSlot.mutate({ id: slot.id!, is_active: checked })
+                                }
+                              />
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => deleteSlot.mutate(slot.id!)}
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </Button>
+                            </div>
                           </div>
-                          <div className="flex items-center gap-2">
-                            <Switch
-                              checked={slot.is_active}
-                              onCheckedChange={(checked) => 
-                                toggleSlot.mutate({ id: slot.id!, is_active: checked })
-                              }
-                            />
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => deleteSlot.mutate(slot.id!)}
-                            >
-                              <Trash2 className="w-4 h-4" />
-                            </Button>
-                          </div>
-                        </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   </div>
                 );
