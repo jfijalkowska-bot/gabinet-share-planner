@@ -13,6 +13,9 @@ const getSessionId = () => {
   return sessionId;
 };
 
+const ALLOWED_EVENT_TYPES = ['page_view', 'click', 'conversion', 'signup', 'booking_completed', 'search', 'ai_chat_request', 'audio_transcription'];
+const MAX_EVENT_DATA_SIZE = 1024;
+
 export const useAnalytics = () => {
   const location = useLocation();
   const { user } = useAuth();
@@ -23,13 +26,17 @@ export const useAnalytics = () => {
     eventData: Record<string, any> = {}
   ) => {
     try {
+      if (!ALLOWED_EVENT_TYPES.includes(eventType)) return;
+      const dataStr = JSON.stringify(eventData);
+      if (dataStr.length > MAX_EVENT_DATA_SIZE) return;
+
       await supabase.from('analytics_events').insert({
         user_id: user?.id || null,
         event_type: eventType,
         event_data: eventData,
-        page_url: window.location.pathname,
-        referrer: document.referrer || null,
-        user_agent: navigator.userAgent,
+        page_url: window.location.pathname?.slice(0, 2048) || null,
+        referrer: document.referrer?.slice(0, 4096) || null,
+        user_agent: navigator.userAgent?.slice(0, 1024) || null,
         session_id: getSessionId(),
       });
     } catch (error) {
