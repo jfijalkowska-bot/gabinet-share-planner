@@ -165,7 +165,7 @@ const ContactPage = () => {
                     <MapPin className="h-5 w-5 text-therapy-600" />
                     <div>
                       <p className="font-medium">Adres</p>
-                      <p className="text-gray-600">Osiedle Piastowskie 100/6<br />61-163 Poznań</p>
+                      <p className="text-gray-600">Jadwiga Fijałkowska<br />Osiedle Piastowskie 100/6<br />61-163 Poznań</p>
                     </div>
                   </div>
                   

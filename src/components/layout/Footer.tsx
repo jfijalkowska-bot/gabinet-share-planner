@@ -77,7 +77,6 @@ const Footer = () => {
             <h4 className="font-semibold mb-4 text-therapy-800">{t('footer.owner')}</h4>
             <ul className="space-y-2 text-gray-600">
               <li>Jadwiga Fijałkowska</li>
-              <li>Działalność nierejestrowana</li>
               <li>Osiedle Piastowskie 100/6</li>
               <li>61-163 Poznań</li>
               <li className="pt-2">Email: kontakt@gabinet-psychologa.com.pl</li>
