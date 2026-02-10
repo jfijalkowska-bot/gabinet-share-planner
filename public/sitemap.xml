@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <!-- Homepage -->
+  <url>
+    <loc>https://gabinetshare.lovable.app/pl</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://gabinetshare.lovable.app/pl"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://gabinetshare.lovable.app/it"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://gabinetshare.lovable.app/pl"/>
+  </url>
+  <url>
+    <loc>https://gabinetshare.lovable.app/it</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://gabinetshare.lovable.app/pl"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://gabinetshare.lovable.app/it"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://gabinetshare.lovable.app/pl"/>
+  </url>
+  <!-- Search -->
+  <url>
+    <loc>https://gabinetshare.lovable.app/pl/search</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://gabinetshare.lovable.app/pl/search"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://gabinetshare.lovable.app/it/search"/>
+  </url>
+  <url>
+    <loc>https://gabinetshare.lovable.app/it/search</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://gabinetshare.lovable.app/pl/search"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://gabinetshare.lovable.app/it/search"/>
+  </url>
+  <!-- Pricing -->
+  <url>
+    <loc>https://gabinetshare.lovable.app/pl/pricing</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://gabinetshare.lovable.app/pl/pricing"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://gabinetshare.lovable.app/it/pricing"/>
+  </url>
+  <url>
+    <loc>https://gabinetshare.lovable.app/it/pricing</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://gabinetshare.lovable.app/pl/pricing"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://gabinetshare.lovable.app/it/pricing"/>
+  </url>
+  <!-- Terms -->
+  <url>
+    <loc>https://gabinetshare.lovable.app/pl/terms</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://gabinetshare.lovable.app/pl/terms"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://gabinetshare.lovable.app/it/terms"/>
+  </url>
+  <url>
+    <loc>https://gabinetshare.lovable.app/it/terms</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://gabinetshare.lovable.app/pl/terms"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://gabinetshare.lovable.app/it/terms"/>
+  </url>
+  <!-- GDPR -->
+  <url>
+    <loc>https://gabinetshare.lovable.app/pl/gdpr</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://gabinetshare.lovable.app/pl/gdpr"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://gabinetshare.lovable.app/it/gdpr"/>
+  </url>
+  <url>
+    <loc>https://gabinetshare.lovable.app/it/gdpr</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://gabinetshare.lovable.app/pl/gdpr"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://gabinetshare.lovable.app/it/gdpr"/>
+  </url>
+  <!-- About -->
+  <url>
+    <loc>https://gabinetshare.lovable.app/pl/about</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://gabinetshare.lovable.app/pl/about"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://gabinetshare.lovable.app/it/about"/>
+  </url>
+  <url>
+    <loc>https://gabinetshare.lovable.app/it/about</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://gabinetshare.lovable.app/pl/about"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://gabinetshare.lovable.app/it/about"/>
+  </url>
+  <!-- Contact -->
+  <url>
+    <loc>https://gabinetshare.lovable.app/pl/contact</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://gabinetshare.lovable.app/pl/contact"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://gabinetshare.lovable.app/it/contact"/>
+  </url>
+  <url>
+    <loc>https://gabinetshare.lovable.app/it/contact</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://gabinetshare.lovable.app/pl/contact"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://gabinetshare.lovable.app/it/contact"/>
+  </url>
+  <!-- Supervisions -->
+  <url>
+    <loc>https://gabinetshare.lovable.app/pl/supervisions</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://gabinetshare.lovable.app/pl/supervisions"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://gabinetshare.lovable.app/it/supervisions"/>
+  </url>
+  <url>
+    <loc>https://gabinetshare.lovable.app/it/supervisions</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://gabinetshare.lovable.app/pl/supervisions"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://gabinetshare.lovable.app/it/supervisions"/>
+  </url>
+  <!-- Trainings -->
+  <url>
+    <loc>https://gabinetshare.lovable.app/pl/trainings</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://gabinetshare.lovable.app/pl/trainings"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://gabinetshare.lovable.app/it/trainings"/>
+  </url>
+  <url>
+    <loc>https://gabinetshare.lovable.app/it/trainings</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://gabinetshare.lovable.app/pl/trainings"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://gabinetshare.lovable.app/it/trainings"/>
+  </url>
+</urlset>

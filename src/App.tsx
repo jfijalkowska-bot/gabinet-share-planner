@@ -10,6 +10,7 @@ import CookieConsent from "@/components/common/CookieConsent";
 import { useAnalytics } from "@/hooks/useAnalytics";
 import LanguageLayout from "@/components/layout/LanguageLayout";
 import LanguageRedirect from "@/components/common/LanguageRedirect";
+import HreflangTags from "@/components/common/HreflangTags";
 import "./i18n/config";
 
 import ProtectedRoute from "@/components/auth/ProtectedRoute";

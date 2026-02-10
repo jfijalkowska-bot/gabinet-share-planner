@@ -2,21 +2,27 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
+import { useLanguagePrefix } from "@/hooks/useLanguagePrefix";
 
 const TermsPage = () => {
+  const { currentLang } = useLanguagePrefix();
+  const isIt = currentLang === "it";
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
       
       <main className="flex-grow py-12 px-4">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-3xl font-bold text-center mb-8">Regulamin i polityka prywatności</h1>
+          <h1 className="text-3xl font-bold text-center mb-8">
+            {isIt ? "Termini e condizioni e informativa sulla privacy" : "Regulamin i polityka prywatności"}
+          </h1>
           
           <Tabs defaultValue="terms" className="mb-8">
             <TabsList className="grid w-full grid-cols-3">
-              <TabsTrigger value="terms">Regulamin</TabsTrigger>
-              <TabsTrigger value="privacy">Polityka prywatności</TabsTrigger>
-              <TabsTrigger value="cookies">Polityka cookies</TabsTrigger>
+              <TabsTrigger value="terms">{isIt ? "Termini" : "Regulamin"}</TabsTrigger>
+              <TabsTrigger value="privacy">{isIt ? "Privacy" : "Polityka prywatności"}</TabsTrigger>
+              <TabsTrigger value="cookies">{isIt ? "Cookie" : "Polityka cookies"}</TabsTrigger>
             </TabsList>
             
             <TabsContent value="terms">
@@ -487,8 +493,8 @@ const TermsPage = () => {
           </Tabs>
           
           <div className="text-center text-gray-600 text-sm">
-            <p>Ostatnia aktualizacja: 1 stycznia 2025 r.</p>
-            <p className="mt-2">W razie pytań dotyczących regulaminu lub polityki prywatności, prosimy o kontakt na adres:</p>
+            <p>{isIt ? "Ultimo aggiornamento: 1 gennaio 2025" : "Ostatnia aktualizacja: 1 stycznia 2025 r."}</p>
+            <p className="mt-2">{isIt ? "Per domande sui termini o sulla privacy, contattateci all'indirizzo:" : "W razie pytań dotyczących regulaminu lub polityki prywatności, prosimy o kontakt na adres:"}</p>
             <p className="font-medium">kontakt@gabinetshare.pl</p>
           </div>
         </div>
