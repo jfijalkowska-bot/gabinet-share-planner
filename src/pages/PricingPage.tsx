@@ -1,4 +1,6 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import LocalizedLink from "@/components/common/LocalizedLink";
+import { useLanguagePrefix } from "@/hooks/useLanguagePrefix";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -112,17 +114,18 @@ const plans = [
 const PricingPage = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const { localizedPath } = useLanguagePrefix();
   const [loading, setLoading] = useState<PlanType | null>(null);
 
   const handlePlanClick = async (planId: PlanType) => {
     if (planId === 'client' || planId === 'therapist-seeking') {
-      navigate(`/register?plan=${planId}`);
+      navigate(localizedPath(`/register?plan=${planId}`));
       return;
     }
 
     if (!user) {
       toast.info("Zaloguj się, aby wybrać plan");
-      navigate('/login');
+      navigate(localizedPath('/login'));
       return;
     }
 
@@ -360,7 +363,7 @@ const PricingPage = () => {
                 Masz dodatkowe pytania?
               </p>
               <Button asChild variant="outline">
-                <Link to="/contact">Skontaktuj się z nami</Link>
+                <LocalizedLink to="/contact">Skontaktuj się z nami</LocalizedLink>
               </Button>
             </div>
           </div>
@@ -377,7 +380,7 @@ const PricingPage = () => {
                 co miesiąc!
               </p>
               <Button asChild className="bg-therapy-600 hover:bg-therapy-700">
-                <Link to="/affiliate">Dowiedz się więcej</Link>
+                <LocalizedLink to="/affiliate">Dowiedz się więcej</LocalizedLink>
               </Button>
             </Card>
           </div>
