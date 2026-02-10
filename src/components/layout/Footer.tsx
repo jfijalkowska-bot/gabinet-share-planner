@@ -1,5 +1,5 @@
 
-import { Link } from "react-router-dom";
+import LocalizedLink from "@/components/common/LocalizedLink";
 import { useTranslation } from "react-i18next";
 
 const Footer = () => {
@@ -12,63 +12,63 @@ const Footer = () => {
           <div>
             <h3 className="font-semibold text-lg mb-4 text-therapy-800">GabinetShare</h3>
             <p className="text-gray-600">
-              Aplikacja do zarządzania gabinetem - wynajem dla terapeutów i rezerwacje dla klientów.
+              {t('footer.description', 'Aplikacja do zarządzania gabinetem - wynajem dla terapeutów i rezerwacje dla klientów.')}
             </p>
           </div>
           
           <div>
-            <h4 className="font-semibold mb-4 text-therapy-800">Szybkie linki</h4>
+            <h4 className="font-semibold mb-4 text-therapy-800">{t('footer.quickLinks', 'Szybkie linki')}</h4>
             <ul className="space-y-2">
               <li>
-                <Link to="/" className="text-gray-600 hover:text-therapy-600 transition-colors">
-                  Strona główna
-                </Link>
+                <LocalizedLink to="/" className="text-gray-600 hover:text-therapy-600 transition-colors">
+                  {t('nav.home')}
+                </LocalizedLink>
               </li>
               <li>
-                <Link to="/search" className="text-gray-600 hover:text-therapy-600 transition-colors">
-                  Wyszukiwarka
-                </Link>
+                <LocalizedLink to="/search" className="text-gray-600 hover:text-therapy-600 transition-colors">
+                  {t('nav.search')}
+                </LocalizedLink>
               </li>
               <li>
-                <Link to="/community" className="text-gray-600 hover:text-therapy-600 transition-colors">
-                  Społeczność
-                </Link>
+                <LocalizedLink to="/community" className="text-gray-600 hover:text-therapy-600 transition-colors">
+                  {t('nav.community', 'Społeczność')}
+                </LocalizedLink>
               </li>
               <li>
-                <Link to="/trainings" className="text-gray-600 hover:text-therapy-600 transition-colors">
-                  Szkolenia
-                </Link>
+                <LocalizedLink to="/search?tab=training" className="text-gray-600 hover:text-therapy-600 transition-colors">
+                  {t('nav.trainings')}
+                </LocalizedLink>
               </li>
             </ul>
           </div>
           
           <div>
-            <h4 className="font-semibold mb-4 text-therapy-800">Informacje prawne</h4>
+            <h4 className="font-semibold mb-4 text-therapy-800">{t('footer.legal', 'Informacje prawne')}</h4>
             <ul className="space-y-2">
               <li>
-                <Link to="/terms" className="text-gray-600 hover:text-therapy-600 transition-colors">
-                  Regulamin
-                </Link>
+                <LocalizedLink to="/terms" className="text-gray-600 hover:text-therapy-600 transition-colors">
+                  {t('footer.terms')}
+                </LocalizedLink>
               </li>
               <li>
-                <Link to="/about" className="text-gray-600 hover:text-therapy-600 transition-colors">
-                  O firmie
-                </Link>
+                <LocalizedLink to="/about" className="text-gray-600 hover:text-therapy-600 transition-colors">
+                  {t('footer.about')}
+                </LocalizedLink>
               </li>
               <li>
-                <Link to="/payments-info" className="text-gray-600 hover:text-therapy-600 transition-colors">
-                  Informacje o płatnościach
-                </Link>
+                <LocalizedLink to="/payments-info" className="text-gray-600 hover:text-therapy-600 transition-colors">
+                  {t('footer.payments', 'Informacje o płatnościach')}
+                </LocalizedLink>
               </li>
               <li>
-                <Link to="/gdpr" className="text-gray-600 hover:text-therapy-600 transition-colors">
-                  Prawa RODO
-                </Link>
+                <LocalizedLink to="/gdpr" className="text-gray-600 hover:text-therapy-600 transition-colors">
+                  {t('footer.gdpr')}
+                </LocalizedLink>
               </li>
               <li>
-                <Link to="/contact" className="text-gray-600 hover:text-therapy-600 transition-colors">
-                  Kontakt i reklamacje
-                </Link>
+                <LocalizedLink to="/contact" className="text-gray-600 hover:text-therapy-600 transition-colors">
+                  {t('footer.contact')}
+                </LocalizedLink>
               </li>
             </ul>
           </div>

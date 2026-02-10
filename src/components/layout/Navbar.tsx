@@ -1,5 +1,6 @@
 
-import { Link, useLocation } from "react-router-dom";
+import LocalizedLink from "@/components/common/LocalizedLink";
+import { useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -36,82 +37,82 @@ const Navbar = () => {
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between gap-4">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 shrink-0">
+          <LocalizedLink to="/" className="flex items-center gap-2 shrink-0">
             <img src={logo} alt="GabinetShare" className="h-8 w-8" />
             <span className="font-semibold text-lg">GabinetShare</span>
-          </Link>
+          </LocalizedLink>
           
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-6 flex-1 justify-center">
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <Link to="/search">
-                    <NavigationMenuLink className={cn("group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50")}>
+                  <NavigationMenuLink asChild className={cn("group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50")}>
+                    <LocalizedLink to="/search">
                       <Search className="h-4 w-4 mr-2" />
                       {t('nav.search')}
-                    </NavigationMenuLink>
-                  </Link>
+                    </LocalizedLink>
+                  </NavigationMenuLink>
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
                   <NavigationMenuTrigger>
                     <Building2 className="h-4 w-4 mr-2" />
-                    Dla specjalistów
+                    {t('nav.forSpecialists', 'Dla specjalistów')}
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <ul className="grid w-[400px] gap-3 p-4">
                       <li>
-                        <Link to="/rental" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                          <div className="text-sm font-medium leading-none">Wynajem gabinetu</div>
+                        <LocalizedLink to="/rental" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                          <div className="text-sm font-medium leading-none">{t('nav.rental', 'Wynajem gabinetu')}</div>
                           <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                            Wynajmij swój gabinet innym specjalistom
+                            {t('nav.rentalDesc', 'Wynajmij swój gabinet innym specjalistom')}
                           </p>
-                        </Link>
+                        </LocalizedLink>
                       </li>
                       <li>
-                        <Link to="/calendar" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                        <LocalizedLink to="/calendar" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
                           <div className="text-sm font-medium leading-none flex items-center gap-2">
                             <Calendar className="h-4 w-4" />
-                            Kalendarz
+                            {t('nav.calendar', 'Kalendarz')}
                           </div>
                           <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                            Zarządzaj dostępnością i rezerwacjami
+                            {t('nav.calendarDesc', 'Zarządzaj dostępnością i rezerwacjami')}
                           </p>
-                        </Link>
+                        </LocalizedLink>
                       </li>
                       <li>
-                        <Link to="/management" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                        <LocalizedLink to="/management" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
                           <div className="text-sm font-medium leading-none flex items-center gap-2">
                             <LayoutDashboard className="h-4 w-4" />
-                            Moje oferty
+                            {t('nav.management', 'Moje oferty')}
                           </div>
                           <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                            Wystaw gabinet, superwizję, szkolenie lub praktyki
+                            {t('nav.managementDesc', 'Wystaw gabinet, superwizję, szkolenie lub praktyki')}
                           </p>
-                        </Link>
+                        </LocalizedLink>
                       </li>
                       <li>
-                        <Link to="/search?tab=supervision" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                        <LocalizedLink to="/search?tab=supervision" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
                           <div className="text-sm font-medium leading-none flex items-center gap-2">
                             <UserCheck className="h-4 w-4" />
                             {t('nav.supervisions')}
                           </div>
                           <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                            Znajdź lub oferuj superwizje
+                            {t('nav.supervisionsDesc', 'Znajdź lub oferuj superwizje')}
                           </p>
-                        </Link>
+                        </LocalizedLink>
                       </li>
                       <li>
-                        <Link to="/patients" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                        <LocalizedLink to="/patients" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
                           <div className="text-sm font-medium leading-none flex items-center gap-2">
                             <User className="h-4 w-4" />
-                            Pacjenci
+                            {t('nav.patients', 'Pacjenci')}
                           </div>
                           <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                            Akta pacjentów i asystent AI
+                            {t('nav.patientsDesc', 'Akta pacjentów i asystent AI')}
                           </p>
-                        </Link>
+                        </LocalizedLink>
                       </li>
                     </ul>
                   </NavigationMenuContent>
@@ -120,68 +121,68 @@ const Navbar = () => {
                 <NavigationMenuItem>
                   <NavigationMenuTrigger>
                     <Users className="h-4 w-4 mr-2" />
-                    Społeczność
+                    {t('nav.community', 'Społeczność')}
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <ul className="grid w-[400px] gap-3 p-4">
                       <li>
-                        <Link to="/community" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                          <div className="text-sm font-medium leading-none">Forum społeczności</div>
+                        <LocalizedLink to="/community" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                          <div className="text-sm font-medium leading-none">{t('nav.forum', 'Forum społeczności')}</div>
                           <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                            Dyskutuj z innymi specjalistami
+                            {t('nav.forumDesc', 'Dyskutuj z innymi specjalistami')}
                           </p>
-                        </Link>
+                        </LocalizedLink>
                       </li>
                       <li>
-                        <Link to="/search?tab=training" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                        <LocalizedLink to="/search?tab=training" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
                           <div className="text-sm font-medium leading-none flex items-center gap-2">
                             <GraduationCap className="h-4 w-4" />
                             {t('nav.trainings')}
                           </div>
                           <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                            Szkolenia i rozwój zawodowy
+                            {t('nav.trainingsDesc', 'Szkolenia i rozwój zawodowy')}
                           </p>
-                        </Link>
+                        </LocalizedLink>
                       </li>
                       <li>
-                        <Link to="/search?tab=practicum" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                          <div className="text-sm font-medium leading-none">Praktyki i staże</div>
+                        <LocalizedLink to="/search?tab=practicum" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                          <div className="text-sm font-medium leading-none">{t('nav.practicums', 'Praktyki i staże')}</div>
                           <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                            Znajdź praktyki dla początkujących terapeutów
+                            {t('nav.practicumsDesc', 'Znajdź praktyki dla początkujących terapeutów')}
                           </p>
-                        </Link>
+                        </LocalizedLink>
                       </li>
                       <li>
-                        <Link to="/affiliate" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                        <LocalizedLink to="/affiliate" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
                           <div className="text-sm font-medium leading-none flex items-center gap-2">
                             <Gift className="h-4 w-4" />
-                            Program partnerski
+                            {t('nav.affiliate', 'Program partnerski')}
                           </div>
                           <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                            Zarabiaj 7% polecając platformę
+                            {t('nav.affiliateDesc', 'Zarabiaj 7% polecając platformę')}
                           </p>
-                        </Link>
+                        </LocalizedLink>
                       </li>
                     </ul>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                  <Link to="/messages">
-                    <NavigationMenuLink className={cn("group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50")}>
+                  <NavigationMenuLink asChild className={cn("group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50")}>
+                    <LocalizedLink to="/messages">
                       <MessageCircle className="h-4 w-4 mr-2" />
-                      Wiadomości
-                    </NavigationMenuLink>
-                  </Link>
+                      {t('nav.messages', 'Wiadomości')}
+                    </LocalizedLink>
+                  </NavigationMenuLink>
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                  <Link to="/pricing">
-                    <NavigationMenuLink className={cn("group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50")}>
+                  <NavigationMenuLink asChild className={cn("group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50")}>
+                    <LocalizedLink to="/pricing">
                       <CreditCard className="h-4 w-4 mr-2" />
-                      Cennik
-                    </NavigationMenuLink>
-                  </Link>
+                      {t('nav.pricing', 'Cennik')}
+                    </LocalizedLink>
+                  </NavigationMenuLink>
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
@@ -205,10 +206,10 @@ const Navbar = () => {
             {!user ? (
               <>
                 <Button variant="ghost" asChild>
-                  <Link to="/login">{t('nav.login')}</Link>
+                  <LocalizedLink to="/login">{t('nav.login')}</LocalizedLink>
                 </Button>
                 <Button asChild>
-                  <Link to="/register">{t('nav.register')}</Link>
+                  <LocalizedLink to="/register">{t('nav.register')}</LocalizedLink>
                 </Button>
               </>
             ) : (
@@ -220,29 +221,29 @@ const Navbar = () => {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-56 bg-popover">
                   <DropdownMenuItem asChild>
-                    <Link to="/management?tab=profile" className="cursor-pointer">
+                    <LocalizedLink to="/management?tab=profile" className="cursor-pointer">
                       <User className="h-4 w-4 mr-2" />
-                      Profil
-                    </Link>
+                      {t('nav.profile', 'Profil')}
+                    </LocalizedLink>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link to="/appointments" className="cursor-pointer">
+                    <LocalizedLink to="/appointments" className="cursor-pointer">
                       <Calendar className="h-4 w-4 mr-2" />
-                      Wizyty
-                    </Link>
+                      {t('nav.appointments', 'Wizyty')}
+                    </LocalizedLink>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem asChild>
-                    <Link to="/affiliate" className="cursor-pointer">
+                    <LocalizedLink to="/affiliate" className="cursor-pointer">
                       <Gift className="h-4 w-4 mr-2" />
-                      Program partnerski
-                    </Link>
+                      {t('nav.affiliate', 'Program partnerski')}
+                    </LocalizedLink>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link to="/how-it-works" className="cursor-pointer">
+                    <LocalizedLink to="/how-it-works" className="cursor-pointer">
                       <Info className="h-4 w-4 mr-2" />
-                      Jak to działa
-                    </Link>
+                      {t('nav.howItWorks', 'Jak to działa')}
+                    </LocalizedLink>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={signOut} className="text-destructive cursor-pointer">
@@ -262,125 +263,106 @@ const Navbar = () => {
           <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setMobileMenuOpen(false)} />
           <div className="fixed inset-y-0 right-0 w-full max-w-sm bg-background shadow-2xl animate-in slide-in-from-right z-[101]">
             <div className="flex flex-col h-full">
-              {/* Mobile menu header */}
               <div className="flex items-center justify-between p-4 border-b shrink-0">
                 <span className="font-semibold text-lg">Menu</span>
-                <Button 
-                  variant="ghost" 
-                  size="icon"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
+                <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(false)}>
                   <X className="h-5 w-5" />
                 </Button>
               </div>
 
-              {/* Mobile menu content - proper scrolling */}
               <nav className="flex-1 overflow-y-auto overscroll-contain py-4 px-2">
                 <div className="space-y-1">
-                  <Link 
-                    to="/search" 
-                    className="flex items-center gap-3 rounded-lg px-3 py-3 text-base font-medium hover:bg-accent transition-colors"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
+                  <LocalizedLink to="/search" className="flex items-center gap-3 rounded-lg px-3 py-3 text-base font-medium hover:bg-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
                     <Search className="h-5 w-5" />
                     {t('nav.search')}
-                  </Link>
+                  </LocalizedLink>
 
                   <div className="pt-4 border-t mt-2">
-                    <div className="px-3 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wide">Dla specjalistów</div>
-                    <Link to="/rental" className="flex items-center gap-3 rounded-lg px-3 py-3 text-base hover:bg-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                    <div className="px-3 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wide">{t('nav.forSpecialists', 'Dla specjalistów')}</div>
+                    <LocalizedLink to="/rental" className="flex items-center gap-3 rounded-lg px-3 py-3 text-base hover:bg-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
                       <Building2 className="h-5 w-5" />
-                      Wynajem gabinetu
-                    </Link>
-                    <Link to="/calendar" className="flex items-center gap-3 rounded-lg px-3 py-3 text-base hover:bg-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                      {t('nav.rental', 'Wynajem gabinetu')}
+                    </LocalizedLink>
+                    <LocalizedLink to="/calendar" className="flex items-center gap-3 rounded-lg px-3 py-3 text-base hover:bg-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
                       <Calendar className="h-5 w-5" />
-                      Kalendarz
-                    </Link>
-                    <Link to="/management" className="flex items-center gap-3 rounded-lg px-3 py-3 text-base hover:bg-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                      {t('nav.calendar', 'Kalendarz')}
+                    </LocalizedLink>
+                    <LocalizedLink to="/management" className="flex items-center gap-3 rounded-lg px-3 py-3 text-base hover:bg-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
                       <LayoutDashboard className="h-5 w-5" />
-                      Moje oferty
-                    </Link>
-                    <Link to="/search?tab=supervision" className="flex items-center gap-3 rounded-lg px-3 py-3 text-base hover:bg-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                      {t('nav.management', 'Moje oferty')}
+                    </LocalizedLink>
+                    <LocalizedLink to="/search?tab=supervision" className="flex items-center gap-3 rounded-lg px-3 py-3 text-base hover:bg-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
                       <UserCheck className="h-5 w-5" />
                       {t('nav.supervisions')}
-                    </Link>
-                    <Link to="/patients" className="flex items-center gap-3 rounded-lg px-3 py-3 text-base hover:bg-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                    </LocalizedLink>
+                    <LocalizedLink to="/patients" className="flex items-center gap-3 rounded-lg px-3 py-3 text-base hover:bg-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
                       <User className="h-5 w-5" />
-                      Pacjenci
-                    </Link>
+                      {t('nav.patients', 'Pacjenci')}
+                    </LocalizedLink>
                   </div>
 
                   <div className="pt-4 border-t mt-2">
-                    <div className="px-3 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wide">Społeczność</div>
-                    <Link to="/community" className="flex items-center gap-3 rounded-lg px-3 py-3 text-base hover:bg-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                    <div className="px-3 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wide">{t('nav.community', 'Społeczność')}</div>
+                    <LocalizedLink to="/community" className="flex items-center gap-3 rounded-lg px-3 py-3 text-base hover:bg-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
                       <Users className="h-5 w-5" />
-                      Forum
-                    </Link>
-                    <Link to="/search?tab=training" className="flex items-center gap-3 rounded-lg px-3 py-3 text-base hover:bg-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                      {t('nav.forum', 'Forum')}
+                    </LocalizedLink>
+                    <LocalizedLink to="/search?tab=training" className="flex items-center gap-3 rounded-lg px-3 py-3 text-base hover:bg-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
                       <GraduationCap className="h-5 w-5" />
                       {t('nav.trainings')}
-                    </Link>
-                    <Link to="/search?tab=practicum" className="flex items-center gap-3 rounded-lg px-3 py-3 text-base hover:bg-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                    </LocalizedLink>
+                    <LocalizedLink to="/search?tab=practicum" className="flex items-center gap-3 rounded-lg px-3 py-3 text-base hover:bg-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
                       <UserCheck className="h-5 w-5" />
-                      Praktyki i staże
-                    </Link>
-                    <Link to="/affiliate" className="flex items-center gap-3 rounded-lg px-3 py-3 text-base hover:bg-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                      {t('nav.practicums', 'Praktyki i staże')}
+                    </LocalizedLink>
+                    <LocalizedLink to="/affiliate" className="flex items-center gap-3 rounded-lg px-3 py-3 text-base hover:bg-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
                       <Gift className="h-5 w-5" />
-                      Program partnerski
-                    </Link>
+                      {t('nav.affiliate', 'Program partnerski')}
+                    </LocalizedLink>
                   </div>
 
                   <div className="pt-4 border-t mt-2">
-                    <Link 
-                      to="/messages" 
-                      className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium hover:bg-accent"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
+                    <LocalizedLink to="/messages" className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium hover:bg-accent" onClick={() => setMobileMenuOpen(false)}>
                       <MessageCircle className="h-5 w-5" />
-                      Wiadomości
-                    </Link>
-                    <Link 
-                      to="/pricing" 
-                      className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium hover:bg-accent"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
+                      {t('nav.messages', 'Wiadomości')}
+                    </LocalizedLink>
+                    <LocalizedLink to="/pricing" className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium hover:bg-accent" onClick={() => setMobileMenuOpen(false)}>
                       <CreditCard className="h-5 w-5" />
-                      Cennik
-                    </Link>
+                      {t('nav.pricing', 'Cennik')}
+                    </LocalizedLink>
                   </div>
                 </div>
               </nav>
 
-              {/* Mobile menu footer */}
               <div className="border-t p-4 space-y-2 shrink-0">
                 <LanguageSwitcher />
                 {!user ? (
                   <>
                     <Button variant="outline" className="w-full" asChild>
-                      <Link to="/login" onClick={() => setMobileMenuOpen(false)}>{t('nav.login')}</Link>
+                      <LocalizedLink to="/login" onClick={() => setMobileMenuOpen(false)}>{t('nav.login')}</LocalizedLink>
                     </Button>
                     <Button className="w-full" asChild>
-                      <Link to="/register" onClick={() => setMobileMenuOpen(false)}>{t('nav.register')}</Link>
+                      <LocalizedLink to="/register" onClick={() => setMobileMenuOpen(false)}>{t('nav.register')}</LocalizedLink>
                     </Button>
                   </>
                 ) : (
                   <div className="space-y-1">
-                    <Link to="/management?tab=profile" className="flex items-center gap-3 rounded-lg px-3 py-3 text-base hover:bg-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                    <LocalizedLink to="/management?tab=profile" className="flex items-center gap-3 rounded-lg px-3 py-3 text-base hover:bg-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
                       <User className="h-5 w-5" />
-                      Profil
-                    </Link>
-                    <Link to="/appointments" className="flex items-center gap-3 rounded-lg px-3 py-3 text-base hover:bg-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                      {t('nav.profile', 'Profil')}
+                    </LocalizedLink>
+                    <LocalizedLink to="/appointments" className="flex items-center gap-3 rounded-lg px-3 py-3 text-base hover:bg-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
                       <Calendar className="h-5 w-5" />
-                      Wizyty
-                    </Link>
-                    <Link to="/affiliate" className="flex items-center gap-3 rounded-lg px-3 py-3 text-base hover:bg-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                      {t('nav.appointments', 'Wizyty')}
+                    </LocalizedLink>
+                    <LocalizedLink to="/affiliate" className="flex items-center gap-3 rounded-lg px-3 py-3 text-base hover:bg-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
                       <Gift className="h-5 w-5" />
-                      Program partnerski
-                    </Link>
-                    <Link to="/how-it-works" className="flex items-center gap-3 rounded-lg px-3 py-3 text-base hover:bg-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                      {t('nav.affiliate', 'Program partnerski')}
+                    </LocalizedLink>
+                    <LocalizedLink to="/how-it-works" className="flex items-center gap-3 rounded-lg px-3 py-3 text-base hover:bg-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
                       <Info className="h-5 w-5" />
-                      Jak to działa
-                    </Link>
+                      {t('nav.howItWorks', 'Jak to działa')}
+                    </LocalizedLink>
                     <button 
                       className="flex items-center gap-3 rounded-lg px-3 py-3 text-base hover:bg-accent transition-colors w-full text-left text-destructive" 
                       onClick={() => { signOut(); setMobileMenuOpen(false); }}
